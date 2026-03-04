@@ -1,0 +1,1230 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transform Your Skills Into Income</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #FFD600, #00C853);
+            --dark-bg: #0f0f0f;
+            --card-bg: #161616;
+            --text-light: #f5f5f5;
+            --trust-green: #00C853;
+            --urgency-red: #ff3b3b;
+        }
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .main-wrapper {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .gradient-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-border {
+            position: relative;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            padding: 2px;
+            background: var(--primary-gradient);
+            border-radius: inherit;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+        
+        .glassmorphism {
+            background: rgba(22, 22, 22, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glow-button {
+            background: var(--primary-gradient);
+            box-shadow: 0 0 30px rgba(255, 214, 0, 0.4), 0 0 60px rgba(0, 200, 83, 0.3);
+            animation: buttonPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes buttonPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 214, 0, 0.4), 0 0 60px rgba(0, 200, 83, 0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 0 40px rgba(255, 214, 0, 0.6), 0 0 80px rgba(0, 200, 83, 0.5); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .bounce-animation {
+            animation: bounce 0.5s ease-in-out;
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOutLeft {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(-100%); opacity: 0; }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.5s ease-out forwards;
+        }
+        
+        .slide-out-left {
+            animation: slideOutLeft 0.5s ease-in forwards;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(-15deg) rotateX(5deg); }
+            50% { transform: translateY(-10px) rotateY(-15deg) rotateX(5deg); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .scroll-left {
+            animation: scrollLeft 20s linear infinite;
+        }
+        
+        @keyframes whatsappPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7); }
+            50% { box-shadow: 0 0 0 15px rgba(0, 200, 83, 0); }
+        }
+        
+        .whatsapp-pulse {
+            animation: whatsappPulse 2s infinite;
+        }
+        
+        .card-glow:hover {
+            box-shadow: 0 0 30px rgba(255, 214, 0, 0.3), 0 0 60px rgba(0, 200, 83, 0.2);
+        }
+        
+        .urgency-bar {
+            background: linear-gradient(90deg, var(--urgency-red), #ff6b6b, var(--urgency-red));
+            background-size: 200% 100%;
+            animation: urgencyShimmer 2s linear infinite;
+        }
+        
+        @keyframes urgencyShimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+        
+        .chapter-card {
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .faq-content.open {
+            max-height: 500px;
+        }
+        
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--trust-green);
+            border-radius: 50%;
+            animation: onlinePulse 2s infinite;
+        }
+        
+        @keyframes onlinePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .trust-badge {
+            transition: transform 0.3s ease;
+        }
+        
+        .trust-badge:hover {
+            transform: scale(1.05);
+        }
+        
+        .book-3d {
+            perspective: 1000px;
+        }
+        
+        .book-cover {
+            transform-style: preserve-3d;
+            transform: rotateY(-15deg) rotateX(5deg);
+            box-shadow: 
+                -20px 20px 30px rgba(0,0,0,0.4),
+                -5px 5px 15px rgba(0,0,0,0.3),
+                inset 2px 0 10px rgba(255,255,255,0.1);
+        }
+        
+        .review-card {
+            transition: transform 0.3s ease;
+        }
+        
+        .review-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .countdown-digit {
+            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+            border: 1px solid rgba(255, 214, 0, 0.3);
+        }
+        
+        .bonus-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bonus-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 214, 0, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: bonusShine 3s infinite;
+        }
+        
+        @keyframes bonusShine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
+        .phone-frame {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 30px;
+            padding: 10px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        
+        .phone-screen {
+            background: linear-gradient(180deg, #075e54, #128c7e);
+            border-radius: 20px;
+        }
+        
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .sticky-header {
+            transition: all 0.3s ease;
+        }
+        
+        .sticky-header.scrolled {
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="main-wrapper" id="main-wrapper"><!-- Fake Sales Notification -->
+   <div id="sales-notification" class="fixed left-4 bottom-24 z-50 hidden">
+    <div class="glassmorphism rounded-xl p-4 flex items-center gap-3 max-w-xs slide-in-left">
+     <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-green-500 flex items-center justify-center flex-shrink-0">
+      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+     </div>
+     <div>
+      <p class="font-semibold text-sm" id="buyer-name">Ramesh K.</p>
+      <p class="text-xs text-gray-400">Just purchased 2 minutes ago</p>
+     </div>
+    </div>
+   </div><!-- WhatsApp Floating Button --> <a href="#" id="whatsapp-btn" target="_blank" rel="noopener noreferrer" class="fixed right-4 bottom-24 z-50 group">
+    <div class="relative">
+     <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center whatsapp-pulse cursor-pointer shadow-lg shadow-green-500/30">
+      <svg class="w-7 h-7 text-white" fill="currentColor" viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+      </svg>
+     </div>
+     <div class="absolute -top-1 -right-1 online-dot"></div>
+     <div class="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+      Need Help? Chat Now
+     </div>
+    </div></a> <!-- Bottom Sticky Bar -->
+   <div class="fixed bottom-0 left-0 right-0 z-40 glassmorphism border-t border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+     <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+      <div class="flex items-center gap-2"><span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs font-bold rounded animate-pulse">LIMITED TIME</span> <span class="text-gray-400 line-through text-sm" id="sticky-original-price">NPR 2999</span> <span class="text-xl font-bold gradient-text" id="sticky-sale-price">NPR 499</span>
+      </div>
+      <div class="flex items-center gap-4">
+       <div class="flex gap-1" id="sticky-countdown">
+        <div class="countdown-digit px-2 py-1 rounded text-sm font-mono" id="sticky-hours">
+         00
+        </div><span class="text-yellow-400">:</span>
+        <div class="countdown-digit px-2 py-1 rounded text-sm font-mono" id="sticky-minutes">
+         00
+        </div><span class="text-yellow-400">:</span>
+        <div class="countdown-digit px-2 py-1 rounded text-sm font-mono" id="sticky-seconds">
+         00
+        </div>
+       </div>
+       <div class="text-sm"><span class="text-gray-400">Only</span> <span class="text-red-400 font-bold" id="sticky-copies">20</span> <span class="text-gray-400">copies left!</span>
+       </div>
+      </div>
+     </div><button onclick="scrollToBuy()" class="glow-button px-6 py-3 rounded-full font-bold text-black text-sm sm:text-base whitespace-nowrap" id="sticky-cta"> 🔥 BUY NOW - 83% OFF </button>
+    </div>
+   </div><!-- Header -->
+   <header id="header" class="fixed top-0 left-0 right-0 z-50 sticky-header">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+     <div class="flex items-center gap-2">
+      <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-green-500 flex items-center justify-center"><span class="text-xl font-bold text-black">S</span>
+      </div><span class="font-bold text-lg" id="logo-text">SkillMaster</span>
+     </div>
+     <div class="text-right">
+      <p class="text-sm font-medium" id="header-phone">Support: +977 98XXXXXXX</p>
+      <p class="text-xs text-gray-400">Send message for any query</p>
+     </div>
+    </div>
+   </header><!-- Urgency Micro Bar -->
+   <div class="urgency-bar py-2 mt-16 overflow-hidden">
+    <div class="scroll-left whitespace-nowrap flex"><span class="mx-8 text-white font-semibold">🔥 80% Discount Ends Tonight | Only Few Copies Left</span> <span class="mx-8 text-white font-semibold">⚡ Limited Time Offer - Don't Miss Out!</span> <span class="mx-8 text-white font-semibold">🎯 Join 1000+ Successful Students Today</span> <span class="mx-8 text-white font-semibold">🔥 80% Discount Ends Tonight | Only Few Copies Left</span> <span class="mx-8 text-white font-semibold">⚡ Limited Time Offer - Don't Miss Out!</span> <span class="mx-8 text-white font-semibold">🎯 Join 1000+ Successful Students Today</span>
+    </div>
+   </div><!-- Hero Section -->
+   <section class="py-12 sm:py-20 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid lg:grid-cols-2 gap-12 items-center"><!-- Left - 3D Book -->
+      <div class="flex flex-col items-center">
+       <div class="book-3d mb-8">
+        <div class="book-cover float-animation w-64 h-80 sm:w-72 sm:h-96 rounded-lg bg-gradient-to-br from-yellow-400 via-yellow-500 to-green-500 flex flex-col items-center justify-center p-6 relative">
+         <div class="absolute inset-0 bg-black/10 rounded-lg"></div>
+         <div class="relative z-10 text-center">
+          <div class="text-6xl mb-4">
+           💰
+          </div>
+          <h3 class="text-xl font-bold text-black mb-2" id="book-title">SKILL TO INCOME</h3>
+          <p class="text-sm text-black/70">The Complete Blueprint</p>
+          <div class="mt-4 px-4 py-2 bg-black/20 rounded-full"><span class="text-xs font-bold text-black">PREMIUM EDITION</span>
+          </div>
+         </div>
+         <div class="absolute -right-2 top-0 bottom-0 w-4 bg-gradient-to-r from-yellow-600 to-yellow-700 rounded-r-sm"></div>
+        </div>
+       </div><!-- Rating -->
+       <div class="flex items-center gap-2 mb-4">
+        <div class="flex"><span class="text-yellow-400 text-xl">★</span> <span class="text-yellow-400 text-xl">★</span> <span class="text-yellow-400 text-xl">★</span> <span class="text-yellow-400 text-xl">★</span> <span class="text-yellow-400 text-xl">★</span>
+        </div><span class="font-bold">4.9</span> <span class="text-gray-400">(1,247 reviews)</span>
+       </div><!-- Trust Badges -->
+       <div class="flex flex-wrap justify-center gap-3">
+        <div class="trust-badge flex items-center gap-2 px-3 py-2 bg-gray-800/50 rounded-lg border border-gray-700">
+         <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+         </svg><span class="text-xs">100% Secure</span>
+        </div>
+        <div class="trust-badge flex items-center gap-2 px-3 py-2 bg-gray-800/50 rounded-lg border border-gray-700">
+         <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+         </svg><span class="text-xs">Instant Access</span>
+        </div>
+        <div class="trust-badge flex items-center gap-2 px-3 py-2 bg-gray-800/50 rounded-lg border border-gray-700">
+         <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+         </svg><span class="text-xs">Refundable</span>
+        </div>
+        <div class="trust-badge flex items-center gap-2 px-3 py-2 bg-gray-800/50 rounded-lg border border-gray-700">
+         <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+         </svg><span class="text-xs">Verified</span>
+        </div>
+       </div>
+      </div><!-- Right - Content -->
+      <div>
+       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight" id="hero-headline">Turn Your Skills Into <span class="gradient-text">Income</span> in 30 Days</h1>
+       <p class="text-lg sm:text-xl text-gray-300 mb-6" id="hero-subheadline">This Step-by-Step Blueprint Helped 1000+ Students Start Earning Online</p>
+       <div class="space-y-4 mb-8">
+        <div class="flex items-start gap-3">
+         <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+          <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+         </div>
+         <p class="text-gray-300">Discover exactly <strong class="text-white">how to monetize your existing skills</strong> without expensive courses or degrees</p>
+        </div>
+        <div class="flex items-start gap-3">
+         <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+          <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+         </div>
+         <p class="text-gray-300">Perfect for <strong class="text-white">beginners, students, and professionals</strong> wanting a side income</p>
+        </div>
+        <div class="flex items-start gap-3">
+         <div class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+          <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+         </div>
+         <p class="text-gray-300"><strong class="text-white">Proven system</strong> that works in Nepal and India's growing digital economy</p>
+        </div>
+       </div>
+       <p class="text-gray-400 mb-8 leading-relaxed">Imagine waking up to payment notifications while you sleep. Imagine having the freedom to work from anywhere - your home, a café, or while traveling. This isn't a dream. It's the reality for thousands of students who followed this exact blueprint. The digital economy is exploding, and those who act now will capture the opportunity. Those who wait will watch others succeed.</p><!-- Urgency Box -->
+       <div id="buy-section" class="gradient-border rounded-2xl p-6 bg-gray-900/50 mb-6">
+        <div class="flex items-center justify-between mb-4">
+         <div class="flex items-center gap-2"><span class="text-2xl">🔥</span> <span class="font-bold text-red-400">Only <span id="copies-left">20</span> Copies Available</span>
+         </div>
+         <div class="px-3 py-1 bg-red-500/20 rounded-full"><span class="text-red-400 text-sm font-bold animate-pulse">SELLING FAST</span>
+         </div>
+        </div><!-- Countdown -->
+        <div class="flex justify-center gap-3 mb-6">
+         <div class="text-center">
+          <div class="countdown-digit w-16 h-16 flex items-center justify-center rounded-lg text-2xl font-bold" id="hours">
+           12
+          </div><span class="text-xs text-gray-400 mt-1 block">Hours</span>
+         </div><span class="text-2xl text-yellow-400 self-start mt-4">:</span>
+         <div class="text-center">
+          <div class="countdown-digit w-16 h-16 flex items-center justify-center rounded-lg text-2xl font-bold" id="minutes">
+           59
+          </div><span class="text-xs text-gray-400 mt-1 block">Minutes</span>
+         </div><span class="text-2xl text-yellow-400 self-start mt-4">:</span>
+         <div class="text-center">
+          <div class="countdown-digit w-16 h-16 flex items-center justify-center rounded-lg text-2xl font-bold" id="seconds">
+           59
+          </div><span class="text-xs text-gray-400 mt-1 block">Seconds</span>
+         </div>
+        </div><!-- Price -->
+        <div class="text-center mb-6"><span class="text-gray-400 line-through text-xl" id="original-price">NPR 2999</span> <span class="text-4xl font-bold gradient-text ml-3" id="sale-price">NPR 499</span>
+         <p class="text-green-400 text-sm mt-1">You save NPR 2,500 (83% OFF)</p>
+        </div>
+        <p class="text-center text-gray-300 mb-4 font-medium">✨ This is your right decision ✨</p><button onclick="handleBuyNow()" class="glow-button w-full py-4 rounded-xl font-bold text-black text-lg"> 🚀 GET INSTANT ACCESS NOW </button>
+        <div class="flex justify-center gap-4 mt-4 text-xs text-gray-400"><span>🔒 Secure Payment</span> <span>⚡ Instant Delivery</span> <span>💯 Money Back</span>
+        </div>
+       </div><!-- Refund Assurance -->
+       <div class="flex items-center justify-center gap-4 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
+        <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
+         <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+         </svg>
+        </div>
+        <div>
+         <p class="font-bold text-green-400">100% Money-Back Guarantee</p>
+         <p class="text-sm text-gray-400">Not satisfied? Full refund within 7 days, no questions asked.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Trust Strip -->
+   <div class="py-4 bg-gray-800/30 border-y border-gray-700/50 overflow-hidden">
+    <div class="flex animate-pulse">
+     <div class="flex gap-8 px-8 whitespace-nowrap scroll-left"><span class="flex items-center gap-2"><span class="text-green-400">✓</span> Secure Payment</span> <span class="flex items-center gap-2"><span class="text-green-400">✓</span> Instant Access</span> <span class="flex items-center gap-2"><span class="text-green-400">✓</span> Verified by Experts</span> <span class="flex items-center gap-2"><span class="text-green-400">✓</span> Trusted by 1000+ Students</span> <span class="flex items-center gap-2"><span class="text-green-400">✓</span> 24/7 Support</span> <span class="flex items-center gap-2"><span class="text-green-400">✓</span> Secure Payment</span> <span class="flex items-center gap-2"><span class="text-green-400">✓</span> Instant Access</span> <span class="flex items-center gap-2"><span class="text-green-400">✓</span> Verified by Experts</span> <span class="flex items-center gap-2"><span class="text-green-400">✓</span> Trusted by 1000+ Students</span> <span class="flex items-center gap-2"><span class="text-green-400">✓</span> 24/7 Support</span>
+     </div>
+    </div>
+   </div><!-- About Section - What You'll Get -->
+   <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-12"><span class="px-4 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-medium">CURRICULUM</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-4 mb-4">What You'll Learn <span class="gradient-text">Inside</span></h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">12 comprehensive chapters designed to take you from zero to earning. Each module builds on the previous one.</p>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="chapters-grid"><!-- Chapters will be rendered here -->
+     </div>
+    </div>
+   </section><!-- Why You Need This -->
+   <section class="py-16 px-4 bg-gradient-to-b from-gray-900/50 to-transparent">
+    <div class="max-w-4xl mx-auto">
+     <div class="text-center mb-12"><span class="px-4 py-1 bg-red-500/20 text-red-400 rounded-full text-sm font-medium">THE TRUTH</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-4">Why You <span class="gradient-text">Need</span> This</h2>
+     </div>
+     <div class="space-y-8">
+      <div class="glassmorphism rounded-2xl p-6">
+       <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><span class="text-2xl">😔</span> The Pain You're Feeling</h3>
+       <ul class="space-y-3 text-gray-300">
+        <li class="flex items-start gap-3"><span class="text-red-400">•</span> <span>Watching others succeed online while you're stuck in the same routine</span></li>
+        <li class="flex items-start gap-3"><span class="text-red-400">•</span> <span>Feeling like you have skills but no idea how to monetize them</span></li>
+        <li class="flex items-start gap-3"><span class="text-red-400">•</span> <span>Worried about job security and want a backup income stream</span></li>
+        <li class="flex items-start gap-3"><span class="text-red-400">•</span> <span>Tired of complicated courses that never deliver real results</span></li>
+       </ul>
+      </div>
+      <div class="glassmorphism rounded-2xl p-6">
+       <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><span class="text-2xl">🎯</span> The Logical Choice</h3>
+       <ul class="space-y-3 text-gray-300">
+        <li class="flex items-start gap-3"><span class="text-green-400">✓</span> <span>Digital economy is growing 25% year-over-year in South Asia</span></li>
+        <li class="flex items-start gap-3"><span class="text-green-400">✓</span> <span>Work-from-home opportunities have increased 400% since 2020</span></li>
+        <li class="flex items-start gap-3"><span class="text-green-400">✓</span> <span>Early adopters are building sustainable income streams</span></li>
+        <li class="flex items-start gap-3"><span class="text-green-400">✓</span> <span>One investment today can return 10x within 6 months</span></li>
+       </ul>
+      </div>
+      <div class="glassmorphism rounded-2xl p-6 border border-yellow-500/30">
+       <h3 class="text-xl font-bold mb-4 flex items-center gap-3"><span class="text-2xl">🚀</span> Your Future Self Will Thank You</h3>
+       <p class="text-gray-300 leading-relaxed">Imagine 6 months from now - you wake up, check your phone, and see payment notifications from clients around the world. You have the freedom to work from anywhere. You're not dependent on a single job or employer. You've built a skill that can never be taken away from you. This isn't fantasy - it's the reality waiting for you on the other side of this decision.</p>
+      </div>
+     </div><!-- You Can Do This Too -->
+     <div class="mt-12 text-center">
+      <div class="inline-flex items-center gap-4 p-6 bg-gradient-to-r from-yellow-500/10 to-green-500/10 rounded-2xl border border-yellow-500/20">
+       <div class="text-4xl">
+        💪
+       </div>
+       <div class="text-left">
+        <p class="text-xl font-bold gradient-text">You Can Do This Too!</p>
+        <p class="text-gray-400">1000+ students started exactly where you are now</p>
+       </div>
+      </div>
+     </div><!-- CTA -->
+     <div class="mt-12 text-center"><button onclick="scrollToBuy()" class="glow-button px-8 py-4 rounded-xl font-bold text-black text-lg"> 🎯 Start Your Journey Now </button>
+      <div class="flex justify-center gap-6 mt-4 text-sm text-gray-400"><span>🔒 Guaranteed Safe</span> <span>⚡ Instant Access</span> <span>💰 Future Upgrade</span>
+      </div>
+     </div>
+    </div>
+   </section><!-- Reviews Section -->
+   <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-12"><span class="px-4 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium">SOCIAL PROOF</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-4 mb-4">Real <span class="gradient-text">Transformations</span></h2>
+      <div class="flex items-center justify-center gap-4 text-lg"><span class="text-3xl font-bold gradient-text">1,247</span> <span class="text-gray-400">Students Enrolled</span>
+      </div>
+     </div><!-- Stats -->
+     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+      <div class="glassmorphism rounded-xl p-6 text-center">
+       <div class="text-3xl font-bold gradient-text">
+        95%
+       </div>
+       <div class="text-sm text-gray-400">
+        Success Rate
+       </div>
+      </div>
+      <div class="glassmorphism rounded-xl p-6 text-center">
+       <div class="text-3xl font-bold gradient-text">
+        30K+
+       </div>
+       <div class="text-sm text-gray-400">
+        Avg. Monthly Income
+       </div>
+      </div>
+      <div class="glassmorphism rounded-xl p-6 text-center">
+       <div class="text-3xl font-bold gradient-text">
+        4.9★
+       </div>
+       <div class="text-sm text-gray-400">
+        Student Rating
+       </div>
+      </div>
+      <div class="glassmorphism rounded-xl p-6 text-center">
+       <div class="text-3xl font-bold gradient-text">
+        24/7
+       </div>
+       <div class="text-sm text-gray-400">
+        Support Available
+       </div>
+      </div>
+     </div><!-- WhatsApp Screenshots Slider -->
+     <div class="mb-12">
+      <h3 class="text-xl font-bold text-center mb-8">💬 WhatsApp Success Stories</h3>
+      <div class="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory" id="whatsapp-slider"><!-- Screenshots will be rendered here -->
+      </div>
+     </div><!-- Urgency Reinforcement -->
+     <div class="text-center p-8 bg-red-500/10 border border-red-500/30 rounded-2xl">
+      <p class="text-xl font-bold text-red-400 mb-2">⚠️ Don't Be The One Who Misses Out</p>
+      <p class="text-gray-400">While you're reading this, others are already taking action and seeing results.</p>
+     </div>
+    </div>
+   </section><!-- Testimonials Section -->
+   <section class="py-16 px-4 bg-gradient-to-b from-gray-900/50 to-transparent">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-12"><span class="px-4 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium">TESTIMONIALS</span>
+      <h2 class="text-3xl sm:text-4xl font-bold mt-4">What Students <span class="gradient-text">Say</span></h2>
+     </div>
+     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="testimonials-grid"><!-- Testimonials will be rendered here -->
+     </div><!-- FAQ -->
+     <div class="max-w-3xl mx-auto mt-16">
+      <h3 class="text-2xl font-bold text-center mb-8">Frequently Asked <span class="gradient-text">Questions</span></h3>
+      <div class="space-y-4" id="faq-container"><!-- FAQs will be rendered here -->
+      </div>
+     </div>
+    </div>
+   </section><!-- Bonus Section -->
+   <section class="py-16 px-4">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-12">
+      <div class="inline-block px-6 py-3 bg-gradient-to-r from-yellow-500/20 to-green-500/20 rounded-full border border-yellow-500/30 mb-4"><span class="text-lg font-bold">🎁 Buy Within 30 Minutes &amp; Get These FREE Bonuses</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold">Worth <span class="gradient-text">NPR 15,000+</span> Absolutely FREE</h2>
+      <p class="text-gray-400 mt-2">Limited time offer - These bonuses will be removed soon!</p>
+     </div>
+     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="bonus-grid"><!-- Bonuses will be rendered here -->
+     </div>
+    </div>
+   </section><!-- Final Urgency Section (Second Hero) -->
+   <section class="py-16 px-4 bg-gradient-to-b from-gray-900 to-transparent">
+    <div class="max-w-4xl mx-auto">
+     <div class="text-center mb-8">
+      <div class="flex justify-center mb-4">
+       <div class="flex"><span class="text-yellow-400 text-3xl">★</span> <span class="text-yellow-400 text-3xl">★</span> <span class="text-yellow-400 text-3xl">★</span> <span class="text-yellow-400 text-3xl">★</span> <span class="text-yellow-400 text-3xl">★</span>
+       </div>
+      </div>
+      <p class="text-gray-400">Rated 4.9/5 by 1,247+ students</p>
+     </div>
+     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-8">Last Chance to <span class="gradient-text">Transform</span> Your Life</h2><!-- Final Countdown -->
+     <div class="gradient-border rounded-2xl p-8 bg-gray-900/80 mb-8">
+      <div class="flex items-center justify-center gap-2 mb-6"><span class="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded animate-pulse">⚡ FINAL WARNING</span> <span class="text-red-400 font-bold">Only <span id="final-copies">20</span> copies remaining!</span>
+      </div>
+      <div class="flex justify-center gap-4 mb-8">
+       <div class="text-center">
+        <div class="countdown-digit w-20 h-20 flex items-center justify-center rounded-xl text-3xl font-bold" id="final-hours">
+         12
+        </div><span class="text-sm text-gray-400 mt-2 block">Hours</span>
+       </div><span class="text-3xl text-yellow-400 self-start mt-6">:</span>
+       <div class="text-center">
+        <div class="countdown-digit w-20 h-20 flex items-center justify-center rounded-xl text-3xl font-bold" id="final-minutes">
+         59
+        </div><span class="text-sm text-gray-400 mt-2 block">Minutes</span>
+       </div><span class="text-3xl text-yellow-400 self-start mt-6">:</span>
+       <div class="text-center">
+        <div class="countdown-digit w-20 h-20 flex items-center justify-center rounded-xl text-3xl font-bold" id="final-seconds">
+         59
+        </div><span class="text-sm text-gray-400 mt-2 block">Seconds</span>
+       </div>
+      </div>
+      <div class="text-center mb-8"><span class="text-gray-400 line-through text-2xl" id="final-original-price">NPR 2999</span> <span class="text-5xl font-bold gradient-text ml-4" id="final-sale-price">NPR 499</span>
+       <p class="text-green-400 mt-2">💰 Save NPR 2,500 Today!</p>
+      </div><button onclick="handleBuyNow()" class="glow-button w-full py-5 rounded-xl font-bold text-black text-xl mb-6"> 🔥 CLAIM YOUR COPY NOW - 83% OFF </button> <!-- Verified Logos -->
+      <div class="flex justify-center items-center gap-6 flex-wrap">
+       <div class="flex items-center gap-2 text-sm text-gray-400">
+        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg> SSL Secured
+       </div>
+       <div class="flex items-center gap-2 text-sm text-gray-400">
+        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+        </svg> Secure Checkout
+       </div>
+       <div class="flex items-center gap-2 text-sm text-gray-400">
+        <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg> Instant Access
+       </div>
+       <div class="flex items-center gap-2 text-sm text-gray-400">
+        <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg> Verified Product
+       </div>
+      </div>
+     </div><!-- Final Guarantee -->
+     <div class="flex items-center justify-center gap-4 p-6 bg-green-500/10 border border-green-500/30 rounded-2xl">
+      <div class="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
+       <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+       </svg>
+      </div>
+      <div>
+       <p class="text-xl font-bold text-green-400">100% Risk-Free Purchase</p>
+       <p class="text-gray-400">Try it for 7 days. If you're not completely satisfied, get a full refund. No questions asked.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-12 px-4 bg-gray-900/50 border-t border-gray-800 mb-20">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12"><!-- About -->
+      <div>
+       <h4 class="font-bold mb-4 text-white">About</h4>
+       <ul class="space-y-2 text-sm text-gray-400">
+        <li><a href="#" class="hover:text-white transition">Our Story</a></li>
+        <li><a href="#" class="hover:text-white transition">Mission</a></li>
+        <li><a href="#" class="hover:text-white transition">Testimonials</a></li>
+        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+       </ul>
+      </div><!-- Contact -->
+      <div>
+       <h4 class="font-bold mb-4 text-white">Contact</h4>
+       <ul class="space-y-2 text-sm text-gray-400">
+        <li><a href="#" class="hover:text-white transition">Email Us</a></li>
+        <li><a href="#" class="hover:text-white transition">WhatsApp</a></li>
+        <li><a href="#" class="hover:text-white transition">Live Chat</a></li>
+        <li><a href="#" class="hover:text-white transition">Call Us</a></li>
+       </ul>
+      </div><!-- Support -->
+      <div>
+       <h4 class="font-bold mb-4 text-white">Support</h4>
+       <ul class="space-y-2 text-sm text-gray-400">
+        <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+        <li><a href="#" class="hover:text-white transition">FAQs</a></li>
+        <li><a href="#" class="hover:text-white transition">Tutorials</a></li>
+        <li><a href="#" class="hover:text-white transition">Community</a></li>
+       </ul>
+      </div><!-- Policies -->
+      <div>
+       <h4 class="font-bold mb-4 text-white">Policies</h4>
+       <ul class="space-y-2 text-sm text-gray-400">
+        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+        <li><a href="#" class="hover:text-white transition">Refund Policy</a></li>
+        <li><a href="#" class="hover:text-white transition">Cookie Policy</a></li>
+       </ul>
+      </div><!-- Company -->
+      <div>
+       <h4 class="font-bold mb-4 text-white">Company</h4>
+       <ul class="space-y-2 text-sm text-gray-400">
+        <li><a href="#" class="hover:text-white transition">Partners</a></li>
+        <li><a href="#" class="hover:text-white transition">Press Kit</a></li>
+        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+        <li><a href="#" class="hover:text-white transition">Affiliates</a></li>
+       </ul>
+      </div><!-- Address -->
+      <div>
+       <h4 class="font-bold mb-4 text-white">Address</h4>
+       <p class="text-sm text-gray-400">SkillMaster Pvt. Ltd.<br>
+         Kathmandu, Nepal<br>
+         Reg. No: 12345/2024<br>
+         PAN: 123456789</p>
+      </div>
+     </div><!-- Payment Icons -->
+     <div class="border-t border-gray-800 pt-8 mb-8">
+      <p class="text-center text-sm text-gray-400 mb-4">Secure Payment Methods</p>
+      <div class="flex justify-center items-center gap-6 flex-wrap">
+       <div class="px-4 py-2 bg-gray-800 rounded-lg text-sm font-medium">
+        Khalti
+       </div>
+       <div class="px-4 py-2 bg-gray-800 rounded-lg text-sm font-medium text-green-400">
+        eSewa
+       </div>
+       <div class="px-4 py-2 bg-gray-800 rounded-lg text-sm font-medium text-blue-400">
+        Visa
+       </div>
+       <div class="px-4 py-2 bg-gray-800 rounded-lg text-sm font-medium text-red-400">
+        MasterCard
+       </div>
+       <div class="px-4 py-2 bg-gray-800 rounded-lg text-sm font-medium text-purple-400">
+        IME Pay
+       </div>
+       <div class="px-4 py-2 bg-gray-800 rounded-lg text-sm font-medium">
+        Bank Transfer
+       </div>
+      </div>
+     </div><!-- Copyright -->
+     <div class="text-center text-sm text-gray-500">
+      <p>© 2026 SkillMaster. All rights reserved.</p>
+     </div>
+    </div>
+   </footer><!-- Chapter Modal -->
+   <div id="chapter-modal" class="fixed inset-0 z-50 hidden">
+    <div class="modal-overlay absolute inset-0" onclick="closeChapterModal()"></div>
+    <div class="absolute inset-4 sm:inset-10 lg:inset-20 flex items-center justify-center">
+     <div class="glassmorphism rounded-2xl p-6 sm:p-8 max-w-2xl w-full max-h-full overflow-y-auto relative"><button onclick="closeChapterModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center hover:bg-gray-600 transition">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+      <div id="modal-content"><!-- Modal content will be rendered here -->
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+        // Default Configuration
+        const defaultConfig = {
+            main_headline: 'Turn Your Skills Into Income in 30 Days',
+            sub_headline: 'This Step-by-Step Blueprint Helped 1000+ Students Start Earning Online',
+            product_name: 'SKILL TO INCOME',
+            original_price: '2999',
+            sale_price: '499',
+            phone_number: '+977 98XXXXXXX',
+            whatsapp_link: 'https://wa.me/97798XXXXXXX',
+            background_color: '#0f0f0f',
+            card_color: '#161616',
+            text_color: '#f5f5f5',
+            accent_color: '#FFD600',
+            trust_color: '#00C853',
+            font_family: 'Space Grotesk',
+            font_size: 16
+        };
+        
+        // State
+        let copiesLeft = 20;
+        let notificationIndex = 0;
+        const totalNotifications = 20;
+        let bonusTimeLeft = 30 * 60; // 30 minutes in seconds
+        
+        // Fake buyer names
+        const buyerNames = [
+            'Ramesh K.', 'Sita P.', 'Bikash S.', 'Priya M.', 'Anil T.',
+            'Sunita R.', 'Rajesh G.', 'Meena B.', 'Dipak L.', 'Kamala D.',
+            'Suresh N.', 'Anita C.', 'Prakash J.', 'Gita H.', 'Mohan Y.',
+            'Laxmi A.', 'Krishna V.', 'Sabina K.', 'Hari B.', 'Maya S.'
+        ];
+        
+        // Chapter data
+        const chapters = [
+            { icon: '🎯', title: 'Finding Your Skill', desc: 'Identify your monetizable talents', details: ['Self-assessment techniques', 'Market demand analysis', 'Skill positioning', 'Niche selection'] },
+            { icon: '📊', title: 'Market Research', desc: 'Understand your target audience', details: ['Competitor analysis', 'Customer personas', 'Pricing strategies', 'Market trends'] },
+            { icon: '💼', title: 'Building Your Brand', desc: 'Create a memorable identity', details: ['Personal branding', 'Logo & visual identity', 'Brand voice', 'Social proof'] },
+            { icon: '🌐', title: 'Online Presence', desc: 'Establish your digital footprint', details: ['Website basics', 'Social media setup', 'Profile optimization', 'Content strategy'] },
+            { icon: '📱', title: 'Social Media Mastery', desc: 'Grow and engage your audience', details: ['Platform selection', 'Content calendar', 'Engagement tactics', 'Growth hacking'] },
+            { icon: '💰', title: 'Monetization Models', desc: 'Multiple income streams', details: ['Service-based income', 'Product creation', 'Affiliate marketing', 'Passive income'] },
+            { icon: '🎨', title: 'Creating Products', desc: 'Digital product development', details: ['Ebook creation', 'Course development', 'Templates & tools', 'Membership sites'] },
+            { icon: '📈', title: 'Sales Funnels', desc: 'Convert visitors to customers', details: ['Funnel stages', 'Lead magnets', 'Email sequences', 'Upselling'] },
+            { icon: '✉️', title: 'Email Marketing', desc: 'Build lasting relationships', details: ['List building', 'Email automation', 'Copywriting', 'Deliverability'] },
+            { icon: '🤝', title: 'Client Management', desc: 'Deliver exceptional service', details: ['Communication', 'Project management', 'Feedback handling', 'Retention'] },
+            { icon: '📊', title: 'Scaling Up', desc: 'Grow your business', details: ['Team building', 'Automation tools', 'Outsourcing', 'Systems & processes'] },
+            { icon: '🚀', title: 'Advanced Strategies', desc: 'Expert-level techniques', details: ['Paid advertising', 'Joint ventures', 'Speaking & consulting', 'Exit strategies'] }
+        ];
+        
+        // Bonus data
+        const bonuses = [
+            { name: '100 Email Templates', price: '999', icon: '📧' },
+            { name: 'Social Media Calendar', price: '799', icon: '📅' },
+            { name: 'Client Proposal Template', price: '599', icon: '📄' },
+            { name: 'Invoice Generator', price: '499', icon: '🧾' },
+            { name: 'Portfolio Website Template', price: '1499', icon: '🌐' },
+            { name: 'SEO Checklist', price: '699', icon: '🔍' },
+            { name: 'Content Ideas Bank', price: '599', icon: '💡' },
+            { name: 'Pricing Calculator', price: '499', icon: '🧮' },
+            { name: 'Contract Templates', price: '899', icon: '📋' },
+            { name: 'Brand Kit Template', price: '799', icon: '🎨' },
+            { name: 'Email Sequence Swipes', price: '699', icon: '✉️' },
+            { name: 'Sales Script Templates', price: '599', icon: '📞' },
+            { name: 'Landing Page Builder', price: '1299', icon: '📱' },
+            { name: 'Analytics Dashboard', price: '899', icon: '📊' },
+            { name: 'Time Tracker App', price: '499', icon: '⏱️' },
+            { name: 'Habit Tracker', price: '399', icon: '✅' },
+            { name: 'Goal Setting Workbook', price: '599', icon: '🎯' },
+            { name: 'Networking Guide', price: '499', icon: '🤝' },
+            { name: 'Productivity Toolkit', price: '799', icon: '⚡' },
+            { name: 'Success Mindset Audio', price: '699', icon: '🎧' }
+        ];
+        
+        // Testimonials data
+        const testimonials = [
+            { name: 'Rajan Sharma', role: 'Freelancer', text: 'I was skeptical at first, but within 2 months I was earning NPR 40,000/month. This changed my life!', rating: 5 },
+            { name: 'Sunita Thapa', role: 'Student', text: 'As a college student, I needed flexible income. Now I earn more than my professors!', rating: 5 },
+            { name: 'Bikash Poudel', role: 'Ex-Employee', text: 'Lost my job during the pandemic. This course helped me build a 6-figure freelance business.', rating: 5 },
+            { name: 'Priya Karki', role: 'Housewife', text: 'I can work from home while taking care of my kids. Best investment I ever made!', rating: 5 },
+            { name: 'Anil Gurung', role: 'Fresh Graduate', text: 'No job experience, no connections. This blueprint showed me exactly what to do.', rating: 5 },
+            { name: 'Kamala Rai', role: 'Teacher', text: 'My teaching salary was barely enough. Now I have a profitable side business!', rating: 5 }
+        ];
+        
+        // FAQ data
+        const faqs = [
+            { q: 'Is this real? Will it actually work for me?', a: 'Absolutely! This is a proven system used by 1,247+ students across Nepal and India. We provide step-by-step guidance, and our success rate is 95%. If you follow the blueprint, you will see results.' },
+            { q: 'What is your refund policy?', a: 'We offer a 100% money-back guarantee within 7 days. If you\'re not satisfied for any reason, simply contact us and we\'ll refund your full payment. No questions asked.' },
+            { q: 'How will I get access?', a: 'Instantly! After payment, you\'ll receive immediate access via email and WhatsApp. You can start learning within minutes of purchase.' },
+            { q: 'Is it beginner friendly?', a: 'Yes! This course is specifically designed for beginners. We assume zero prior knowledge and guide you through everything step-by-step. Even if you\'ve never made money online, you can succeed with this.' },
+            { q: 'Do I need any investment to start?', a: 'The only investment you need is this course. All the strategies can be implemented with zero additional cost using free tools and platforms.' }
+        ];
+        
+        // WhatsApp messages data
+        const whatsappMessages = [
+            { sender: 'Student', message: 'Sir, I just got my first client! NPR 15,000 for a logo design 🎉' },
+            { sender: 'Student', message: 'Thank you so much! Made NPR 50,000 this month' },
+            { sender: 'Student', message: 'Best decision of my life. Quitting my job next month!' },
+            { sender: 'Student', message: 'From zero to NPR 30,000/month in just 6 weeks' },
+            { sender: 'Student', message: 'My family couldn\'t believe when I showed them my earnings!' }
+        ];
+        
+        // Initialize Elements SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange: async (config) => {
+                    // Update hero content
+                    const headline = document.getElementById('hero-headline');
+                    if (headline) {
+                        headline.innerHTML = config.main_headline?.replace('Income', '<span class="gradient-text">Income</span>') || defaultConfig.main_headline.replace('Income', '<span class="gradient-text">Income</span>');
+                    }
+                    
+                    const subheadline = document.getElementById('hero-subheadline');
+                    if (subheadline) {
+                        subheadline.textContent = config.sub_headline || defaultConfig.sub_headline;
+                    }
+                    
+                    const bookTitle = document.getElementById('book-title');
+                    if (bookTitle) {
+                        bookTitle.textContent = config.product_name || defaultConfig.product_name;
+                    }
+                    
+                    // Update prices
+                    const originalPrice = config.original_price || defaultConfig.original_price;
+                    const salePrice = config.sale_price || defaultConfig.sale_price;
+                    
+                    document.querySelectorAll('#original-price, #sticky-original-price, #final-original-price').forEach(el => {
+                        if (el) el.textContent = `NPR ${originalPrice}`;
+                    });
+                    
+                    document.querySelectorAll('#sale-price, #sticky-sale-price, #final-sale-price').forEach(el => {
+                        if (el) el.textContent = `NPR ${salePrice}`;
+                    });
+                    
+                    // Update contact info
+                    const headerPhone = document.getElementById('header-phone');
+                    if (headerPhone) {
+                        headerPhone.textContent = `Support: ${config.phone_number || defaultConfig.phone_number}`;
+                    }
+                    
+                    const whatsappBtn = document.getElementById('whatsapp-btn');
+                    if (whatsappBtn) {
+                        whatsappBtn.href = config.whatsapp_link || defaultConfig.whatsapp_link;
+                    }
+                    
+                    // Update fonts
+                    const fontFamily = config.font_family || defaultConfig.font_family;
+                    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(el => {
+                        el.style.fontFamily = `${fontFamily}, sans-serif`;
+                    });
+                    
+                    // Update font size
+                    const baseSize = config.font_size || defaultConfig.font_size;
+                    document.body.style.fontSize = `${baseSize}px`;
+                },
+                mapToCapabilities: (config) => ({
+                    recolorables: [
+                        {
+                            get: () => config.background_color || defaultConfig.background_color,
+                            set: (value) => {
+                                config.background_color = value;
+                                window.elementSdk.setConfig({ background_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.card_color || defaultConfig.card_color,
+                            set: (value) => {
+                                config.card_color = value;
+                                window.elementSdk.setConfig({ card_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.text_color || defaultConfig.text_color,
+                            set: (value) => {
+                                config.text_color = value;
+                                window.elementSdk.setConfig({ text_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.accent_color || defaultConfig.accent_color,
+                            set: (value) => {
+                                config.accent_color = value;
+                                window.elementSdk.setConfig({ accent_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.trust_color || defaultConfig.trust_color,
+                            set: (value) => {
+                                config.trust_color = value;
+                                window.elementSdk.setConfig({ trust_color: value });
+                            }
+                        }
+                    ],
+                    borderables: [],
+                    fontEditable: {
+                        get: () => config.font_family || defaultConfig.font_family,
+                        set: (value) => {
+                            config.font_family = value;
+                            window.elementSdk.setConfig({ font_family: value });
+                        }
+                    },
+                    fontSizeable: {
+                        get: () => config.font_size || defaultConfig.font_size,
+                        set: (value) => {
+                            config.font_size = value;
+                            window.elementSdk.setConfig({ font_size: value });
+                        }
+                    }
+                }),
+                mapToEditPanelValues: (config) => new Map([
+                    ['main_headline', config.main_headline || defaultConfig.main_headline],
+                    ['sub_headline', config.sub_headline || defaultConfig.sub_headline],
+                    ['product_name', config.product_name || defaultConfig.product_name],
+                    ['original_price', config.original_price || defaultConfig.original_price],
+                    ['sale_price', config.sale_price || defaultConfig.sale_price],
+                    ['phone_number', config.phone_number || defaultConfig.phone_number],
+                    ['whatsapp_link', config.whatsapp_link || defaultConfig.whatsapp_link]
+                ])
+            });
+        }
+        
+        // Notification timing (square pattern doubling)
+        const notificationTimings = [30, 60, 120, 240, 480, 960, 1920, 3840, 7680, 15360];
+        
+        function showNotification() {
+            if (notificationIndex >= totalNotifications) return;
+            
+            const notification = document.getElementById('sales-notification');
+            const buyerName = document.getElementById('buyer-name');
+            
+            buyerName.textContent = buyerNames[notificationIndex];
+            notification.classList.remove('hidden');
+            notification.querySelector('div').classList.remove('slide-out-left');
+            notification.querySelector('div').classList.add('slide-in-left');
+            
+            // Update copies
+            copiesLeft = Math.max(1, 20 - notificationIndex - 1);
+            updateCopiesDisplay();
+            
+            setTimeout(() => {
+                notification.querySelector('div').classList.remove('slide-in-left');
+                notification.querySelector('div').classList.add('slide-out-left');
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 500);
+            }, 3000);
+            
+            notificationIndex++;
+            
+            // Schedule next notification
+            if (notificationIndex < totalNotifications) {
+                const nextTiming = notificationTimings[Math.min(notificationIndex, notificationTimings.length - 1)] * 1000;
+                setTimeout(showNotification, nextTiming);
+            }
+        }
+        
+        function updateCopiesDisplay() {
+            document.querySelectorAll('#copies-left, #sticky-copies, #final-copies').forEach(el => {
+                if (el) el.textContent = copiesLeft;
+            });
+        }
+        
+        // Countdown timer
+        function startCountdown() {
+            let hours = 12;
+            let minutes = 59;
+            let seconds = 59;
+            
+            setInterval(() => {
+                seconds--;
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                    if (minutes < 0) {
+                        minutes = 59;
+                        hours--;
+                        if (hours < 0) {
+                            hours = 12;
+                        }
+                    }
+                }
+                
+                const h = String(hours).padStart(2, '0');
+                const m = String(minutes).padStart(2, '0');
+                const s = String(seconds).padStart(2, '0');
+                
+                document.querySelectorAll('#hours, #sticky-hours, #final-hours').forEach(el => {
+                    if (el) el.textContent = h;
+                });
+                document.querySelectorAll('#minutes, #sticky-minutes, #final-minutes').forEach(el => {
+                    if (el) el.textContent = m;
+                });
+                document.querySelectorAll('#seconds, #sticky-seconds, #final-seconds').forEach(el => {
+                    if (el) el.textContent = s;
+                });
+            }, 1000);
+        }
+        
+        // Render chapters
+        function renderChapters() {
+            const grid = document.getElementById('chapters-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = chapters.map((ch, i) => `
+                <div class="chapter-card glassmorphism rounded-xl p-5 cursor-pointer card-glow" onclick="openChapterModal(${i})">
+                    <div class="text-3xl mb-3">${ch.icon}</div>
+                    <h3 class="font-bold mb-2">${ch.title}</h3>
+                    <p class="text-sm text-gray-400 mb-3">${ch.desc}</p>
+                    <button class="text-sm text-yellow-400 hover:text-yellow-300 transition flex items-center gap-1">
+                        Learn More
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+        
+        // Chapter modal
+        function openChapterModal(index) {
+            const chapter = chapters[index];
+            const modal = document.getElementById('chapter-modal');
+            const content = document.getElementById('modal-content');
+            
+            content.innerHTML = `
+                <div class="text-5xl mb-4">${chapter.icon}</div>
+                <h3 class="text-2xl font-bold mb-2">${chapter.title}</h3>
+                <p class="text-gray-400 mb-6">${chapter.desc}</p>
+                <h4 class="font-bold mb-3 text-yellow-400">What You'll Learn:</h4>
+                <ul class="space-y-3">
+                    ${chapter.details.map(d => `
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>${d}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+        
+        function closeChapterModal() {
+            document.getElementById('chapter-modal').classList.add('hidden');
+        }
+        
+        // Render bonuses
+        function renderBonuses() {
+            const grid = document.getElementById('bonus-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = bonuses.map(b => `
+                <div class="bonus-card glassmorphism rounded-xl p-4 text-center">
+                    <div class="text-3xl mb-2">${b.icon}</div>
+                    <h4 class="font-bold text-sm mb-1">${b.name}</h4>
+                    <p class="text-gray-400 text-xs line-through mb-1">NPR ${b.price}</p>
+                    <span class="inline-block px-2 py-1 bg-green-500/20 text-green-400 text-xs font-bold rounded">FREE</span>
+                </div>
+            `).join('');
+        }
+        
+        // Render testimonials
+        function renderTestimonials() {
+            const grid = document.getElementById('testimonials-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = testimonials.map(t => `
+                <div class="review-card glassmorphism rounded-xl p-6">
+                    <div class="flex mb-3">
+                        ${Array(t.rating).fill('<span class="text-yellow-400">★</span>').join('')}
+                    </div>
+                    <p class="text-gray-300 mb-4">"${t.text}"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-green-500 flex items-center justify-center">
+                            <span class="font-bold text-black">${t.name[0]}</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm">${t.name}</p>
+                            <p class="text-xs text-gray-400">${t.role}</p>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs rounded">✓ Verified</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Render FAQs
+        function renderFAQs() {
+            const container = document.getElementById('faq-container');
+            if (!container) return;
+            
+            container.innerHTML = faqs.map((f, i) => `
+                <div class="glassmorphism rounded-xl overflow-hidden">
+                    <button onclick="toggleFAQ(${i})" class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-800/50 transition">
+                        <span class="font-medium">${f.q}</span>
+                        <svg class="w-5 h-5 transform transition faq-icon-${i}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content faq-content-${i} px-6 pb-4">
+                        <p class="text-gray-400">${f.a}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function toggleFAQ(index) {
+            const content = document.querySelector(`.faq-content-${index}`);
+            const icon = document.querySelector(`.faq-icon-${index}`);
+            
+            content.classList.toggle('open');
+            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+        
+        // Render WhatsApp slider
+        function renderWhatsAppSlider() {
+            const slider = document.getElementById('whatsapp-slider');
+            if (!slider) return;
+            
+            slider.innerHTML = whatsappMessages.map(m => `
+                <div class="phone-frame flex-shrink-0 w-64 snap-center">
+                    <div class="phone-screen p-4 h-48">
+                        <div class="flex items-center gap-2 mb-4 pb-2 border-b border-white/20">
+                            <div class="w-8 h-8 rounded-full bg-gray-300"></div>
+                            <span class="text-white text-sm font-medium">Student</span>
+                        </div>
+                        <div class="bg-white/90 rounded-lg p-3 text-gray-800 text-sm">
+                            ${m.message}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Scroll to buy
+        function scrollToBuy() {
+            document.getElementById('buy-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Handle buy now
+        function handleBuyNow() {
+            const whatsappLink = document.getElementById('whatsapp-btn')?.href || defaultConfig.whatsapp_link;
+            window.open(whatsappLink + '?text=Hi! I want to purchase the Skill to Income course.', '_blank');
+        }
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Bounce animation for CTA
+        setInterval(() => {
+            document.querySelectorAll('.glow-button').forEach(btn => {
+                btn.classList.add('bounce-animation');
+                setTimeout(() => btn.classList.remove('bounce-animation'), 500);
+            });
+        }, 5000);
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChapters();
+            renderBonuses();
+            renderTestimonials();
+            renderFAQs();
+            renderWhatsAppSlider();
+            startCountdown();
+            
+            // Start notifications after 30 seconds
+            setTimeout(showNotification, 30000);
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d6fb47bb37b9e7a',t:'MTc3MjYxNDk3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
