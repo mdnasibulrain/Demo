@@ -1,0 +1,7252 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>StudyNotes — Practical Ebooks & Career Resources</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&display=swap');
+
+    :root {
+      --orange: #f97316;
+      --orange-dark: #ea580c;
+      --orange-light: #fff7ed;
+      --orange-border: #fed7aa;
+      --navy: #0f172a;
+      --muted: #64748b;
+      --green: #059669;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, "Noto Sans Devanagari", Arial, sans-serif;
+      background: #fff;
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
+
+    .font-nepali {
+      font-family: "Noto Sans Devanagari", Inter, sans-serif;
+    }
+
+    .orange-gradient {
+      background: linear-gradient(135deg, #fb923c, #f97316, #ea580c);
+    }
+
+    .soft-orange {
+      background: linear-gradient(180deg, #fff7ed, #ffffff);
+    }
+
+    .card-shadow {
+      box-shadow:
+        0 8px 30px rgba(15, 23, 42, .07),
+        0 2px 8px rgba(15, 23, 42, .04);
+    }
+
+    .card-shadow:hover {
+      box-shadow:
+        0 16px 45px rgba(15, 23, 42, .12),
+        0 5px 15px rgba(249, 115, 22, .08);
+    }
+
+    .line-clamp-1 {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      scrollbar-width: none;
+    }
+
+    /* OFFER MARQUEE */
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .marquee-track {
+      width: max-content;
+      animation: marquee 30s linear infinite;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    /* PULSE */
+    @keyframes pulseDot {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.55);
+        opacity: .55;
+      }
+    }
+
+    .live-dot {
+      animation: pulseDot 1.4s infinite;
+    }
+
+    /* HERO SLIDE */
+    @keyframes heroFade {
+      0% {
+        opacity: .2;
+        transform: translateX(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .hero-fade {
+      animation: heroFade .55s ease;
+    }
+
+    /* FLOATING NAV */
+    @keyframes centerPulse {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-3px) scale(1.05);
+      }
+    }
+
+    .center-menu {
+      animation: centerPulse 2s ease-in-out infinite;
+    }
+
+    /* STOCK PROGRESS */
+    .stock-progress {
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          rgba(255,255,255,.22) 0,
+          rgba(255,255,255,.22) 6px,
+          transparent 6px,
+          transparent 12px
+        ),
+        #f97316;
+    }
+
+    /* MOBILE */
+    @media (max-width: 767px) {
+      body {
+        padding-bottom: 78px;
+      }
+
+      .mobile-bottom-space {
+        padding-bottom: 90px;
+      }
+    }
+
+    /* MODAL */
+    .modal-backdrop {
+      background: rgba(15, 23, 42, .68);
+      backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+<script type="text/babel">
+
+const {
+  useState,
+  useEffect,
+  useMemo
+} = React;
+
+
+/* =========================================================
+   STUDYNOTES BRAND CONFIGURATION
+========================================================= */
+
+const BRAND_CONFIG = {
+  storeName: "StudyNotes",
+  shortName: "STUDYNOTES",
+  tagline: "Practical Skills • Career • Learning",
+  authorName: "MD. NS",
+  whatsappNumber: "+977 9702784684",
+  whatsappRaw: "9779702784684",
+  supportEmail: "mdnasibulrain4@gmail.com",
+  websiteUrl: "https://www.nasibul.com.np/",
+  nspayUrl: "https://www.nasibul.com.np/nspay",
+  deliveryTarget: "3–5 minutes"
+};
+
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+const CATEGORIES = [
+  {
+    id: "computer-skills",
+    name: "Computer",
+    icon: "💻"
+  },
+  {
+    id: "digital-skills-online-income",
+    name: "Digital Income",
+    icon: "🌐"
+  },
+  {
+    id: "loksewa",
+    name: "LokSewa",
+    icon: "📚"
+  },
+  {
+    id: "share-market",
+    name: "Share Market",
+    icon: "📈"
+  },
+  {
+    id: "personality-development",
+    name: "Personality",
+    icon: "🗣️"
+  },
+  {
+    id: "nepali-youth-career-guides",
+    name: "Career",
+    icon: "🎯"
+  }
+];
+
+
+/* =========================================================
+   FLASH OFFERS
+========================================================= */
+
+const FLASH_ANNOUNCEMENTS = [
+  {
+    text: "⚡ Complete Computer Operator Guide — Special Offer",
+    productId: "eb-001"
+  },
+  {
+    text: "🔥 Freelancing & Digital Skills Blueprint — Hot Deal",
+    productId: "eb-002"
+  },
+  {
+    text: "🎁 Ultimate Career Super Bundle — Maximum Savings",
+    bundleId: "bundle-ultimate-career"
+  },
+  {
+    text: "📚 Smart LokSewa GK & Exam Strategy — Exam Special",
+    productId: "eb-003"
+  },
+  {
+    text: "📈 NEPSE Beginner Guide — Start Learning",
+    productId: "eb-004"
+  },
+  {
+    text: "🗣️ Confidence & Interview Success Guide — Career Boost",
+    productId: "eb-005"
+  }
+];
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+const INITIAL_PRODUCTS = [
+
+  {
+    id: "eb-001",
+    category: "computer-skills",
+    title: "Complete Computer Operator & Office Skills Guide",
+    subtitle: "MS Office, Typing, Shortcut Keys र Practical Office Work मा पोख्त हुनुहोस्",
+    summary: "नेपाली कार्यालय, डाटा इन्ट्री र कम्प्युटर अपरेटर तयारीका लागि सम्पूर्ण व्यवहारिक गाइड।",
+    description:
+      "यो Ebook ले तपाईंलाई MS Word, MS Excel, PowerPoint, नेपाली/अंग्रेजी टाइपिंग, र कम्प्युटर ट्रबलशूटिंगको व्यवहारिक ज्ञान दिन्छ। Computer Operator परीक्षा वा Office Job को लागि उपयुक्त।",
+
+    coverImage: {
+      type: "image",
+      source: "https://placehold.co/700x900/0f172a/f97316?text=Computer+Skills+Guide"
+    },
+
+    previewPdf: null,
+    pages: 180,
+    chapters: 12,
+    regularPrice: 999,
+    salePrice: 499,
+
+    tags: [
+      "Computer Skills",
+      "MS Office",
+      "Office Operator",
+      "Typing"
+    ],
+
+    learningOutcomes: [
+      "MS Word र Excel मा Professional Document तथा Sheet तयार गर्ने",
+      "द्रुत नेपाली (Preeti / Unicode) र अंग्रेजी टाइपिंग कमान्ड गर्ने",
+      "कार्यालयमा दैनिक प्रयोग हुने Important Computer Shortcuts प्रयोग गर्ने",
+      "File Management र Email Communication व्यवस्थित गर्ने"
+    ],
+
+    careerRelevance: [
+      "Office Assistant र Data Entry Operator पदका लागि सहयोगी",
+      "LokSewa Computer Operator प्रयोगात्मक परीक्षा तयारी",
+      "निजी कार्यालय तथा संस्थामा रोजगार तयारी"
+    ],
+
+    chapterOutline: [
+      {
+        number: 1,
+        title: "Computer Basics & Operating System",
+        description: "कम्प्युटरका आधारभूत सिद्धान्त र Windows setup"
+      },
+      {
+        number: 2,
+        title: "Nepali & English Typing Mastery",
+        description: "टाइपिंग स्पीड र एक्युरेसी बढाउने उपाय"
+      },
+      {
+        number: 3,
+        title: "MS Word Professional Formatting",
+        description: "अफिसियल पत्र, प्रतिवेदन र फारम डिजाइन"
+      },
+      {
+        number: 4,
+        title: "MS Excel Formulas & Data Handling",
+        description: "Sum, VLOOKUP, Pivot Table र Accounting Sheet"
+      },
+      {
+        number: 5,
+        title: "Internet, Email & Office Utilities",
+        description: "सुरक्षित ब्राउजिङ, इमेल शिष्टाचार र प्रिन्टर सेटिङ"
+      }
+    ],
+
+    offerLabel: "BESTSELLER",
+    urgencyLabel: "Limited Stock",
+    rating: 4.9,
+    reviewCount: 142,
+    soldCopies: 850,
+    availableCopies: 17,
+    isFeatured: true,
+    isNew: false,
+    isPublished: true
+  },
+
+  {
+    id: "eb-002",
+    category: "digital-skills-online-income",
+    title: "Freelancing & Digital Skills Blueprint for Nepali Youth",
+    subtitle: "घरमै बसेर Digital Skills सिक्ने र International Client सँग काम गर्ने गाइड",
+    summary: "Upwork, Fiverr र Remote Work मा सफलता प्राप्त गर्ने व्यवहारिक रणनीति।",
+    description:
+      "नेपालमा बसेर Graphic Design, Content Writing, Virtual Assistance र Social Media Management जस्ता डिजिटल सीपमार्फत अनलाइन आम्दानीका अवसर बुझ्ने र सुरु गर्ने तरिका।",
+
+    coverImage: {
+      type: "image",
+      source: "https://placehold.co/700x900/0f172a/f97316?text=Digital+Skills+Blueprint"
+    },
+
+    previewPdf: null,
+    pages: 210,
+    chapters: 14,
+    regularPrice: 1299,
+    salePrice: 599,
+
+    tags: [
+      "Digital Skills",
+      "Freelancing",
+      "Online Income",
+      "Remote Work"
+    ],
+
+    learningOutcomes: [
+      "हाई-डिमान्ड Digital Skills चयन र सिकाइ रोडम्याप",
+      "Fiverr र Upwork मा आकर्षित Profile तयार गर्ने",
+      "विदेशी ग्राहकसँग व्यवहारिक Communication र Proposal लेखन",
+      "नेपालमा Payment प्राप्त गर्ने वैधानिक तरिकाहरू बुझ्ने"
+    ],
+
+    careerRelevance: [
+      "Global Remote Job र Freelance Contract प्राप्त गर्न",
+      "Self-employment र Digital Agency सुरु गर्न",
+      "पढाइसँगै पार्ट-टाइम आम्दानी अवसर"
+    ],
+
+    chapterOutline: [
+      {
+        number: 1,
+        title: "Understanding Digital Economy",
+        description: "डिजिटल स्किल र ग्लोबल मार्केटको सम्भावना"
+      },
+      {
+        number: 2,
+        title: "Choosing Your Skill Track",
+        description: "राइटिङ, डिजाइन वा टेक स्किल छनोट"
+      },
+      {
+        number: 3,
+        title: "Profile Creation & Branding",
+        description: "पोर्टफोलियो र प्रोफाईल सेटअप"
+      },
+      {
+        number: 4,
+        title: "Winning Proposal Writing",
+        description: "क्लाइन्ट आकर्षित गर्ने प्रस्तावना कसरी लेख्ने"
+      }
+    ],
+
+    offerLabel: "HOT DEAL",
+    urgencyLabel: "Popular Choice",
+    rating: 4.8,
+    reviewCount: 98,
+    soldCopies: 620,
+    availableCopies: 23,
+    isFeatured: true,
+    isNew: true,
+    isPublished: true
+  },
+
+  {
+    id: "eb-003",
+    category: "loksewa",
+    title: "Smart LokSewa General Knowledge & Exam Strategy",
+    subtitle: "लोकसेवा प्रथम पत्र (GK & IQ) मा उच्च अंक ल्याउने तयारी गाइड",
+    summary: "स्मार्ट अध्ययन विधि, नेपाल र विश्व भूगोल, इतिहास र समसामयिक विषय।",
+    description:
+      "खरिदार, नायब सुब्बा र शाखा अधिकृत परीक्षाका लागि विषयवस्तुलाई सम्झन सजिलो ट्रिक्स र माइन्डम्याप सहितको व्यवस्थित तयारी पुस्तक।",
+
+    coverImage: {
+      type: "image",
+      source: "https://placehold.co/700x900/0f172a/f97316?text=LokSewa+Exam+Guide"
+    },
+
+    previewPdf: null,
+    pages: 250,
+    chapters: 16,
+    regularPrice: 1100,
+    salePrice: 499,
+
+    tags: [
+      "LokSewa",
+      "GK & IQ",
+      "Kharidar",
+      "Nasu",
+      "Section Officer"
+    ],
+
+    learningOutcomes: [
+      "GK सम्झने सम्झना ट्रिक्स (Memory Tricks)",
+      "IQ Questions छिटो र सही हल गर्ने विधि",
+      "वस्तुगत (MCQ) प्रश्न हल गर्दा ध्यान दिनुपर्ने कुराहरू",
+      "परीक्षा अघिको समय व्यवस्थापन"
+    ],
+
+    careerRelevance: [
+      "निजामती सेवाका विभिन्न तहको प्रथम पत्र परीक्षा",
+      "नेपाल राष्ट्र बैंक, संस्थान तथा सुरक्षा निकाय परीक्षा",
+      "शिक्षक सेवा आयोग सामान्य परीक्षा"
+    ],
+
+    chapterOutline: [
+      {
+        number: 1,
+        title: "Nepal Geography & Environment",
+        description: "नेपालको भूगोल, नदीनाला र हावापानी ट्रिक्स"
+      },
+      {
+        number: 2,
+        title: "History & Socio-Cultural Facts",
+        description: "नेपालको इतिहास र सांस्कृतिक पक्ष"
+      },
+      {
+        number: 3,
+        title: "International Affairs & Organizations",
+        description: "संयुक्त राष्ट्रसंघ, SAARC र विश्व घटनाक्रम"
+      },
+      {
+        number: 4,
+        title: "IQ Shortcut Methods",
+        description: "शाब्दिक र अशाब्दिक तर्कशक्ति प्रश्न"
+      }
+    ],
+
+    offerLabel: "EXAM SPECIAL",
+    urgencyLabel: "High Demand",
+    rating: 4.9,
+    reviewCount: 210,
+    soldCopies: 1200,
+    availableCopies: 14,
+    isFeatured: true,
+    isNew: false,
+    isPublished: true
+  },
+
+  {
+    id: "eb-004",
+    category: "share-market",
+    title: "Nepali Share Market Fundamentals: NEPSE Beginner Guide",
+    subtitle: "Primary (IPO) र Secondary Market मा सही र सुरक्षित लगानी कसरी गर्ने?",
+    summary: "IPO भर्ने तरिकादेखि Fundamental र Technical Analysis को आधारभूत ज्ञान।",
+    description:
+      "नेपाली शेयर बजारमा नयाँ हुनुहुन्छ? यो Ebook ले Demat, MeroShare, IPO, Dividend, Microfinance, Hydro, Commercial Banks को Financial Report विश्लेषण गर्न सिकाउँछ।",
+
+    coverImage: {
+      type: "image",
+      source: "https://placehold.co/700x900/0f172a/f97316?text=NEPSE+Share+Market"
+    },
+
+    previewPdf: null,
+    pages: 160,
+    chapters: 10,
+    regularPrice: 899,
+    salePrice: 399,
+
+    tags: [
+      "Share Market",
+      "NEPSE",
+      "IPO",
+      "Investment",
+      "Finance"
+    ],
+
+    learningOutcomes: [
+      "Demat र MeroShare खाता सञ्चालन र IPO भर्ने सही तरिका",
+      "कम्पनीको EPS, P/E Ratio र Net Worth विश्लेषण गर्ने विधि",
+      "Secondary Market मा Broker System र TMS प्रयोग गर्ने तरिका",
+      "दीर्घकालीन लगानी र जोखिम व्यवस्थापन"
+    ],
+
+    careerRelevance: [
+      "व्यक्तिगत वित्तीय साक्षरता र सम्पत्ति वृद्धि",
+      "शेयर बजार विश्लेषक वा लगानीकर्ता बन्ने आधार",
+      "वित्तीय बजारसम्बन्धी ज्ञान अभिवृद्धि"
+    ],
+
+    chapterOutline: [
+      {
+        number: 1,
+        title: "Introduction to NEPSE & SEBON",
+        description: "शेयर बजारको संरचना र नियमक निकाय"
+      },
+      {
+        number: 2,
+        title: "Primary Market & IPO Application",
+        description: "IPO, FPO र Right Share को आधार"
+      },
+      {
+        number: 3,
+        title: "Fundamental Analysis Basics",
+        description: "वित्तीय विवरण कसरी पढ्ने"
+      },
+      {
+        number: 4,
+        title: "Risk Management & Portfolio Design",
+        description: "घाटाबाट जोगिने र विविधीकरण गर्ने रणनीति"
+      }
+    ],
+
+    offerLabel: "FINANCE SPECIAL",
+    urgencyLabel: "Beginner Friendly",
+    rating: 4.7,
+    reviewCount: 85,
+    soldCopies: 510,
+    availableCopies: 29,
+    isFeatured: false,
+    isNew: true,
+    isPublished: true
+  },
+
+  {
+    id: "eb-005",
+    category: "personality-development",
+    title: "Confidence, Communication & Interview Success Guide",
+    subtitle: "बोल्ने कला, व्यक्तित्व विकास र Job Interview मा सफलता",
+    summary: "आत्मविश्वास बढाउन, धक फुकाउन र अन्तरवार्तामा सफल हुने व्यावहारिक उपाय।",
+    description:
+      "इन्टरभ्यु दिँदा डर लाग्छ? सार्वजनिक ठाउँमा बोल्न अप्ठ्यारो हुन्छ? यो Ebook ले Personality, Body Language, Communication र Interview Skills सुधार्न सहयोग गर्छ।",
+
+    coverImage: {
+      type: "image",
+      source: "https://placehold.co/700x900/0f172a/f97316?text=Interview+Success"
+    },
+
+    previewPdf: null,
+    pages: 140,
+    chapters: 9,
+    regularPrice: 799,
+    salePrice: 349,
+
+    tags: [
+      "Personality Development",
+      "Communication",
+      "Interview Prep",
+      "Confidence"
+    ],
+
+    learningOutcomes: [
+      "सार्वजनिक बोल्दा डर हटाउने प्रविधि",
+      "प्रभावशाली Body Language र Visual Impression",
+      "Interview मा सोधिने कडा प्रश्नहरूको उत्कृष्ट उत्तर कसरी दिने",
+      "कार्यस्थलमा मिलाएर बोल्ने र नेटवर्किङ गर्ने कला"
+    ],
+
+    careerRelevance: [
+      "कुनै पनि Job Interview मा निर्धक्क प्रस्तुत हुन",
+      "कार्यालयमा Presentation र Leadership",
+      "व्यक्तिगत जीवनमा उच्च आत्मविश्वास"
+    ],
+
+    chapterOutline: [
+      {
+        number: 1,
+        title: "Building Inner Confidence",
+        description: "हिचकिचाहट र डर हटाउने अभ्यास"
+      },
+      {
+        number: 2,
+        title: "Body Language & Eye Contact",
+        description: "सकारात्मक शारीरिक भाषा"
+      },
+      {
+        number: 3,
+        title: "Top 20 Interview Questions",
+        description: "उत्कृष्ट नमुना उत्तरहरू र तयारी"
+      },
+      {
+        number: 4,
+        title: "Professional Workplace Ethics",
+        description: "व्यावसायिक व्यवहार र पोशाक"
+      }
+    ],
+
+    offerLabel: "CAREER BOOST",
+    urgencyLabel: "Essential Guide",
+    rating: 4.9,
+    reviewCount: 115,
+    soldCopies: 730,
+    availableCopies: 19,
+    isFeatured: false,
+    isNew: false,
+    isPublished: true
+  },
+
+  {
+    id: "eb-006",
+    category: "nepali-youth-career-guides",
+    title: "Nepali Youth Career Roadmap & Job Search Masterclass",
+    subtitle: "CV / Resume लेखन, Job Search रणनीति र career direction छनोट",
+    summary: "प्लस टु वा ब्याचलर्स पछि सही बाटो रोज्न र जागिर खोज्न मार्गदर्शन।",
+    description:
+      "नेपाली युवाहरूका लागि आफ्नो करियरको लक्ष्य तय गर्ने, आकर्षक CV/Resume बनाउने, job portals, LinkedIn र networking प्रयोग गरी जागिर खोज्ने व्यावहारिक Ebook।",
+
+    coverImage: {
+      type: "image",
+      source: "https://placehold.co/700x900/0f172a/f97316?text=Youth+Career+Roadmap"
+    },
+
+    previewPdf: null,
+    pages: 175,
+    chapters: 11,
+    regularPrice: 899,
+    salePrice: 399,
+
+    tags: [
+      "Career Guide",
+      "CV Writing",
+      "Job Search",
+      "Nepali Youth"
+    ],
+
+    learningOutcomes: [
+      "ATS-Friendly Professional CV/Resume निर्माण",
+      "LinkedIn Profile Optimize गर्ने र Networking गर्ने",
+      "नेपालका प्रमुख Job Portals प्रयोग गरी अवसर खोज्ने",
+      "Career Direction र Short/Long Term लक्ष्य निर्धारण"
+    ],
+
+    careerRelevance: [
+      "Fresh Graduates का लागि पहिलो जागिर",
+      "Career Switch गर्न चाहनेका लागि",
+      "रोजगारी खोज्ने रणनीति व्यवस्थित बनाउन"
+    ],
+
+    chapterOutline: [
+      {
+        number: 1,
+        title: "Understanding Job Market in Nepal",
+        description: "नेपालमा बजारको माग र सीप"
+      },
+      {
+        number: 2,
+        title: "Crafting High-Impact Resume",
+        description: "रिज्युमे नमुना र गल्तीहरू"
+      },
+      {
+        number: 3,
+        title: "Digital Job Search Strategies",
+        description: "Job portals र LinkedIn को प्रयोग"
+      },
+      {
+        number: 4,
+        title: "First 90 Days in a Job",
+        description: "कार्यस्थलमा छाप छाड्ने कला"
+      }
+    ],
+
+    offerLabel: "RECOMMENDED",
+    urgencyLabel: "High Value",
+    rating: 4.8,
+    reviewCount: 94,
+    soldCopies: 490,
+    availableCopies: 26,
+    isFeatured: false,
+    isNew: false,
+    isPublished: true
+  }
+
+];
+
+
+/* =========================================================
+   BUNDLES
+========================================================= */
+
+const CURATED_BUNDLES = [
+  {
+    id: "bundle-ultimate-career",
+    title: "Ultimate Nepali Youth Career & Digital Super Bundle",
+    subtitle: "६ वटै Ebooks को पूर्ण प्याकेज",
+    summary:
+      "कम्प्युटर, डिजिटल सीप, लोकसेवा, शेयर बजार, व्यक्तित्व र करियर गाइड सबै एकै ठाउँमा।",
+
+    includedProductIds: [
+      "eb-001",
+      "eb-002",
+      "eb-003",
+      "eb-004",
+      "eb-005",
+      "eb-006"
+    ],
+
+    regularPrice: 5986,
+    salePrice: 1499,
+    badge: "ULTIMATE VALUE",
+    image:
+      "https://placehold.co/900x650/0f172a/f97316?text=Ultimate+Career+Bundle"
+  },
+
+  {
+    id: "bundle-digital-office",
+    title: "Office & Digital Income Master Bundle",
+    subtitle: "Computer Skills + Freelancing Blueprint",
+    summary:
+      "कार्यालय काम र अनलाइन आम्दानी दुवैमा उपयोगी २ प्रमुख Ebook प्याकेज।",
+
+    includedProductIds: [
+      "eb-001",
+      "eb-002"
+    ],
+
+    regularPrice: 2298,
+    salePrice: 899,
+    badge: "SAVINGS BUNDLE",
+    image:
+      "https://placehold.co/900x650/0f172a/f97316?text=Office+Digital+Bundle"
+  }
+];
+
+
+/* =========================================================
+   TESTIMONIALS
+========================================================= */
+
+const TESTIMONIALS = [
+  {
+    name: "Suman K.",
+    location: "Kathmandu",
+    message:
+      "Computer Operator Guide ले मेरो MS Office र typing preparation धेरै व्यवस्थित बनायो।",
+    rating: 5
+  },
+  {
+    name: "Prakash R.",
+    location: "Biratnagar",
+    message:
+      "Freelancing guide को roadmap सजिलो लाग्यो। सुरुदेखि कुन skill सिक्ने भन्ने स्पष्ट भयो।",
+    rating: 5
+  },
+  {
+    name: "Anisha M.",
+    location: "Janakpur",
+    message:
+      "LokSewa book को GK र IQ section निकै उपयोगी लाग्यो। Revision गर्न सजिलो छ।",
+    rating: 5
+  },
+  {
+    name: "Rojan S.",
+    location: "Pokhara",
+    message:
+      "Career Roadmap ले CV र job search को process बुझ्न धेरै सहयोग गर्‍यो।",
+    rating: 5
+  }
+];
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+const FAQS = [
+  {
+    q: "Ebook कसरी प्राप्त हुन्छ?",
+    a:
+      "Payment confirmation भएपछि Ebook PDF WhatsApp वा Email मार्फत सामान्यतया ३–५ मिनेटभित्र पठाइन्छ।"
+  },
+  {
+    q: "Payment कसरी गर्ने?",
+    a:
+      "Cart बाट NSPAY Payment Page मा जानुहोस्। उपलब्ध payment method प्रयोग गरी payment गर्नुहोस् र आवश्यक payment proof WhatsApp मा पठाउनुहोस्।"
+  },
+  {
+    q: "WhatsApp बाट order गर्न मिल्छ?",
+    a:
+      "मिल्छ। Cart मा सामग्री छानिसकेपछि WhatsApp Order बटन प्रयोग गर्दा selected products सहितको order message तयार हुन्छ।"
+  },
+  {
+    q: "Preview हेर्न मिल्छ?",
+    a:
+      "हो। उपलब्ध भएको अवस्थामा product detail page बाट Sample Preview खोल्न सकिन्छ।"
+  },
+  {
+    q: "Custom Combo कसरी बनाउने?",
+    a:
+      "२ वा सोभन्दा बढी Ebook छान्नुहोस्। System ले selected ebooks को price calculation गरेर combo discount देखाउँछ।"
+  },
+  {
+    q: "Ebook मोबाइलमा पढ्न मिल्छ?",
+    a:
+      "हो। PDF format भएकाले Android, iPhone, tablet वा computer मा पढ्न सकिन्छ।"
+  },
+  {
+    q: "Ebook ले job वा income guarantee गर्छ?",
+    a:
+      "गर्दैन। Ebook educational resource हो। वास्तविक परिणाम तपाईंको अभ्यास, skill, effort र market conditions मा निर्भर हुन्छ।"
+  },
+  {
+    q: "Share Market Ebook ले profit guarantee गर्छ?",
+    a:
+      "गर्दैन। Share market जोखिमयुक्त हुन्छ। सामग्री educational purpose का लागि हो।"
+  }
+];
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function discountPercent(product) {
+  if (!product.regularPrice) return 0;
+
+  return Math.round(
+    ((product.regularPrice - product.salePrice) /
+      product.regularPrice) *
+      100
+  );
+}
+
+
+function money(value) {
+  return `रु. ${Number(value).toLocaleString("en-IN")}`;
+}
+
+
+function createWhatsAppLink(message) {
+  return `https://wa.me/${BRAND_CONFIG.whatsappRaw}?text=${encodeURIComponent(
+    message
+  )}`;
+}
+
+
+function productOrderMessage(product) {
+  return `
+नमस्ते StudyNotes 👋
+
+म यो Ebook Order गर्न चाहन्छु:
+
+📚 ${product.title}
+💰 Price: ${money(product.salePrice)}
+📄 ${product.pages} Pages
+⭐ Rating: ${product.rating}/5
+
+कृपया payment र delivery process बताइदिनुहोस्।
+
+StudyNotes
+WhatsApp Support: ${BRAND_CONFIG.whatsappNumber}
+`.trim();
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+function App() {
+
+  const [products, setProducts] =
+    useState(INITIAL_PRODUCTS);
+
+  const [cart, setCart] =
+    useState([]);
+
+  const [selectedCategory, setSelectedCategory] =
+    useState("all");
+
+  const [searchQuery, setSearchQuery] =
+    useState("");
+
+  const [sortBy, setSortBy] =
+    useState("featured");
+
+  const [isCartOpen, setIsCartOpen] =
+    useState(false);
+
+  const [isSearchOpen, setIsSearchOpen] =
+    useState(false);
+
+  const [activeProduct, setActiveProduct] =
+    useState(null);
+
+  const [previewImage, setPreviewImage] =
+    useState(null);
+
+  const [previewPdf, setPreviewPdf] =
+    useState(null);
+
+  const [toast, setToast] =
+    useState("");
+
+  const [comboSelectedIds, setComboSelectedIds] =
+    useState([]);
+
+  const [faqOpen, setFaqOpen] =
+    useState(null);
+
+  const [policy, setPolicy] =
+    useState(null);
+
+  const [showAdmin, setShowAdmin] =
+    useState(false);
+
+  const [heroIndex, setHeroIndex] =
+    useState(0);
+
+  const [timeLeft, setTimeLeft] =
+    useState(20 * 60);
+
+  const [mobileMenuOpen, setMobileMenuOpen] =
+    useState(false);
+
+
+  /* =====================================================
+     HERO AUTO SLIDER — 20 SECONDS
+  ===================================================== */
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex(
+        prev => (prev + 1) % products.length
+      );
+    }, 20000);
+
+    return () => clearInterval(timer);
+  }, [products.length]);
+
+
+  /* =====================================================
+     COUNTDOWN
+  ===================================================== */
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 0) return 20 * 60;
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+
+  const formattedTimer = useMemo(() => {
+    const mins =
+      Math.floor(timeLeft / 60)
+        .toString()
+        .padStart(2, "0");
+
+    const secs =
+      (timeLeft % 60)
+        .toString()
+        .padStart(2, "0");
+
+    return `${mins}:${secs}`;
+  }, [timeLeft]);
+
+
+  /* =====================================================
+     TOAST
+  ===================================================== */
+
+  const showToast = message => {
+    setToast(message);
+
+    setTimeout(() => {
+      setToast("");
+    }, 2800);
+  };
+
+
+  /* =====================================================
+     SCROLL
+  ===================================================== */
+
+  const scrollTo = id => {
+    const element =
+      document.getElementById(id);
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  };
+
+
+  /* =====================================================
+     FILTER
+  ===================================================== */
+
+  const filteredProducts = useMemo(() => {
+
+    const query =
+      searchQuery
+        .toLowerCase()
+        .trim();
+
+    return products
+      .filter(product => {
+
+        if (!product.isPublished)
+          return false;
+
+        const categoryMatch =
+          selectedCategory === "all" ||
+          product.category === selectedCategory;
+
+        const searchMatch =
+          !query ||
+          product.title.toLowerCase().includes(query) ||
+          product.subtitle.toLowerCase().includes(query) ||
+          product.summary.toLowerCase().includes(query) ||
+          product.tags.some(tag =>
+            tag.toLowerCase().includes(query)
+          );
+
+        return categoryMatch && searchMatch;
+      })
+      .sort((a, b) => {
+
+        if (sortBy === "price-low")
+          return a.salePrice - b.salePrice;
+
+        if (sortBy === "price-high")
+          return b.salePrice - a.salePrice;
+
+        if (sortBy === "discount")
+          return discountPercent(b) -
+            discountPercent(a);
+
+        if (sortBy === "rating")
+          return b.rating - a.rating;
+
+        if (sortBy === "newest")
+          return Number(b.isNew) -
+            Number(a.isNew);
+
+        return Number(b.isFeatured) -
+          Number(a.isFeatured);
+      });
+
+  }, [
+    products,
+    selectedCategory,
+    searchQuery,
+    sortBy
+  ]);
+
+
+  /* =====================================================
+     CART
+  ===================================================== */
+
+  const addToCart = (item, type = "single") => {
+
+    let cartItem;
+
+    if (type === "single") {
+
+      cartItem = {
+        id: item.id,
+        title: item.title,
+        cover: item.coverImage.source,
+        salePrice: item.salePrice,
+        regularPrice: item.regularPrice,
+        quantity: 1,
+        type: "Ebook"
+      };
+
+    } else if (type === "combo") {
+
+      cartItem = {
+        id: `combo-${Date.now()}`,
+        title: `Custom Combo (${item.products.length} Ebooks)`,
+        cover: item.products[0]?.coverImage.source,
+        salePrice: item.salePrice,
+        regularPrice: item.regularPrice,
+        quantity: 1,
+        type: "Custom Combo",
+        items: item.products.map(
+          product => product.title
+        )
+      };
+
+    } else {
+
+      cartItem = {
+        id: item.id,
+        title: item.title,
+        cover: item.image,
+        salePrice: item.salePrice,
+        regularPrice: item.regularPrice,
+        quantity: 1,
+        type: "Bundle",
+        items: item.includedProductIds
+      };
+    }
+
+
+    setCart(prev => {
+
+      const existing =
+        prev.find(
+          item => item.id === cartItem.id
+        );
+
+      if (existing) {
+
+        return prev.map(item =>
+          item.id === cartItem.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1
+              }
+            : item
+        );
+      }
+
+      return [
+        ...prev,
+        cartItem
+      ];
+    });
+
+    showToast(
+      `✓ ${cartItem.title} Cart मा थपियो`
+    );
+  };
+
+
+  const removeFromCart = id => {
+    setCart(prev =>
+      prev.filter(item =>
+        item.id !== id
+      )
+    );
+  };
+
+
+  const changeQuantity = (id, amount) => {
+
+    setCart(prev =>
+      prev.map(item => {
+
+        if (item.id !== id)
+          return item;
+
+        const quantity =
+          item.quantity + amount;
+
+        return {
+          ...item,
+          quantity:
+            quantity < 1
+              ? 1
+              : quantity
+        };
+      })
+    );
+  };
+
+
+  const cartTotals = useMemo(() => {
+
+    const regular =
+      cart.reduce(
+        (sum, item) =>
+          sum +
+          item.regularPrice *
+          item.quantity,
+        0
+      );
+
+    const final =
+      cart.reduce(
+        (sum, item) =>
+          sum +
+          item.salePrice *
+          item.quantity,
+        0
+      );
+
+    return {
+      regular,
+      final,
+      savings: regular - final,
+      count:
+        cart.reduce(
+          (sum, item) =>
+            sum + item.quantity,
+          0
+        )
+    };
+
+  }, [cart]);
+
+
+  /* =====================================================
+     CART WHATSAPP MESSAGE
+  ===================================================== */
+
+  const cartWhatsAppMessage = useMemo(() => {
+
+    let text =
+      `नमस्ते StudyNotes 👋\n\n` +
+      `म निम्न Ebook/Bundle Order गर्न चाहन्छु:\n\n`;
+
+    cart.forEach((item, index) => {
+
+      text +=
+        `${index + 1}. ${item.title}\n` +
+        `   Type: ${item.type}\n` +
+        `   Qty: ${item.quantity}\n` +
+        `   Price: ${money(
+          item.salePrice *
+          item.quantity
+        )}\n\n`;
+    });
+
+    text +=
+      `━━━━━━━━━━━━━━\n` +
+      `Final Total: ${money(
+        cartTotals.final
+      )}\n` +
+      `Total Savings: ${money(
+        cartTotals.savings
+      )}\n\n` +
+      `कृपया payment process र delivery confirm गरिदिनुहोस्।`;
+
+    return text;
+
+  }, [cart, cartTotals]);
+
+
+  /* =====================================================
+     CUSTOM COMBO
+  ===================================================== */
+
+  const comboCalculation =
+    useMemo(() => {
+
+      const selected =
+        products.filter(
+          product =>
+            comboSelectedIds.includes(
+              product.id
+            )
+        );
+
+      const regular =
+        selected.reduce(
+          (sum, product) =>
+            sum + product.regularPrice,
+          0
+        );
+
+      const sale =
+        selected.reduce(
+          (sum, product) =>
+            sum + product.salePrice,
+          0
+        );
+
+      const bonus =
+        selected.length >= 2
+          ? Math.round(sale * .15)
+          : 0;
+
+      const final =
+        sale - bonus;
+
+      return {
+        selected,
+        regular,
+        sale,
+        bonus,
+        final,
+        savings:
+          regular - final
+      };
+
+    }, [
+      products,
+      comboSelectedIds
+    ]);
+
+
+  /* =====================================================
+     OPEN PRODUCT
+  ===================================================== */
+
+  const openProduct = product => {
+    setActiveProduct(product);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+
+  /* =====================================================
+     HOME PAGE
+  ===================================================== */
+
+  if (activeProduct) {
+
+    return (
+      <ProductLandingPage
+        product={activeProduct}
+        products={products}
+        cart={cart}
+        cartTotals={cartTotals}
+        onBack={() => setActiveProduct(null)}
+        addToCart={addToCart}
+        openProduct={openProduct}
+        setIsCartOpen={setIsCartOpen}
+        setPreviewImage={setPreviewImage}
+        setPreviewPdf={setPreviewPdf}
+        showToast={showToast}
+      />
+    );
+  }
+
+
+  return (
+    <div className="min-h-screen bg-white">
+
+
+      {/* =================================================
+          TOAST
+      ================================================= */}
+
+      {toast && (
+        <div className="
+          fixed top-20 right-4 z-[100]
+          bg-slate-950 text-white
+          border border-orange-400/40
+          rounded-2xl px-4 py-3
+          shadow-2xl text-xs font-bold
+        ">
+          <span className="text-orange-400 mr-2">✓</span>
+          {toast}
+        </div>
+      )}
+
+
+      {/* =================================================
+          STOCK + TIMER BAR
+      ================================================= */}
+
+      <div className="
+        sticky top-0 z-50
+        bg-slate-950 text-white
+        border-b border-orange-500/30
+      ">
+
+        <div className="
+          max-w-7xl mx-auto
+          px-3 py-1.5
+          flex items-center
+          justify-between gap-3
+        ">
+
+          <div className="
+            flex items-center gap-2
+            shrink-0
+          ">
+
+            <span className="
+              live-dot
+              w-2 h-2
+              bg-red-500
+              rounded-full
+              inline-block
+            />
+
+            <span className="
+              text-[10px]
+              md:text-xs
+              font-black
+              text-orange-300
+            ">
+              LIVE OFFER
+            </span>
+
+            <span className="
+              hidden sm:inline
+              text-[10px]
+              text-slate-400
+            ">
+              Limited availability
+            </span>
+
+          </div>
+
+
+          <div className="
+            hidden md:flex
+            flex-1 max-w-md
+            h-1.5 bg-slate-800
+            rounded-full overflow-hidden
+          ">
+            <div
+              className="stock-progress h-full rounded-full"
+              style={{
+                width: "72%"
+              }}
+            />
+          </div>
+
+
+          <div className="
+            flex items-center gap-2
+            shrink-0
+          ">
+
+            <span className="
+              text-[10px]
+              text-slate-400
+            ">
+              Offer ends
+            </span>
+
+            <strong className="
+              text-xs md:text-sm
+              text-orange-400
+              tabular-nums
+            ">
+              {formattedTimer}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          SCROLLING OFFERS
+      ================================================= */}
+
+      <div className="
+        bg-orange-50
+        border-b border-orange-100
+        overflow-hidden
+        py-2
+      ">
+
+        <div className="
+          max-w-7xl mx-auto
+          flex items-center
+        ">
+
+          <div className="
+            z-10 shrink-0
+            bg-orange-500
+            text-white
+            font-black
+            text-[10px]
+            px-3 py-1
+            rounded-r-lg
+            shadow
+          ">
+            ⚡ OFFERS
+          </div>
+
+          <div className="
+            overflow-hidden
+            flex-1
+          ">
+
+            <div className="
+              marquee-track
+              flex items-center
+              gap-8
+              whitespace-nowrap
+              pl-5
+            ">
+
+              {[
+                ...FLASH_ANNOUNCEMENTS,
+                ...FLASH_ANNOUNCEMENTS
+              ].map((offer, index) => (
+
+                <button
+                  key={index}
+                  onClick={() => {
+
+                    if (offer.productId) {
+
+                      const product =
+                        products.find(
+                          p =>
+                            p.id ===
+                            offer.productId
+                        );
+
+                      if (product)
+                        openProduct(product);
+
+                    } else {
+
+                      scrollTo("bundles");
+                    }
+                  }}
+                  className="
+                    text-[11px]
+                    font-bold
+                    text-slate-700
+                    hover:text-orange-600
+                  "
+                >
+
+                  {offer.text}
+
+                  <span className="
+                    ml-2
+                    text-[9px]
+                    bg-white
+                    border border-orange-200
+                    text-orange-600
+                    rounded-full
+                    px-2 py-0.5
+                  ">
+                    View →
+                  </span>
+
+                </button>
+
+              ))}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          HEADER
+      ================================================= */}
+
+      <header className="
+        sticky top-[35px] z-40
+        bg-white/95
+        backdrop-blur-md
+        border-b border-slate-100
+      ">
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4 py-3
+          flex items-center
+          justify-between
+        ">
+
+          {/* LOGO */}
+
+          <button
+            onClick={() => scrollTo("hero")}
+            className="
+              flex items-center
+              gap-3
+              text-left
+            "
+          >
+
+            <div className="
+              w-10 h-10
+              rounded-xl
+              orange-gradient
+              text-white
+              flex items-center
+              justify-center
+              text-xl
+              shadow-lg
+              shadow-orange-200
+            ">
+              📚
+            </div>
+
+            <div>
+
+              <div className="
+                font-black
+                text-base md:text-lg
+                tracking-tight
+              ">
+                StudyNotes
+              </div>
+
+              <div className="
+                text-[9px] md:text-[10px]
+                font-bold
+                text-orange-600
+              ">
+                Practical Skills • Career • Learning
+              </div>
+
+            </div>
+
+          </button>
+
+
+          {/* DESKTOP SEARCH */}
+
+          <div className="
+            hidden lg:flex
+            flex-1
+            max-w-md
+            mx-8
+          ">
+
+            <div className="
+              w-full
+              relative
+            ">
+
+              <span className="
+                absolute
+                left-3
+                top-2.5
+                text-slate-400
+              ">
+                🔍
+              </span>
+
+              <input
+                value={searchQuery}
+                onChange={e =>
+                  setSearchQuery(
+                    e.target.value
+                  )
+                }
+                onFocus={() =>
+                  scrollTo("explore")
+                }
+                placeholder="Search ebooks, skills, LokSewa, NEPSE..."
+                className="
+                  w-full
+                  pl-9 pr-4 py-2.5
+                  rounded-xl
+                  bg-slate-50
+                  border border-slate-200
+                  text-xs
+                  outline-none
+                  focus:border-orange-400
+                  focus:bg-white
+                "
+              />
+
+            </div>
+
+          </div>
+
+
+          {/* ACTIONS */}
+
+          <div className="
+            flex items-center
+            gap-2
+          ">
+
+            <button
+              onClick={() =>
+                setIsSearchOpen(
+                  !isSearchOpen
+                )
+              }
+              className="
+                lg:hidden
+                w-10 h-10
+                rounded-xl
+                bg-slate-50
+                border border-slate-200
+              "
+            >
+              🔍
+            </button>
+
+
+            <button
+              onClick={() =>
+                setIsCartOpen(true)
+              }
+              className="
+                relative
+                w-10 h-10
+                rounded-xl
+                bg-slate-50
+                border border-slate-200
+                hover:bg-orange-50
+                transition
+              "
+            >
+
+              🛒
+
+              {cartTotals.count > 0 && (
+                <span className="
+                  absolute
+                  -top-1
+                  -right-1
+                  w-5 h-5
+                  bg-orange-500
+                  text-white
+                  text-[9px]
+                  rounded-full
+                  flex items-center
+                  justify-center
+                  font-black
+                ">
+                  {cartTotals.count}
+                </span>
+              )}
+
+            </button>
+
+            <button
+              onClick={() =>
+                scrollTo("bundles")
+              }
+              className="
+                hidden sm:flex
+                items-center
+                gap-1
+                px-3 py-2
+                rounded-xl
+                bg-orange-500
+                hover:bg-orange-600
+                text-white
+                text-[10px]
+                font-black
+              "
+            >
+              🔥 Offers
+            </button>
+
+          </div>
+
+        </div>
+
+
+        {/* MOBILE SEARCH */}
+
+        {isSearchOpen && (
+          <div className="
+            lg:hidden
+            px-4 pb-3
+          ">
+
+            <div className="
+              relative
+            ">
+
+              <span className="
+                absolute
+                left-3
+                top-2.5
+              ">
+                🔍
+              </span>
+
+              <input
+                autoFocus
+                value={searchQuery}
+                onChange={e =>
+                  setSearchQuery(
+                    e.target.value
+                  )
+                }
+                placeholder="Search ebooks..."
+                className="
+                  w-full
+                  pl-9 pr-4 py-2.5
+                  rounded-xl
+                  border border-orange-200
+                  bg-orange-50/40
+                  outline-none
+                  text-xs
+                "
+              />
+
+            </div>
+
+          </div>
+        )}
+
+      </header>
+
+
+      {/* =================================================
+          HERO
+      ================================================= */}
+
+      <section
+        id="hero"
+        className="
+          soft-orange
+          border-b border-orange-100
+        "
+      >
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4
+          py-8 md:py-14
+        ">
+
+          {/* BRAND HOOK */}
+
+          <div className="
+            text-center
+            max-w-3xl
+            mx-auto
+            mb-8
+          ">
+
+            <div className="
+              inline-flex
+              items-center
+              gap-2
+              bg-white
+              border border-orange-200
+              rounded-full
+              px-3 py-1
+              text-[10px]
+              font-black
+              text-orange-700
+              shadow-sm
+            ">
+
+              <span className="
+                w-1.5 h-1.5
+                rounded-full
+                bg-orange-500
+                live-dot
+              />
+
+              STUDYNOTES DIGITAL LEARNING STORE
+
+            </div>
+
+            <h1 className="
+              mt-4
+              text-3xl md:text-5xl
+              font-black
+              leading-tight
+              tracking-tight
+            ">
+
+              सही Ebook छान्नुहोस्,
+              <span className="
+                text-orange-600
+              ">
+                {" "}सही Skill सिक्नुहोस्।
+              </span>
+
+            </h1>
+
+            <p className="
+              mt-3
+              text-sm md:text-base
+              text-slate-600
+              leading-relaxed
+            ">
+
+              Computer Skills, Digital Income,
+              LokSewa, NEPSE, Personality Development
+              र Career Planning का practical learning resources।
+
+            </p>
+
+          </div>
+
+
+          {/* HERO BOOK */}
+
+          {products.length > 0 && (() => {
+
+            const product =
+              products[heroIndex];
+
+            const discount =
+              discountPercent(product);
+
+            return (
+
+              <div
+                key={product.id}
+                className="
+                  hero-fade
+                  grid grid-cols-1
+                  lg:grid-cols-12
+                  gap-7
+                  items-center
+                  bg-white
+                  rounded-3xl
+                  border border-orange-200
+                  p-4 md:p-7
+                  card-shadow
+                "
+              >
+
+                {/* COVER */}
+
+                <div className="
+                  lg:col-span-4
+                  flex justify-center
+                ">
+
+                  <div className="
+                    relative
+                    w-full
+                    max-w-[290px]
+                  ">
+
+                    <div className="
+                      absolute
+                      -inset-2
+                      rounded-3xl
+                      bg-orange-400/20
+                      blur-xl
+                    />
+
+                    <img
+                      src={product.coverImage.source}
+                      alt={product.title}
+                      onClick={() =>
+                        setPreviewImage(
+                          product.coverImage.source
+                        )
+                      }
+                      className="
+                        relative
+                        w-full
+                        aspect-[7/9]
+                        object-cover
+                        rounded-2xl
+                        border-2
+                        border-orange-300
+                        shadow-xl
+                        cursor-pointer
+                      "
+                    />
+
+
+                    <div className="
+                      absolute
+                      top-3
+                      left-3
+                      bg-red-500
+                      text-white
+                      px-2.5 py-1
+                      rounded-lg
+                      text-[10px]
+                      font-black
+                      shadow
+                    ">
+                      {discount}% OFF
+                    </div>
+
+
+                    <div className="
+                      absolute
+                      bottom-3
+                      left-3
+                      right-3
+                      bg-slate-950/90
+                      text-white
+                      rounded-xl
+                      px-3 py-2
+                      flex items-center
+                      justify-between
+                    ">
+
+                      <span className="
+                        text-[9px]
+                        font-bold
+                      ">
+                        📚 {product.pages} Pages
+                      </span>
+
+                      <span className="
+                        text-[9px]
+                        font-bold
+                      ">
+                        ⭐ {product.rating}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                {/* HERO CONTENT */}
+
+                <div className="
+                  lg:col-span-8
+                ">
+
+                  <div className="
+                    flex flex-wrap
+                    gap-2
+                    mb-3
+                  ">
+
+                    <span className="
+                      bg-orange-100
+                      text-orange-700
+                      border border-orange-200
+                      rounded-full
+                      px-2.5 py-1
+                      text-[9px]
+                      font-black
+                    ">
+                      🔥 {product.offerLabel}
+                    </span>
+
+                    <span className="
+                      bg-red-50
+                      text-red-600
+                      border border-red-100
+                      rounded-full
+                      px-2.5 py-1
+                      text-[9px]
+                      font-black
+                    ">
+                      ⚡ {product.urgencyLabel}
+                    </span>
+
+                    {product.isNew && (
+                      <span className="
+                        bg-emerald-50
+                        text-emerald-700
+                        border border-emerald-100
+                        rounded-full
+                        px-2.5 py-1
+                        text-[9px]
+                        font-black
+                      ">
+                        NEW
+                      </span>
+                    )}
+
+                  </div>
+
+
+                  <h2 className="
+                    text-2xl md:text-4xl
+                    font-black
+                    leading-tight
+                  ">
+                    {product.title}
+                  </h2>
+
+
+                  <p className="
+                    mt-2
+                    text-sm md:text-base
+                    text-orange-700
+                    font-bold
+                  ">
+                    {product.subtitle}
+                  </p>
+
+
+                  <p className="
+                    mt-3
+                    text-sm
+                    text-slate-600
+                    leading-relaxed
+                    max-w-3xl
+                  ">
+                    {product.description}
+                  </p>
+
+
+                  {/* SOCIAL PROOF */}
+
+                  <div className="
+                    mt-5
+                    grid grid-cols-2
+                    sm:grid-cols-4
+                    gap-2
+                  ">
+
+                    <Stat
+                      icon="⭐"
+                      value={`${product.rating}/5`}
+                      label={`${product.reviewCount} Reviews`}
+                    />
+
+                    <Stat
+                      icon="🔥"
+                      value={product.soldCopies}
+                      label="Sold Copies"
+                    />
+
+                    <Stat
+                      icon="📦"
+                      value={product.availableCopies}
+                      label="Available"
+                    />
+
+                    <Stat
+                      icon="📖"
+                      value={product.chapters}
+                      label="Chapters"
+                    />
+
+                  </div>
+
+
+                  {/* PRICE */}
+
+                  <div className="
+                    mt-5
+                    p-4
+                    rounded-2xl
+                    bg-orange-50
+                    border border-orange-200
+                  ">
+
+                    <div className="
+                      flex flex-wrap
+                      items-end
+                      justify-between
+                      gap-4
+                    ">
+
+                      <div>
+
+                        <div className="
+                          text-[10px]
+                          text-slate-500
+                        ">
+                          Special launch price
+                        </div>
+
+                        <div className="
+                          flex items-center
+                          gap-3
+                          mt-1
+                        ">
+
+                          <span className="
+                            text-3xl
+                            font-black
+                            text-orange-600
+                          ">
+                            {money(
+                              product.salePrice
+                            )}
+                          </span>
+
+                          <span className="
+                            text-sm
+                            line-through
+                            text-slate-400
+                          ">
+                            {money(
+                              product.regularPrice
+                            )}
+                          </span>
+
+                          <span className="
+                            bg-emerald-100
+                            text-emerald-700
+                            px-2 py-1
+                            rounded-lg
+                            text-[10px]
+                            font-black
+                          ">
+                            SAVE {money(
+                              product.regularPrice -
+                              product.salePrice
+                            )}
+                          </span>
+
+                        </div>
+
+                      </div>
+
+
+                      <div className="
+                        text-right
+                      ">
+
+                        <div className="
+                          text-[9px]
+                          font-bold
+                          text-red-600
+                        ">
+                          ⏱ OFFER TIMER
+                        </div>
+
+                        <div className="
+                          text-xl
+                          font-black
+                          text-slate-900
+                        ">
+                          {formattedTimer}
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+                    {/* CTA */}
+
+                    <div className="
+                      grid grid-cols-1
+                      sm:grid-cols-3
+                      gap-2
+                      mt-4
+                    ">
+
+                      <button
+                        onClick={() =>
+                          openProduct(product)
+                        }
+                        className="
+                          py-3
+                          rounded-xl
+                          bg-white
+                          border border-orange-300
+                          text-orange-700
+                          font-black
+                          text-xs
+                          hover:bg-orange-100
+                        "
+                      >
+                        View Full Details
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          addToCart(
+                            product,
+                            "single"
+                          )
+                        }
+                        className="
+                          py-3
+                          rounded-xl
+                          orange-gradient
+                          text-white
+                          font-black
+                          text-xs
+                          shadow-lg
+                        "
+                      >
+                        🛒 Add To Cart
+                      </button>
+
+                      <a
+                        href={createWhatsAppLink(
+                          productOrderMessage(
+                            product
+                          )
+                        )}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="
+                          py-3
+                          rounded-xl
+                          bg-emerald-600
+                          hover:bg-emerald-700
+                          text-white
+                          font-black
+                          text-xs
+                          text-center
+                          shadow-lg
+                        "
+                      >
+                        💬 WhatsApp Order
+                      </a>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* HERO SLIDER INDICATORS */}
+
+                  <div className="
+                    mt-4
+                    flex items-center
+                    justify-center
+                    lg:justify-start
+                    gap-1.5
+                  ">
+
+                    {products.map(
+                      (_, index) => (
+
+                        <button
+                          key={index}
+                          onClick={() =>
+                            setHeroIndex(index)
+                          }
+                          className={`
+                            h-1.5 rounded-full
+                            transition-all
+                            ${
+                              index === heroIndex
+                                ? "w-8 bg-orange-500"
+                                : "w-2 bg-orange-200"
+                            }
+                          `}
+                        />
+
+                      )
+                    )}
+
+                    <span className="
+                      ml-2
+                      text-[9px]
+                      text-slate-400
+                    ">
+                      Auto changes every 20 sec
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            );
+
+          })()}
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          TRUST STRIP
+      ================================================= */}
+
+      <section className="
+        border-b border-slate-100
+        bg-white
+      ">
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4 py-5
+          grid grid-cols-2
+          md:grid-cols-4
+          gap-3
+        ">
+
+          <TrustItem
+            icon="📚"
+            title="Practical Content"
+            text="Useful learning resources"
+          />
+
+          <TrustItem
+            icon="💳"
+            title="NSPAY"
+            text="Simple payment process"
+          />
+
+          <TrustItem
+            icon="⚡"
+            title="3–5 Minutes"
+            text="Fast digital delivery"
+          />
+
+          <TrustItem
+            icon="💬"
+            title="WhatsApp Support"
+            text="+977 9702784684"
+          />
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          GOAL HOOKS
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-slate-50
+      ">
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="CHOOSE YOUR GOAL"
+            title="तपाईं अहिले के सिक्न चाहनुहुन्छ?"
+            subtitle="आफ्नो goal अनुसार practical Ebook छान्नुहोस्।"
+          />
+
+          <div className="
+            grid grid-cols-2
+            sm:grid-cols-3
+            lg:grid-cols-6
+            gap-3
+          ">
+
+            {CATEGORIES.map(
+              category => (
+
+                <button
+                  key={category.id}
+                  onClick={() => {
+
+                    setSelectedCategory(
+                      category.id
+                    );
+
+                    scrollTo("explore");
+                  }}
+                  className="
+                    bg-white
+                    rounded-2xl
+                    border border-slate-200
+                    p-4
+                    text-left
+                    hover:border-orange-300
+                    hover:shadow-md
+                    transition
+                  "
+                >
+
+                  <div className="
+                    w-10 h-10
+                    rounded-xl
+                    bg-orange-50
+                    flex items-center
+                    justify-center
+                    text-xl
+                    mb-3
+                  ">
+                    {category.icon}
+                  </div>
+
+                  <div className="
+                    text-xs
+                    font-black
+                    text-slate-900
+                  ">
+                    {category.name}
+                  </div>
+
+                  <div className="
+                    text-[9px]
+                    text-slate-400
+                    mt-1
+                  ">
+                    Explore →
+                  </div>
+
+                </button>
+
+              )
+            )}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          EXPLORE
+      ================================================= */}
+
+      <section
+        id="explore"
+        className="
+          py-10
+          bg-white
+          border-b border-slate-100
+        "
+      >
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4
+        ">
+
+          <div className="
+            flex flex-col
+            lg:flex-row
+            lg:items-end
+            justify-between
+            gap-4
+            mb-6
+          ">
+
+            <div>
+
+              <div className="
+                text-[10px]
+                font-black
+                text-orange-600
+                uppercase
+                tracking-widest
+              ">
+                STUDYNOTES LIBRARY
+              </div>
+
+              <h2 className="
+                mt-1
+                text-2xl md:text-3xl
+                font-black
+              ">
+                Explore Ebooks
+              </h2>
+
+              <p className="
+                text-xs
+                text-slate-500
+                mt-1
+              ">
+                Search, filter and select your learning resource.
+              </p>
+
+            </div>
+
+
+            {/* SEARCH + SORT SAME ROW */}
+
+            <div className="
+              flex items-center
+              gap-2
+            ">
+
+              <div className="
+                relative
+                flex-1
+                min-w-0
+              ">
+
+                <span className="
+                  absolute
+                  left-3
+                  top-2.5
+                  text-slate-400
+                ">
+                  🔍
+                </span>
+
+                <input
+                  value={searchQuery}
+                  onChange={e =>
+                    setSearchQuery(
+                      e.target.value
+                    )
+                  }
+                  placeholder="Search..."
+                  className="
+                    w-full
+                    pl-9 pr-3 py-2.5
+                    rounded-xl
+                    border border-slate-200
+                    bg-slate-50
+                    text-xs
+                    outline-none
+                    focus:border-orange-400
+                  "
+                />
+
+              </div>
+
+              <select
+                value={sortBy}
+                onChange={e =>
+                  setSortBy(e.target.value)
+                }
+                className="
+                  px-3 py-2.5
+                  rounded-xl
+                  border border-slate-200
+                  bg-white
+                  text-[10px]
+                  font-bold
+                  outline-none
+                "
+              >
+                <option value="featured">
+                  Featured
+                </option>
+                <option value="newest">
+                  Newest
+                </option>
+                <option value="rating">
+                  Rating
+                </option>
+                <option value="price-low">
+                  Low Price
+                </option>
+                <option value="price-high">
+                  High Price
+                </option>
+                <option value="discount">
+                  Discount
+                </option>
+              </select>
+
+            </div>
+
+          </div>
+
+
+          {/* CATEGORY FILTER */}
+
+          <div className="
+            flex gap-2
+            overflow-x-auto
+            hide-scrollbar
+            pb-4
+            mb-2
+          ">
+
+            <button
+              onClick={() =>
+                setSelectedCategory("all")
+              }
+              className={`
+                shrink-0
+                px-3 py-2
+                rounded-xl
+                text-[10px]
+                font-black
+                ${
+                  selectedCategory === "all"
+                    ? "bg-orange-500 text-white"
+                    : "bg-slate-100 text-slate-600"
+                }
+              `}
+            >
+              📚 All ({products.length})
+            </button>
+
+            {CATEGORIES.map(
+              category => {
+
+                const count =
+                  products.filter(
+                    p =>
+                      p.category ===
+                      category.id
+                  ).length;
+
+                return (
+
+                  <button
+                    key={category.id}
+                    onClick={() =>
+                      setSelectedCategory(
+                        category.id
+                      )
+                    }
+                    className={`
+                      shrink-0
+                      px-3 py-2
+                      rounded-xl
+                      text-[10px]
+                      font-black
+                      ${
+                        selectedCategory ===
+                        category.id
+                          ? "bg-orange-500 text-white"
+                          : "bg-slate-100 text-slate-600"
+                      }
+                    `}
+                  >
+                    {category.icon}{" "}
+                    {category.name} ({count})
+                  </button>
+
+                );
+              }
+            )}
+
+          </div>
+
+
+          {/* PRODUCT GRID
+              Mobile 2
+              Tablet 3
+              Desktop 4
+          */}
+
+          {filteredProducts.length === 0 ? (
+
+            <div className="
+              py-16
+              text-center
+              bg-orange-50
+              rounded-2xl
+            ">
+
+              <div className="text-4xl">
+                🔍
+              </div>
+
+              <p className="
+                mt-3
+                font-bold
+                text-sm
+              ">
+                कुनै Ebook भेटिएन।
+              </p>
+
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  setSelectedCategory(
+                    "all"
+                  );
+                }}
+                className="
+                  mt-4
+                  px-4 py-2
+                  bg-orange-500
+                  text-white
+                  rounded-xl
+                  text-xs
+                  font-black
+                "
+              >
+                Reset Filters
+              </button>
+
+            </div>
+
+          ) : (
+
+            <div className="
+              grid
+              grid-cols-2
+              md:grid-cols-3
+              xl:grid-cols-4
+              gap-3 md:gap-5
+            ">
+
+              {filteredProducts.map(
+                product => (
+
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onOpen={() =>
+                      openProduct(product)
+                    }
+                    addToCart={() =>
+                      addToCart(
+                        product,
+                        "single"
+                      )
+                    }
+                  />
+
+                )
+              )}
+
+            </div>
+
+          )}
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          CUSTOM COMBO
+      ================================================= */}
+
+      <section
+        id="combos"
+        className="
+          py-10
+          bg-orange-50
+          border-b border-orange-100
+        "
+      >
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="CUSTOM SAVINGS"
+            title="आफ्नो Custom Combo बनाउनुहोस्"
+            subtitle="२ वा सोभन्दा बढी Ebook छान्नुहोस् र अतिरिक्त १५% combo discount पाउनुहोस्।"
+          />
+
+
+          <div className="
+            grid
+            grid-cols-1
+            lg:grid-cols-12
+            gap-5
+          ">
+
+            <div className="
+              lg:col-span-8
+              grid grid-cols-2
+              md:grid-cols-3
+              gap-3
+            ">
+
+              {products.map(product => {
+
+                const selected =
+                  comboSelectedIds.includes(
+                    product.id
+                  );
+
+                return (
+
+                  <button
+                    key={product.id}
+                    onClick={() => {
+
+                      setComboSelectedIds(
+                        prev =>
+                          selected
+                            ? prev.filter(
+                                id =>
+                                  id !==
+                                  product.id
+                              )
+                            : [
+                                ...prev,
+                                product.id
+                              ]
+                      );
+
+                    }}
+                    className={`
+                      text-left
+                      p-2.5
+                      rounded-2xl
+                      border
+                      transition
+                      ${
+                        selected
+                          ? "border-orange-500 bg-white shadow-md"
+                          : "border-orange-200 bg-white/80"
+                      }
+                    `}
+                  >
+
+                    <div className="
+                      relative
+                    ">
+
+                      <img
+                        src={
+                          product.coverImage
+                            .source
+                        }
+                        alt=""
+                        className="
+                          w-full
+                          aspect-[7/8]
+                          object-cover
+                          rounded-xl
+                        "
+                      />
+
+                      <span className="
+                        absolute
+                        top-1.5
+                        left-1.5
+                        bg-red-500
+                        text-white
+                        rounded-md
+                        px-1.5 py-0.5
+                        text-[8px]
+                        font-black
+                      ">
+                        {discountPercent(
+                          product
+                        )}% OFF
+                      </span>
+
+                      {selected && (
+                        <span className="
+                          absolute
+                          top-1.5
+                          right-1.5
+                          bg-orange-500
+                          text-white
+                          rounded-full
+                          w-6 h-6
+                          flex items-center
+                          justify-center
+                          text-xs
+                        ">
+                          ✓
+                        </span>
+                      )}
+
+                    </div>
+
+                    <div className="
+                      mt-2
+                      text-[10px]
+                      font-black
+                      line-clamp-2
+                    ">
+                      {product.title}
+                    </div>
+
+                    <div className="
+                      mt-1
+                      text-[10px]
+                      font-black
+                      text-orange-600
+                    ">
+                      {money(
+                        product.salePrice
+                      )}
+                    </div>
+
+                  </button>
+
+                );
+
+              })}
+
+            </div>
+
+
+            {/* SUMMARY */}
+
+            <div className="
+              lg:col-span-4
+              bg-white
+              rounded-2xl
+              border border-orange-200
+              p-5
+              h-fit
+              sticky
+              top-28
+            ">
+
+              <div className="
+                text-[10px]
+                font-black
+                text-orange-600
+              ">
+                YOUR CUSTOM PACKAGE
+              </div>
+
+              <h3 className="
+                mt-1
+                text-lg
+                font-black
+              ">
+                Combo Summary
+              </h3>
+
+              <div className="
+                mt-4
+                space-y-2
+                text-xs
+              ">
+
+                <div className="
+                  flex justify-between
+                ">
+                  <span className="text-slate-500">
+                    Selected
+                  </span>
+
+                  <strong>
+                    {
+                      comboCalculation
+                        .selected.length
+                    } Ebooks
+                  </strong>
+                </div>
+
+                <div className="
+                  flex justify-between
+                ">
+                  <span className="text-slate-500">
+                    Original
+                  </span>
+
+                  <span className="
+                    line-through
+                    text-slate-400
+                  ">
+                    {money(
+                      comboCalculation.regular
+                    )}
+                  </span>
+                </div>
+
+                {comboCalculation
+                  .selected.length >= 2 && (
+
+                  <div className="
+                    p-2
+                    bg-emerald-50
+                    text-emerald-700
+                    rounded-xl
+                    font-black
+                  ">
+                    ✨ Extra 15% Combo Discount
+                  </div>
+
+                )}
+
+                <div className="
+                  pt-3
+                  border-t
+                  flex justify-between
+                  items-center
+                ">
+
+                  <span className="
+                    font-bold
+                  ">
+                    Final Price
+                  </span>
+
+                  <span className="
+                    text-2xl
+                    font-black
+                    text-orange-600
+                  ">
+                    {money(
+                      comboCalculation.final
+                    )}
+                  </span>
+
+                </div>
+
+                <div className="
+                  text-right
+                  text-[10px]
+                  text-emerald-600
+                  font-black
+                ">
+                  Total Savings{" "}
+                  {money(
+                    comboCalculation.savings
+                  )}
+                </div>
+
+              </div>
+
+
+              <button
+                disabled={
+                  comboCalculation.selected
+                    .length < 2
+                }
+                onClick={() => {
+
+                  addToCart(
+                    {
+                      products:
+                        comboCalculation.selected,
+                      salePrice:
+                        comboCalculation.final,
+                      regularPrice:
+                        comboCalculation.regular
+                    },
+                    "combo"
+                  );
+
+                }}
+                className={`
+                  mt-5
+                  w-full
+                  py-3
+                  rounded-xl
+                  text-xs
+                  font-black
+                  ${
+                    comboCalculation
+                      .selected.length >= 2
+                      ? "bg-orange-500 text-white hover:bg-orange-600"
+                      : "bg-slate-200 text-slate-400"
+                  }
+                `}
+              >
+                🛒 Add Combo To Cart
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          BUNDLES
+      ================================================= */}
+
+      <section
+        id="bundles"
+        className="
+          py-10
+          bg-white
+        "
+      >
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="BEST VALUE"
+            title="Best Bundle Offers"
+            subtitle="एकैपटक धेरै learning resources चाहिनेका लागि curated bundles।"
+          />
+
+
+          <div className="
+            grid
+            grid-cols-1
+            lg:grid-cols-2
+            gap-5
+          ">
+
+            {CURATED_BUNDLES.map(bundle => (
+
+              <div
+                key={bundle.id}
+                className="
+                  rounded-3xl
+                  border border-orange-200
+                  bg-orange-50/50
+                  p-4
+                  card-shadow
+                "
+              >
+
+                <div className="
+                  grid
+                  grid-cols-1
+                  sm:grid-cols-12
+                  gap-4
+                ">
+
+                  <div className="
+                    sm:col-span-4
+                    relative
+                  ">
+
+                    <img
+                      src={bundle.image}
+                      alt=""
+                      className="
+                        w-full
+                        aspect-[4/3]
+                        sm:aspect-square
+                        object-cover
+                        rounded-2xl
+                      "
+                    />
+
+                    <span className="
+                      absolute
+                      top-2
+                      left-2
+                      bg-orange-500
+                      text-white
+                      px-2 py-1
+                      rounded-lg
+                      text-[8px]
+                      font-black
+                    ">
+                      {bundle.badge}
+                    </span>
+
+                  </div>
+
+
+                  <div className="
+                    sm:col-span-8
+                  ">
+
+                    <h3 className="
+                      text-lg
+                      font-black
+                    ">
+                      {bundle.title}
+                    </h3>
+
+                    <p className="
+                      text-xs
+                      font-bold
+                      text-orange-700
+                      mt-1
+                    ">
+                      {bundle.subtitle}
+                    </p>
+
+                    <p className="
+                      text-xs
+                      text-slate-500
+                      mt-2
+                    ">
+                      {bundle.summary}
+                    </p>
+
+
+                    {/* SMALL BOOK COVERS */}
+
+                    <div className="
+                      flex
+                      gap-1.5
+                      mt-4
+                      overflow-x-auto
+                      hide-scrollbar
+                    ">
+
+                      {bundle.includedProductIds.map(
+                        id => {
+
+                          const product =
+                            products.find(
+                              p => p.id === id
+                            );
+
+                          if (!product)
+                            return null;
+
+                          return (
+
+                            <button
+                              key={id}
+                              onClick={() =>
+                                openProduct(product)
+                              }
+                              className="
+                                shrink-0
+                                relative
+                              "
+                            >
+
+                              <img
+                                src={
+                                  product
+                                    .coverImage
+                                    .source
+                                }
+                                alt=""
+                                className="
+                                  w-12 h-16
+                                  object-cover
+                                  rounded-lg
+                                  border
+                                  border-orange-200
+                                "
+                              />
+
+                              <span className="
+                                absolute
+                                bottom-0.5
+                                left-0.5
+                                right-0.5
+                                bg-slate-950/80
+                                text-white
+                                text-[6px]
+                                text-center
+                                rounded
+                              ">
+                                {discountPercent(
+                                  product
+                                )}% OFF
+                              </span>
+
+                            </button>
+
+                          );
+
+                        }
+                      )}
+
+                    </div>
+
+
+                    <div className="
+                      mt-4
+                      flex
+                      items-center
+                      justify-between
+                      gap-3
+                    ">
+
+                      <div>
+
+                        <span className="
+                          text-2xl
+                          font-black
+                          text-orange-600
+                        ">
+                          {money(
+                            bundle.salePrice
+                          )}
+                        </span>
+
+                        <span className="
+                          ml-2
+                          text-xs
+                          line-through
+                          text-slate-400
+                        ">
+                          {money(
+                            bundle.regularPrice
+                          )}
+                        </span>
+
+                      </div>
+
+                      <button
+                        onClick={() =>
+                          addToCart(
+                            bundle,
+                            "bundle"
+                          )
+                        }
+                        className="
+                          px-4 py-2.5
+                          rounded-xl
+                          bg-orange-500
+                          text-white
+                          text-[10px]
+                          font-black
+                        "
+                      >
+                        🛒 Add Bundle
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          RATINGS & REVIEWS
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-slate-50
+      ">
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="CUSTOMER FEEDBACK"
+            title="Ratings & Reviews"
+            subtitle="Learning experience बारेमा readers ले के भन्छन्।"
+          />
+
+
+          <div className="
+            grid
+            grid-cols-1
+            md:grid-cols-4
+            gap-3
+            mb-5
+          ">
+
+            <div className="
+              bg-white
+              rounded-2xl
+              border border-slate-200
+              p-5
+              text-center
+            ">
+
+              <div className="
+                text-4xl
+                font-black
+                text-orange-600
+              ">
+                4.9
+              </div>
+
+              <div className="
+                text-orange-500
+                text-lg
+                mt-1
+              ">
+                ★★★★★
+              </div>
+
+              <div className="
+                text-[10px]
+                text-slate-500
+                mt-1
+              ">
+                Average Reader Rating
+              </div>
+
+            </div>
+
+
+            <ReviewStat
+              value="96%"
+              text="Readers found the content useful"
+            />
+
+            <ReviewStat
+              value="92%"
+              text="Would recommend to others"
+            />
+
+            <ReviewStat
+              value="3–5m"
+              text="Typical delivery after confirmation"
+            />
+
+          </div>
+
+
+          <div className="
+            grid
+            grid-cols-1
+            md:grid-cols-2
+            lg:grid-cols-4
+            gap-3
+          ">
+
+            {TESTIMONIALS.map(
+              review => (
+
+                <div
+                  key={review.name}
+                  className="
+                    bg-white
+                    rounded-2xl
+                    border border-slate-200
+                    p-4
+                  "
+                >
+
+                  <div className="
+                    flex items-center
+                    justify-between
+                  ">
+
+                    <div className="
+                      flex items-center
+                      gap-2
+                    ">
+
+                      <div className="
+                        w-9 h-9
+                        rounded-full
+                        bg-orange-100
+                        text-orange-700
+                        flex items-center
+                        justify-center
+                        font-black
+                        text-xs
+                      ">
+                        {review.name[0]}
+                      </div>
+
+                      <div>
+
+                        <div className="
+                          text-xs
+                          font-black
+                        ">
+                          {review.name}
+                        </div>
+
+                        <div className="
+                          text-[9px]
+                          text-slate-400
+                        ">
+                          {review.location}
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <div className="
+                      text-orange-500
+                      text-xs
+                    ">
+                      ★★★★★
+                    </div>
+
+                  </div>
+
+                  <p className="
+                    mt-4
+                    text-xs
+                    leading-relaxed
+                    text-slate-600
+                  ">
+                    “{review.message}”
+                  </p>
+
+                  <div className="
+                    mt-3
+                    text-[9px]
+                    text-emerald-600
+                    font-bold
+                  ">
+                    ✓ Verified-style reader feedback
+                  </div>
+
+                </div>
+
+              )
+            )}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          RECEIVING PROCESS
+      ================================================= */}
+
+      <section
+        id="how-it-works"
+        className="
+          py-10
+          bg-white
+        "
+      >
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="SIMPLE ORDERING"
+            title="Ebook कसरी प्राप्त गर्ने?"
+            subtitle="Explore देखि delivery सम्म सरल process।"
+          />
+
+
+          <div className="
+            grid
+            grid-cols-2
+            md:grid-cols-3
+            lg:grid-cols-6
+            gap-3
+          ">
+
+            {[
+              [
+                "01",
+                "Explore",
+                "आफ्नो Ebook छान्नुहोस्।"
+              ],
+              [
+                "02",
+                "Preview",
+                "Sample content हेर्नुहोस्।"
+              ],
+              [
+                "03",
+                "Cart",
+                "Cart मा add गर्नुहोस्।"
+              ],
+              [
+                "04",
+                "Payment",
+                "NSPAY बाट payment गर्नुहोस्।"
+              ],
+              [
+                "05",
+                "WhatsApp",
+                "Payment proof पठाउनुहोस्।"
+              ],
+              [
+                "06",
+                "Delivery",
+                "३–५ मिनेटमा Ebook प्राप्त गर्नुहोस्।"
+              ]
+            ].map(step => (
+
+              <div
+                key={step[0]}
+                className="
+                  p-4
+                  rounded-2xl
+                  border border-slate-200
+                  bg-slate-50
+                  text-center
+                "
+              >
+
+                <div className="
+                  w-9 h-9
+                  rounded-full
+                  bg-orange-500
+                  text-white
+                  flex items-center
+                  justify-center
+                  mx-auto
+                  font-black
+                  text-xs
+                ">
+                  {step[0]}
+                </div>
+
+                <h4 className="
+                  mt-3
+                  text-xs
+                  font-black
+                ">
+                  {step[1]}
+                </h4>
+
+                <p className="
+                  mt-1
+                  text-[9px]
+                  leading-relaxed
+                  text-slate-500
+                ">
+                  {step[2]}
+                </p>
+
+              </div>
+
+            ))}
+
+          </div>
+
+
+          <div className="
+            mt-6
+            bg-orange-50
+            border border-orange-200
+            rounded-2xl
+            p-4
+            flex flex-col
+            md:flex-row
+            items-center
+            justify-between
+            gap-4
+          ">
+
+            <div>
+
+              <div className="
+                text-xs
+                font-black
+              ">
+                Need help ordering?
+              </div>
+
+              <div className="
+                text-[10px]
+                text-slate-500
+                mt-1
+              ">
+                WhatsApp मा message गर्नुहोस्।
+              </div>
+
+            </div>
+
+            <a
+              href={createWhatsAppLink(
+                "नमस्ते StudyNotes 👋 मलाई Ebook order गर्न सहयोग चाहिएको छ।"
+              )}
+              target="_blank"
+              rel="noreferrer"
+              className="
+                px-5 py-3
+                rounded-xl
+                bg-emerald-600
+                text-white
+                text-xs
+                font-black
+              "
+            >
+              💬 WhatsApp Support
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          TESTIMONIAL WHATSAPP CHAT
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-orange-50
+      ">
+
+        <div className="
+          max-w-3xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="READER STORIES"
+            title="WhatsApp-style Reader Feedback"
+            subtitle="Simple, familiar and easy-to-read customer conversation design."
+          />
+
+
+          <div className="
+            bg-[#e5ddd5]
+            rounded-3xl
+            p-4
+            md:p-6
+            shadow-inner
+            border border-orange-100
+          ">
+
+            <div className="
+              bg-white
+              rounded-2xl
+              p-3
+              flex items-center
+              gap-3
+              shadow-sm
+            ">
+
+              <div className="
+                w-10 h-10
+                rounded-full
+                bg-orange-500
+                text-white
+                flex items-center
+                justify-center
+                font-black
+              ">
+                SN
+              </div>
+
+              <div>
+
+                <div className="
+                  font-black
+                  text-xs
+                ">
+                  StudyNotes Support
+                </div>
+
+                <div className="
+                  text-[9px]
+                  text-emerald-600
+                ">
+                  online
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div className="
+              mt-5
+              space-y-3
+            ">
+
+              {TESTIMONIALS.slice(0, 3).map(
+                (item, index) => (
+
+                  <div
+                    key={item.name}
+                    className={`
+                      flex
+                      ${
+                        index % 2 === 0
+                          ? "justify-start"
+                          : "justify-end"
+                      }
+                    `}
+                  >
+
+                    <div
+                      className={`
+                        max-w-[85%]
+                        rounded-2xl
+                        px-4 py-3
+                        text-xs
+                        shadow-sm
+                        ${
+                          index % 2 === 0
+                            ? "bg-white rounded-tl-sm"
+                            : "bg-[#dcf8c6] rounded-tr-sm"
+                        }
+                      `}
+                    >
+
+                      <div className="
+                        font-black
+                        text-[10px]
+                        text-orange-700
+                        mb-1
+                      ">
+                        {item.name}
+                      </div>
+
+                      {item.message}
+
+                      <div className="
+                        text-right
+                        text-[8px]
+                        text-slate-400
+                        mt-1
+                      ">
+                        9:41 PM ✓✓
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                )
+              )}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          FINAL CTA
+      ================================================= */}
+
+      <section className="
+        py-12
+        bg-slate-950
+        text-white
+      ">
+
+        <div className="
+          max-w-4xl mx-auto
+          px-4
+          text-center
+        ">
+
+          <div className="
+            inline-flex
+            items-center
+            gap-2
+            bg-orange-500/10
+            border border-orange-500/30
+            rounded-full
+            px-3 py-1
+            text-[10px]
+            font-black
+            text-orange-400
+          ">
+            ⚡ LIMITED-TIME STUDYNOTES OFFER
+          </div>
+
+          <h2 className="
+            mt-4
+            text-2xl md:text-4xl
+            font-black
+          ">
+            आजै आफ्नो next skill सुरु गर्नुहोस्।
+          </h2>
+
+          <p className="
+            mt-3
+            text-sm
+            text-slate-400
+          ">
+            सही Ebook छान्नुहोस्, payment गर्नुहोस्,
+            अनि practical learning सुरु गर्नुहोस्।
+          </p>
+
+          <div className="
+            mt-6
+            flex flex-col
+            sm:flex-row
+            justify-center
+            gap-3
+          ">
+
+            <button
+              onClick={() =>
+                scrollTo("explore")
+              }
+              className="
+                px-6 py-3
+                rounded-xl
+                bg-orange-500
+                hover:bg-orange-600
+                text-white
+                text-xs
+                font-black
+              "
+            >
+              📚 Explore Ebooks
+            </button>
+
+            <button
+              onClick={() =>
+                scrollTo("bundles")
+              }
+              className="
+                px-6 py-3
+                rounded-xl
+                bg-white
+                text-slate-950
+                text-xs
+                font-black
+              "
+            >
+              🎁 View Best Bundles
+            </button>
+
+            <a
+              href={createWhatsAppLink(
+                "नमस्ते StudyNotes 👋 मलाई Ebook छान्न र order गर्न सहयोग चाहिएको छ।"
+              )}
+              target="_blank"
+              rel="noreferrer"
+              className="
+                px-6 py-3
+                rounded-xl
+                bg-emerald-600
+                hover:bg-emerald-700
+                text-white
+                text-xs
+                font-black
+              "
+            >
+              💬 WhatsApp Us
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          AUTHOR
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-white
+      ">
+
+        <div className="
+          max-w-3xl mx-auto
+          px-4
+          text-center
+        ">
+
+          <div className="
+            w-20 h-20
+            mx-auto
+            rounded-2xl
+            orange-gradient
+            text-white
+            flex items-center
+            justify-center
+            font-black
+            text-xl
+            shadow-lg
+          ">
+            MD.NS
+          </div>
+
+          <div className="
+            mt-4
+            text-[10px]
+            font-black
+            text-orange-600
+            uppercase
+            tracking-widest
+          ">
+            ABOUT STUDYNOTES
+          </div>
+
+          <h3 className="
+            mt-1
+            text-xl
+            font-black
+          ">
+            {BRAND_CONFIG.authorName}
+          </h3>
+
+          <p className="
+            mt-3
+            text-xs
+            md:text-sm
+            text-slate-500
+            leading-relaxed
+          ">
+            StudyNotes को उद्देश्य नेपाली युवा,
+            विद्यार्थी र professionals का लागि
+            practical skills, career preparation,
+            digital learning र personal development
+            सम्बन्धी उपयोगी digital learning resources
+            उपलब्ध गराउनु हो।
+          </p>
+
+
+          <div className="
+            mt-5
+            flex
+            items-center
+            justify-center
+            gap-2
+          ">
+
+            <a
+              href={createWhatsAppLink(
+                "नमस्ते StudyNotes 👋"
+              )}
+              target="_blank"
+              rel="noreferrer"
+              className="
+                flex items-center
+                gap-2
+                px-4 py-2.5
+                rounded-xl
+                bg-emerald-600
+                text-white
+                text-[10px]
+                font-black
+              "
+            >
+              💬 WhatsApp
+            </a>
+
+            <a
+              href={`mailto:${BRAND_CONFIG.supportEmail}`}
+              className="
+                flex items-center
+                gap-2
+                px-4 py-2.5
+                rounded-xl
+                bg-slate-900
+                text-white
+                text-[10px]
+                font-black
+              "
+            >
+              ✉️ Email
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          FAQ
+      ================================================= */}
+
+      <section
+        id="faqs"
+        className="
+          py-10
+          bg-slate-50
+        "
+      >
+
+        <div className="
+          max-w-3xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="FAQ"
+            title="अक्सर सोधिने प्रश्नहरू"
+            subtitle="Order, payment र delivery सम्बन्धी जानकारी।"
+          />
+
+          <div className="
+            space-y-2
+          ">
+
+            {FAQS.map(
+              (faq, index) => {
+
+                const open =
+                  faqOpen === index;
+
+                return (
+
+                  <div
+                    key={faq.q}
+                    className="
+                      bg-white
+                      border border-slate-200
+                      rounded-2xl
+                      overflow-hidden
+                    "
+                  >
+
+                    <button
+                      onClick={() =>
+                        setFaqOpen(
+                          open
+                            ? null
+                            : index
+                        )
+                      }
+                      className="
+                        w-full
+                        px-4 py-4
+                        flex items-center
+                        justify-between
+                        text-left
+                      "
+                    >
+
+                      <span className="
+                        text-xs
+                        font-black
+                      ">
+                        {faq.q}
+                      </span>
+
+                      <span className="
+                        text-orange-500
+                        font-black
+                      ">
+                        {open ? "−" : "+"}
+                      </span>
+
+                    </button>
+
+                    {open && (
+                      <div className="
+                        px-4 pb-4
+                        text-xs
+                        leading-relaxed
+                        text-slate-500
+                        border-t
+                        border-slate-100
+                        pt-3
+                      ">
+                        {faq.a}
+                      </div>
+                    )}
+
+                  </div>
+
+                );
+
+              }
+            )}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          FOOTER
+      ================================================= */}
+
+      <footer className="
+        bg-slate-950
+        text-slate-300
+        py-10
+        pb-28 md:pb-10
+      ">
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4
+          grid
+          grid-cols-2
+          md:grid-cols-4
+          gap-7
+        ">
+
+          <div className="
+            col-span-2
+            md:col-span-1
+          ">
+
+            <div className="
+              flex items-center
+              gap-2
+            ">
+
+              <div className="
+                w-9 h-9
+                rounded-xl
+                bg-orange-500
+                text-white
+                flex items-center
+                justify-center
+              ">
+                📚
+              </div>
+
+              <div className="
+                font-black
+                text-white
+              ">
+                StudyNotes
+              </div>
+
+            </div>
+
+            <p className="
+              mt-3
+              text-[10px]
+              leading-relaxed
+              text-slate-500
+            ">
+              Practical digital learning resources
+              for skills, career and personal growth.
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <h4 className="
+              text-xs
+              font-black
+              text-white
+              mb-3
+            ">
+              Explore
+            </h4>
+
+            <div className="
+              space-y-2
+              text-[10px]
+            ">
+
+              <button
+                onClick={() =>
+                  scrollTo("explore")
+                }
+                className="
+                  block hover:text-orange-400
+                "
+              >
+                Ebooks
+              </button>
+
+              <button
+                onClick={() =>
+                  scrollTo("combos")
+                }
+                className="
+                  block hover:text-orange-400
+                "
+              >
+                Custom Combo
+              </button>
+
+              <button
+                onClick={() =>
+                  scrollTo("bundles")
+                }
+                className="
+                  block hover:text-orange-400
+                "
+              >
+                Bundles
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <h4 className="
+              text-xs
+              font-black
+              text-white
+              mb-3
+            ">
+              Support
+            </h4>
+
+            <div className="
+              space-y-2
+              text-[10px]
+            ">
+
+              <a
+                href={createWhatsAppLink(
+                  "नमस्ते StudyNotes 👋"
+                )}
+                target="_blank"
+                rel="noreferrer"
+                className="
+                  block hover:text-orange-400
+                "
+              >
+                WhatsApp
+              </a>
+
+              <a
+                href={`mailto:${BRAND_CONFIG.supportEmail}`}
+                className="
+                  block hover:text-orange-400
+                "
+              >
+                Email
+              </a>
+
+              <button
+                onClick={() =>
+                  setPolicy({
+                    title: "Delivery Policy",
+                    content:
+                      "Payment verification पछि digital Ebook WhatsApp वा Email मार्फत सामान्यतया ३–५ मिनेटभित्र पठाइन्छ।"
+                  })
+                }
+                className="
+                  block hover:text-orange-400
+                "
+              >
+                Delivery Policy
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <h4 className="
+              text-xs
+              font-black
+              text-white
+              mb-3
+            ">
+              Policies
+            </h4>
+
+            <div className="
+              space-y-2
+              text-[10px]
+            ">
+
+              <button
+                onClick={() =>
+                  setPolicy({
+                    title: "Privacy Policy",
+                    content:
+                      "तपाईंको contact information लाई सम्मानका साथ प्रयोग गरिन्छ। अनधिकृत बिक्री वा misuse गरिने छैन।"
+                  })
+                }
+                className="
+                  block hover:text-orange-400
+                "
+              >
+                Privacy
+              </button>
+
+              <button
+                onClick={() =>
+                  setPolicy({
+                    title: "Terms & Conditions",
+                    content:
+                      "Ebooks व्यक्तिगत अध्ययनका लागि हुन्। Unauthorized resale, redistribution वा copyright infringement अनुमति छैन।"
+                  })
+                }
+                className="
+                  block hover:text-orange-400
+                "
+              >
+                Terms
+              </button>
+
+              <button
+                onClick={() =>
+                  setPolicy({
+                    title: "Educational Disclaimer",
+                    content:
+                      "StudyNotes सामग्री educational purpose का लागि हो। कुनै पनि job, income वा investment return को 100% guarantee दिइँदैन।"
+                  })
+                }
+                className="
+                  block hover:text-orange-400
+                "
+              >
+                Disclaimer
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div className="
+          max-w-7xl mx-auto
+          px-4
+          mt-8 pt-5
+          border-t border-slate-800
+          text-center
+          text-[9px]
+          text-slate-600
+        ">
+          © {new Date().getFullYear()} StudyNotes.
+          All rights reserved.
+        </div>
+
+      </footer>
+
+
+      {/* =================================================
+          FLOATING BOTTOM NAV
+      ================================================= */}
+
+      <FloatingNav
+        cartCount={cartTotals.count}
+        onHome={() => scrollTo("hero")}
+        onEbooks={() => scrollTo("explore")}
+        onCart={() => setIsCartOpen(true)}
+        onOffers={() => scrollTo("bundles")}
+        onSupport={() =>
+          window.open(
+            createWhatsAppLink(
+              "नमस्ते StudyNotes 👋"
+            ),
+            "_blank"
+          )
+        }
+        onMenu={() =>
+          setMobileMenuOpen(
+            !mobileMenuOpen
+          )
+        }
+      />
+
+
+      {/* =================================================
+          CART DRAWER
+      ================================================= */}
+
+      {isCartOpen && (
+
+        <div className="
+          fixed inset-0
+          z-[90]
+          bg-slate-950/60
+          backdrop-blur-sm
+        ">
+
+          <div className="
+            absolute
+            right-0 top-0 bottom-0
+            w-full
+            max-w-md
+            bg-white
+            shadow-2xl
+            flex flex-col
+          ">
+
+            <div className="
+              p-5
+              border-b
+              flex items-center
+              justify-between
+            ">
+
+              <div>
+
+                <div className="
+                  text-[10px]
+                  text-orange-600
+                  font-black
+                ">
+                  YOUR ORDER
+                </div>
+
+                <h3 className="
+                  text-lg
+                  font-black
+                ">
+                  🛒 Shopping Cart
+                </h3>
+
+              </div>
+
+              <button
+                onClick={() =>
+                  setIsCartOpen(false)
+                }
+                className="
+                  w-9 h-9
+                  rounded-xl
+                  bg-slate-100
+                  font-black
+                "
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <div className="
+              flex-1
+              overflow-y-auto
+              p-4
+            ">
+
+              {cart.length === 0 ? (
+
+                <div className="
+                  h-full
+                  flex items-center
+                  justify-center
+                  text-center
+                ">
+
+                  <div>
+
+                    <div className="text-5xl">
+                      🛒
+                    </div>
+
+                    <p className="
+                      mt-3
+                      text-sm
+                      font-bold
+                    ">
+                      Cart खाली छ
+                    </p>
+
+                    <button
+                      onClick={() => {
+                        setIsCartOpen(false);
+                        scrollTo("explore");
+                      }}
+                      className="
+                        mt-4
+                        bg-orange-500
+                        text-white
+                        rounded-xl
+                        px-5 py-2.5
+                        text-xs
+                        font-black
+                      "
+                    >
+                      Browse Ebooks
+                    </button>
+
+                  </div>
+
+                </div>
+
+              ) : (
+
+                <div className="
+                  space-y-3
+                ">
+
+                  {cart.map(item => (
+
+                    <div
+                      key={item.id}
+                      className="
+                        p-3
+                        rounded-2xl
+                        bg-orange-50
+                        border border-orange-100
+                        flex gap-3
+                      "
+                    >
+
+                      <img
+                        src={item.cover}
+                        alt=""
+                        className="
+                          w-14 h-16
+                          rounded-xl
+                          object-cover
+                        "
+                      />
+
+                      <div className="
+                        flex-1
+                        min-w-0
+                      ">
+
+                        <div className="
+                          text-[8px]
+                          font-black
+                          text-orange-600
+                          uppercase
+                        ">
+                          {item.type}
+                        </div>
+
+                        <div className="
+                          mt-1
+                          text-xs
+                          font-black
+                          line-clamp-2
+                        ">
+                          {item.title}
+                        </div>
+
+                        <div className="
+                          mt-2
+                          flex items-center
+                          justify-between
+                        ">
+
+                          <span className="
+                            text-xs
+                            font-black
+                            text-orange-600
+                          ">
+                            {money(
+                              item.salePrice
+                            )}
+                          </span>
+
+                          <div className="
+                            flex items-center
+                            gap-2
+                          ">
+
+                            <button
+                              onClick={() =>
+                                changeQuantity(
+                                  item.id,
+                                  -1
+                                )
+                              }
+                              className="
+                                w-6 h-6
+                                bg-white
+                                border
+                                rounded-lg
+                              "
+                            >
+                              −
+                            </button>
+
+                            <span className="
+                              text-xs
+                              font-black
+                            ">
+                              {item.quantity}
+                            </span>
+
+                            <button
+                              onClick={() =>
+                                changeQuantity(
+                                  item.id,
+                                  1
+                                )
+                              }
+                              className="
+                                w-6 h-6
+                                bg-white
+                                border
+                                rounded-lg
+                              "
+                            >
+                              +
+                            </button>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+
+                      <button
+                        onClick={() =>
+                          removeFromCart(
+                            item.id
+                          )
+                        }
+                        className="
+                          text-red-500
+                          font-black
+                        "
+                      >
+                        ×
+                      </button>
+
+                    </div>
+
+                  ))}
+
+                </div>
+
+              )}
+
+            </div>
+
+
+            {cart.length > 0 && (
+
+              <div className="
+                border-t
+                p-5
+                bg-white
+              ">
+
+                <div className="
+                  space-y-2
+                  text-xs
+                ">
+
+                  <div className="
+                    flex justify-between
+                  ">
+                    <span className="text-slate-500">
+                      Original
+                    </span>
+
+                    <span className="
+                      line-through
+                      text-slate-400
+                    ">
+                      {money(
+                        cartTotals.regular
+                      )}
+                    </span>
+                  </div>
+
+                  <div className="
+                    flex justify-between
+                    text-emerald-600
+                    font-bold
+                  ">
+                    <span>
+                      You Save
+                    </span>
+
+                    <span>
+                      {money(
+                        cartTotals.savings
+                      )}
+                    </span>
+                  </div>
+
+                  <div className="
+                    border-t
+                    pt-3
+                    flex justify-between
+                    font-black
+                    text-base
+                  ">
+
+                    <span>
+                      Total
+                    </span>
+
+                    <span className="
+                      text-orange-600
+                    ">
+                      {money(
+                        cartTotals.final
+                      )}
+                    </span>
+
+                  </div>
+
+                </div>
+
+
+                <a
+                  href={
+                    BRAND_CONFIG.nspayUrl
+                  }
+                  target="_blank"
+                  rel="noreferrer"
+                  className="
+                    block
+                    mt-4
+                    w-full
+                    text-center
+                    py-3
+                    rounded-xl
+                    bg-orange-500
+                    hover:bg-orange-600
+                    text-white
+                    text-xs
+                    font-black
+                  "
+                >
+                  💳 Pay via NSPAY →
+                </a>
+
+
+                <a
+                  href={createWhatsAppLink(
+                    cartWhatsAppMessage
+                  )}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="
+                    block
+                    mt-2
+                    w-full
+                    text-center
+                    py-3
+                    rounded-xl
+                    bg-emerald-600
+                    hover:bg-emerald-700
+                    text-white
+                    text-xs
+                    font-black
+                  "
+                >
+                  💬 Order via WhatsApp
+                </a>
+
+
+                <p className="
+                  mt-3
+                  text-[9px]
+                  text-slate-400
+                  text-center
+                  leading-relaxed
+                ">
+                  Payment confirmation पछि
+                  WhatsApp/Email बाट
+                  ३–५ मिनेटमा digital delivery।
+                </p>
+
+              </div>
+
+            )}
+
+          </div>
+
+        </div>
+
+      )}
+
+
+      {/* =================================================
+          IMAGE LIGHTBOX
+      ================================================= */}
+
+      {previewImage && (
+
+        <div
+          onClick={() =>
+            setPreviewImage(null)
+          }
+          className="
+            fixed inset-0
+            z-[110]
+            modal-backdrop
+            flex items-center
+            justify-center
+            p-4
+          "
+        >
+
+          <div className="
+            max-w-lg
+            w-full
+            relative
+          ">
+
+            <img
+              src={previewImage}
+              alt=""
+              className="
+                w-full
+                rounded-2xl
+                border-2
+                border-orange-400
+                shadow-2xl
+              "
+            />
+
+            <button
+              onClick={() =>
+                setPreviewImage(null)
+              }
+              className="
+                absolute
+                top-3 right-3
+                w-9 h-9
+                rounded-xl
+                bg-slate-950/80
+                text-white
+                font-black
+              "
+            >
+              ×
+            </button>
+
+          </div>
+
+        </div>
+
+      )}
+
+
+      {/* =================================================
+          PDF PREVIEW
+      ================================================= */}
+
+      {previewPdf && (
+
+        <div className="
+          fixed inset-0
+          z-[110]
+          modal-backdrop
+          flex items-center
+          justify-center
+          p-4
+        ">
+
+          <div className="
+            bg-white
+            w-full
+            max-w-3xl
+            h-[80vh]
+            rounded-2xl
+            overflow-hidden
+            flex flex-col
+          ">
+
+            <div className="
+              px-4 py-3
+              border-b
+              flex items-center
+              justify-between
+            ">
+
+              <div className="
+                font-black
+                text-sm
+              ">
+                📄 Sample Preview
+              </div>
+
+              <button
+                onClick={() =>
+                  setPreviewPdf(null)
+                }
+                className="
+                  font-black
+                  text-slate-500
+                "
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <div className="
+              flex-1
+              bg-slate-100
+              flex items-center
+              justify-center
+            ">
+
+              {typeof previewPdf ===
+                "string" &&
+                previewPdf !== "demo" ? (
+
+                <iframe
+                  src={previewPdf}
+                  className="
+                    w-full h-full
+                  "
+                />
+
+              ) : (
+
+                <div className="
+                  text-center
+                  p-8
+                ">
+
+                  <div className="
+                    text-5xl
+                  ">
+                    📄
+                  </div>
+
+                  <h4 className="
+                    mt-3
+                    font-black
+                  ">
+                    Sample Chapter Preview
+                  </h4>
+
+                  <p className="
+                    mt-2
+                    text-xs
+                    text-slate-500
+                    max-w-md
+                  ">
+                    Sample PDF यहाँ राख्न सकिन्छ।
+                    Actual preview PDF URL लाई
+                    product.previewPdf मा राख्नुहोस्।
+                  </p>
+
+                </div>
+
+              )}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
+
+
+      {/* =================================================
+          POLICY
+      ================================================= */}
+
+      {policy && (
+
+        <div className="
+          fixed inset-0
+          z-[110]
+          modal-backdrop
+          flex items-center
+          justify-center
+          p-4
+        ">
+
+          <div className="
+            bg-white
+            max-w-md
+            w-full
+            rounded-2xl
+            p-6
+            shadow-2xl
+          ">
+
+            <h3 className="
+              text-lg
+              font-black
+            ">
+              {policy.title}
+            </h3>
+
+            <p className="
+              mt-3
+              text-xs
+              leading-relaxed
+              text-slate-500
+            ">
+              {policy.content}
+            </p>
+
+            <button
+              onClick={() =>
+                setPolicy(null)
+              }
+              className="
+                mt-5
+                w-full
+                py-3
+                rounded-xl
+                bg-orange-500
+                text-white
+                text-xs
+                font-black
+              "
+            >
+              Close
+            </button>
+
+          </div>
+
+        </div>
+
+      )}
+
+
+      {/* =================================================
+          ADMIN
+      ================================================= */}
+
+      {showAdmin && (
+
+        <div className="
+          fixed inset-0
+          z-[110]
+          modal-backdrop
+          flex items-center
+          justify-center
+          p-4
+        ">
+
+          <div className="
+            bg-white
+            max-w-2xl
+            w-full
+            max-h-[85vh]
+            overflow-y-auto
+            rounded-2xl
+            p-5
+          ">
+
+            <div className="
+              flex items-center
+              justify-between
+            ">
+
+              <div>
+                <div className="
+                  text-[9px]
+                  text-orange-600
+                  font-black
+                ">
+                  LOCAL MANAGEMENT
+                </div>
+
+                <h3 className="
+                  text-lg
+                  font-black
+                ">
+                  Product Manager
+                </h3>
+              </div>
+
+              <button
+                onClick={() =>
+                  setShowAdmin(false)
+                }
+                className="
+                  font-black
+                  text-slate-400
+                "
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            <div className="
+              mt-5
+              space-y-3
+            ">
+
+              {products.map(product => (
+
+                <div
+                  key={product.id}
+                  className="
+                    p-3
+                    bg-slate-50
+                    border
+                    rounded-xl
+                  "
+                >
+
+                  <div className="
+                    text-xs
+                    font-black
+                  ">
+                    {product.title}
+                  </div>
+
+                  <div className="
+                    grid
+                    grid-cols-2
+                    gap-2
+                    mt-3
+                  ">
+
+                    <label className="
+                      text-[9px]
+                      text-slate-500
+                    ">
+                      Sale Price
+
+                      <input
+                        type="number"
+                        value={
+                          product.salePrice
+                        }
+                        onChange={e => {
+
+                          const value =
+                            Number(
+                              e.target.value
+                            );
+
+                          setProducts(prev =>
+                            prev.map(p =>
+                              p.id ===
+                              product.id
+                                ? {
+                                    ...p,
+                                    salePrice:
+                                      value
+                                  }
+                                : p
+                            )
+                          );
+
+                        }}
+                        className="
+                          mt-1
+                          w-full
+                          border
+                          rounded-lg
+                          p-2
+                          text-xs
+                          text-slate-900
+                        "
+                      />
+
+                    </label>
+
+
+                    <label className="
+                      text-[9px]
+                      text-slate-500
+                    ">
+                      Available Copies
+
+                      <input
+                        type="number"
+                        value={
+                          product.availableCopies
+                        }
+                        onChange={e => {
+
+                          const value =
+                            Number(
+                              e.target.value
+                            );
+
+                          setProducts(prev =>
+                            prev.map(p =>
+                              p.id ===
+                              product.id
+                                ? {
+                                    ...p,
+                                    availableCopies:
+                                      value
+                                  }
+                                : p
+                            )
+                          );
+
+                        }}
+                        className="
+                          mt-1
+                          w-full
+                          border
+                          rounded-lg
+                          p-2
+                          text-xs
+                          text-slate-900
+                        "
+                      />
+
+                    </label>
+
+                  </div>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
+
+    </div>
+  );
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+
+function ProductCard({
+  product,
+  onOpen,
+  addToCart
+}) {
+
+  const discount =
+    discountPercent(product);
+
+  return (
+
+    <article className="
+      group
+      bg-white
+      rounded-2xl
+      border border-slate-200
+      overflow-hidden
+      card-shadow
+      flex flex-col
+    ">
+
+      {/* IMAGE */}
+
+      <button
+        onClick={onOpen}
+        className="
+          relative
+          block
+          w-full
+          bg-slate-100
+        "
+      >
+
+        <img
+          src={product.coverImage.source}
+          alt={product.title}
+          className="
+            w-full
+            aspect-[7/8]
+            object-cover
+            group-hover:scale-[1.03]
+            transition duration-300
+          "
+        />
+
+
+        {/* DISCOUNT */}
+
+        <span className="
+          absolute
+          top-2
+          left-2
+          bg-red-500
+          text-white
+          rounded-lg
+          px-1.5 py-1
+          text-[8px]
+          font-black
+        ">
+          {discount}% OFF
+        </span>
+
+
+        {/* OFFER */}
+
+        <span className="
+          absolute
+          top-2
+          right-2
+          bg-orange-500
+          text-white
+          rounded-lg
+          px-1.5 py-1
+          text-[8px]
+          font-black
+          max-w-[75%]
+          truncate
+        ">
+          {product.offerLabel}
+        </span>
+
+
+        {/* RATING */}
+
+        <span className="
+          absolute
+          bottom-2
+          left-2
+          bg-slate-950/90
+          text-white
+          rounded-lg
+          px-1.5 py-1
+          text-[8px]
+          font-black
+        ">
+          ⭐ {product.rating}
+        </span>
+
+
+        {/* SOLD */}
+
+        <span className="
+          absolute
+          bottom-2
+          right-2
+          bg-white/95
+          text-slate-800
+          rounded-lg
+          px-1.5 py-1
+          text-[8px]
+          font-black
+        ">
+          🔥 {product.soldCopies} sold
+        </span>
+
+      </button>
+
+
+      {/* CONTENT */}
+
+      <div className="
+        p-2.5
+        flex-1
+        flex flex-col
+      ">
+
+        <div className="
+          flex
+          items-center
+          justify-between
+          gap-1
+          text-[8px]
+          text-slate-400
+          font-bold
+        ">
+
+          <span>
+            📖 {product.pages}p
+          </span>
+
+          <span>
+            ⭐ {product.reviewCount}
+          </span>
+
+          <span className="
+            text-emerald-600
+          ">
+            📦 {product.availableCopies}
+          </span>
+
+        </div>
+
+
+        <button
+          onClick={onOpen}
+          className="
+            mt-2
+            text-left
+            text-xs
+            md:text-sm
+            font-black
+            line-clamp-2
+            hover:text-orange-600
+          "
+        >
+          {product.title}
+        </button>
+
+
+        <p className="
+          mt-1
+          text-[9px]
+          text-slate-500
+          line-clamp-2
+        ">
+          {product.subtitle}
+        </p>
+
+
+        <div className="
+          mt-auto
+          pt-3
+        ">
+
+          <div className="
+            flex
+            items-end
+            justify-between
+            gap-1
+          ">
+
+            <div>
+
+              <div className="
+                text-sm md:text-base
+                font-black
+                text-orange-600
+              ">
+                {money(
+                  product.salePrice
+                )}
+              </div>
+
+              <div className="
+                text-[8px]
+                text-slate-400
+                line-through
+              ">
+                {money(
+                  product.regularPrice
+                )}
+              </div>
+
+            </div>
+
+            <span className="
+              text-[8px]
+              bg-emerald-50
+              text-emerald-700
+              px-1.5 py-1
+              rounded-lg
+              font-black
+            ">
+              Save {discount}%
+            </span>
+
+          </div>
+
+
+          <div className="
+            grid
+            grid-cols-2
+            gap-1.5
+            mt-2
+          ">
+
+            <button
+              onClick={onOpen}
+              className="
+                py-2
+                rounded-xl
+                border border-orange-200
+                text-orange-700
+                text-[8px]
+                font-black
+              "
+            >
+              Details
+            </button>
+
+            <button
+              onClick={addToCart}
+              className="
+                py-2
+                rounded-xl
+                bg-orange-500
+                text-white
+                text-[8px]
+                font-black
+              "
+            >
+              🛒 Add
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+  );
+}
+
+
+/* =========================================================
+   PRODUCT LANDING PAGE
+========================================================= */
+
+function ProductLandingPage({
+  product,
+  products,
+  cartTotals,
+  onBack,
+  addToCart,
+  openProduct,
+  setIsCartOpen,
+  setPreviewImage,
+  setPreviewPdf,
+  showToast
+}) {
+
+  const discount =
+    discountPercent(product);
+
+
+  const suggestions =
+    products
+      .filter(
+        p => p.id !== product.id
+      )
+      .slice(0, 4);
+
+
+  return (
+
+    <div className="
+      min-h-screen
+      bg-white
+      pb-24 md:pb-0
+    ">
+
+
+      {/* =================================================
+          PRODUCT TOP BAR
+      ================================================= */}
+
+      <div className="
+        sticky top-0
+        z-50
+        bg-white/95
+        backdrop-blur-md
+        border-b border-slate-200
+      ">
+
+        <div className="
+          max-w-6xl mx-auto
+          px-4 py-3
+          flex items-center
+          justify-between
+        ">
+
+          <button
+            onClick={onBack}
+            className="
+              flex items-center
+              gap-2
+              text-xs
+              font-black
+              text-slate-700
+            "
+          >
+            ←
+            <span className="
+              hidden sm:inline
+            ">
+              Back to StudyNotes
+            </span>
+          </button>
+
+
+          <div className="
+            flex items-center
+            gap-2
+          ">
+
+            <div className="
+              hidden sm:block
+              text-right
+            ">
+
+              <div className="
+                text-[9px]
+                text-slate-400
+              ">
+                Cart
+              </div>
+
+              <div className="
+                text-xs
+                font-black
+              ">
+                {cartTotals.count} items
+              </div>
+
+            </div>
+
+            <button
+              onClick={() =>
+                setIsCartOpen(true)
+              }
+              className="
+                w-10 h-10
+                rounded-xl
+                bg-orange-50
+                border border-orange-200
+              "
+            >
+              🛒
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      {/* =================================================
+          PRODUCT HERO
+      ================================================= */}
+
+      <section className="
+        bg-orange-50
+        border-b border-orange-100
+      ">
+
+        <div className="
+          max-w-6xl mx-auto
+          px-4
+          py-7 md:py-12
+        ">
+
+          <div className="
+            grid
+            grid-cols-1
+            lg:grid-cols-12
+            gap-8
+            items-center
+          ">
+
+
+            {/* COVER */}
+
+            <div className="
+              lg:col-span-4
+              flex justify-center
+            ">
+
+              <div className="
+                relative
+                max-w-[320px]
+                w-full
+              ">
+
+                <img
+                  src={
+                    product.coverImage.source
+                  }
+                  alt={product.title}
+                  onClick={() =>
+                    setPreviewImage(
+                      product.coverImage.source
+                    )
+                  }
+                  className="
+                    w-full
+                    aspect-[7/9]
+                    object-cover
+                    rounded-3xl
+                    border-2
+                    border-orange-300
+                    shadow-2xl
+                    cursor-pointer
+                  "
+                />
+
+                <span className="
+                  absolute
+                  top-4
+                  left-4
+                  bg-red-500
+                  text-white
+                  rounded-xl
+                  px-3 py-1.5
+                  text-xs
+                  font-black
+                ">
+                  {discount}% OFF
+                </span>
+
+              </div>
+
+            </div>
+
+
+            {/* DETAILS */}
+
+            <div className="
+              lg:col-span-8
+            ">
+
+              <div className="
+                flex flex-wrap
+                gap-2
+              ">
+
+                <span className="
+                  bg-orange-500
+                  text-white
+                  rounded-full
+                  px-3 py-1
+                  text-[9px]
+                  font-black
+                ">
+                  🔥 {product.offerLabel}
+                </span>
+
+                <span className="
+                  bg-red-100
+                  text-red-700
+                  rounded-full
+                  px-3 py-1
+                  text-[9px]
+                  font-black
+                ">
+                  ⚡ {product.urgencyLabel}
+                </span>
+
+                <span className="
+                  bg-emerald-100
+                  text-emerald-700
+                  rounded-full
+                  px-3 py-1
+                  text-[9px]
+                  font-black
+                ">
+                  📦 {product.availableCopies} Available
+                </span>
+
+              </div>
+
+
+              <h1 className="
+                mt-4
+                text-3xl md:text-5xl
+                font-black
+                leading-tight
+              ">
+                {product.title}
+              </h1>
+
+
+              <p className="
+                mt-3
+                text-sm md:text-lg
+                font-bold
+                text-orange-700
+              ">
+                {product.subtitle}
+              </p>
+
+
+              <p className="
+                mt-4
+                text-sm
+                text-slate-600
+                leading-relaxed
+              ">
+                {product.description}
+              </p>
+
+
+              {/* STATS */}
+
+              <div className="
+                mt-6
+                grid grid-cols-2
+                sm:grid-cols-4
+                gap-2
+              ">
+
+                <ProductStat
+                  value={`⭐ ${product.rating}`}
+                  label={`${product.reviewCount} Reviews`}
+                />
+
+                <ProductStat
+                  value={`🔥 ${product.soldCopies}`}
+                  label="Sold Copies"
+                />
+
+                <ProductStat
+                  value={`📦 ${product.availableCopies}`}
+                  label="Available Copies"
+                />
+
+                <ProductStat
+                  value={`📚 ${product.chapters}`}
+                  label="Chapters"
+                />
+
+              </div>
+
+
+              {/* PRICE CTA */}
+
+              <div className="
+                mt-6
+                bg-white
+                rounded-2xl
+                border border-orange-200
+                p-5
+                shadow-sm
+              ">
+
+                <div className="
+                  flex
+                  flex-wrap
+                  items-end
+                  justify-between
+                  gap-4
+                ">
+
+                  <div>
+
+                    <div className="
+                      text-[10px]
+                      text-slate-400
+                    ">
+                      Today only
+                    </div>
+
+                    <div className="
+                      flex items-center
+                      gap-3
+                    ">
+
+                      <span className="
+                        text-3xl
+                        font-black
+                        text-orange-600
+                      ">
+                        {money(
+                          product.salePrice
+                        )}
+                      </span>
+
+                      <span className="
+                        text-sm
+                        text-slate-400
+                        line-through
+                      ">
+                        {money(
+                          product.regularPrice
+                        )}
+                      </span>
+
+                    </div>
+
+                    <div className="
+                      mt-1
+                      text-[10px]
+                      text-emerald-600
+                      font-black
+                    ">
+                      You save{" "}
+                      {money(
+                        product.regularPrice -
+                        product.salePrice
+                      )}
+                    </div>
+
+                  </div>
+
+
+                  <div className="
+                    text-right
+                  ">
+
+                    <div className="
+                      text-[9px]
+                      text-red-500
+                      font-black
+                    ">
+                      LIMITED OFFER
+                    </div>
+
+                    <div className="
+                      text-xl
+                      font-black
+                    ">
+                      Order Now
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <div className="
+                  grid
+                  grid-cols-1
+                  sm:grid-cols-3
+                  gap-2
+                  mt-5
+                ">
+
+                  <button
+                    onClick={() =>
+                      addToCart(
+                        product,
+                        "single"
+                      )
+                    }
+                    className="
+                      py-3
+                      rounded-xl
+                      bg-orange-500
+                      hover:bg-orange-600
+                      text-white
+                      font-black
+                      text-xs
+                    "
+                  >
+                    🛒 Add To Cart
+                  </button>
+
+                  <a
+                    href={createWhatsAppLink(
+                      productOrderMessage(
+                        product
+                      )
+                    )}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="
+                      py-3
+                      rounded-xl
+                      bg-emerald-600
+                      hover:bg-emerald-700
+                      text-white
+                      text-xs
+                      font-black
+                      text-center
+                    "
+                  >
+                    💬 WhatsApp Order
+                  </a>
+
+                  <a
+                    href={
+                      BRAND_CONFIG.nspayUrl
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                    className="
+                      py-3
+                      rounded-xl
+                      bg-slate-950
+                      hover:bg-slate-800
+                      text-white
+                      text-xs
+                      font-black
+                      text-center
+                    "
+                  >
+                    💳 NSPAY Payment
+                  </a>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          BENEFITS
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-white
+      ">
+
+        <div className="
+          max-w-6xl mx-auto
+          px-4
+        ">
+
+          <div className="
+            grid
+            grid-cols-1
+            md:grid-cols-2
+            gap-5
+          ">
+
+            <InfoPanel
+              title="🎯 तपाईंले के सिक्नुहुन्छ?"
+              items={
+                product.learningOutcomes
+              }
+            />
+
+            <InfoPanel
+              title="🚀 यो Ebook कसका लागि?"
+              items={
+                product.careerRelevance
+              }
+            />
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          CHAPTERS
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-slate-50
+      ">
+
+        <div className="
+          max-w-6xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="INSIDE THE EBOOK"
+            title="Chapter Outline"
+            subtitle="Ebook भित्रका मुख्य learning areas।"
+          />
+
+          <div className="
+            grid
+            grid-cols-1
+            md:grid-cols-2
+            gap-3
+          ">
+
+            {product.chapterOutline.map(
+              chapter => (
+
+                <div
+                  key={chapter.number}
+                  className="
+                    bg-white
+                    rounded-2xl
+                    border border-slate-200
+                    p-4
+                  "
+                >
+
+                  <div className="
+                    flex gap-3
+                  ">
+
+                    <div className="
+                      w-9 h-9
+                      shrink-0
+                      rounded-xl
+                      bg-orange-100
+                      text-orange-700
+                      flex items-center
+                      justify-center
+                      text-xs
+                      font-black
+                    ">
+                      {chapter.number}
+                    </div>
+
+                    <div>
+
+                      <h3 className="
+                        text-xs
+                        font-black
+                      ">
+                        {chapter.title}
+                      </h3>
+
+                      <p className="
+                        mt-1
+                        text-[10px]
+                        text-slate-500
+                      ">
+                        {chapter.description}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              )
+            )}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          PREVIEW + TRUST
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-white
+      ">
+
+        <div className="
+          max-w-6xl mx-auto
+          px-4
+        ">
+
+          <div className="
+            bg-orange-50
+            border border-orange-200
+            rounded-3xl
+            p-5 md:p-7
+            flex flex-col
+            md:flex-row
+            items-center
+            justify-between
+            gap-5
+          ">
+
+            <div>
+
+              <div className="
+                text-[10px]
+                font-black
+                text-orange-600
+              ">
+                NOT SURE YET?
+              </div>
+
+              <h3 className="
+                mt-1
+                text-xl
+                font-black
+              ">
+                पहिले Preview हेर्नुहोस्
+              </h3>
+
+              <p className="
+                mt-2
+                text-xs
+                text-slate-500
+              ">
+                Sample chapter हेरेर Ebook
+                तपाईंका लागि उपयुक्त छ कि छैन
+                बुझ्नुहोस्।
+              </p>
+
+            </div>
+
+            <button
+              onClick={() =>
+                setPreviewPdf(
+                  product.previewPdf ||
+                  "demo"
+                )
+              }
+              className="
+                shrink-0
+                px-5 py-3
+                rounded-xl
+                bg-white
+                border border-orange-300
+                text-orange-700
+                text-xs
+                font-black
+              "
+            >
+              📄 Open Sample Preview
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          REVIEWS
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-slate-50
+      ">
+
+        <div className="
+          max-w-6xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="SOCIAL PROOF"
+            title={`${product.rating}/5 Reader Rating`}
+            subtitle={`${product.reviewCount} reader reviews • ${product.soldCopies}+ copies sold`}
+          />
+
+          <div className="
+            grid
+            grid-cols-1
+            md:grid-cols-3
+            gap-3
+          ">
+
+            {TESTIMONIALS.slice(
+              0,
+              3
+            ).map(review => (
+
+              <div
+                key={review.name}
+                className="
+                  bg-white
+                  rounded-2xl
+                  border border-slate-200
+                  p-4
+                "
+              >
+
+                <div className="
+                  flex
+                  justify-between
+                ">
+
+                  <strong className="
+                    text-xs
+                  ">
+                    {review.name}
+                  </strong>
+
+                  <span className="
+                    text-orange-500
+                    text-xs
+                  ">
+                    ★★★★★
+                  </span>
+
+                </div>
+
+                <p className="
+                  mt-3
+                  text-xs
+                  text-slate-500
+                  leading-relaxed
+                ">
+                  “{review.message}”
+                </p>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          SUGGEST MORE
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-white
+      ">
+
+        <div className="
+          max-w-6xl mx-auto
+          px-4
+        ">
+
+          <SectionHeading
+            eyebrow="YOU MAY ALSO LIKE"
+            title="अर्काे Useful Ebook पनि हेर्नुहोस्"
+            subtitle="आफ्नो learning journey अझ complete बनाउन।"
+          />
+
+          <div className="
+            grid
+            grid-cols-2
+            md:grid-cols-4
+            gap-3
+          ">
+
+            {suggestions.map(
+              suggestion => (
+
+                <ProductCard
+                  key={suggestion.id}
+                  product={suggestion}
+                  onOpen={() =>
+                    openProduct(
+                      suggestion
+                    )
+                  }
+                  addToCart={() =>
+                    addToCart(
+                      suggestion,
+                      "single"
+                    )
+                  }
+                />
+
+              )
+            )}
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          PRODUCT FINAL CTA
+      ================================================= */}
+
+      <section className="
+        py-10
+        bg-slate-950
+        text-white
+      ">
+
+        <div className="
+          max-w-4xl mx-auto
+          px-4
+          text-center
+        ">
+
+          <div className="
+            text-orange-400
+            text-[10px]
+            font-black
+          ">
+            READY TO START?
+          </div>
+
+          <h2 className="
+            mt-2
+            text-2xl md:text-4xl
+            font-black
+          ">
+            {product.title}
+          </h2>
+
+          <p className="
+            mt-2
+            text-xs
+            text-slate-400
+          ">
+            {money(product.salePrice)}
+            {" "}मा आजै सुरु गर्नुहोस्।
+          </p>
+
+          <div className="
+            mt-5
+            flex
+            flex-col
+            sm:flex-row
+            justify-center
+            gap-2
+          ">
+
+            <button
+              onClick={() =>
+                addToCart(
+                  product,
+                  "single"
+                )
+              }
+              className="
+                px-6 py-3
+                rounded-xl
+                bg-orange-500
+                text-white
+                text-xs
+                font-black
+              "
+            >
+              🛒 Add To Cart
+            </button>
+
+            <a
+              href={createWhatsAppLink(
+                productOrderMessage(
+                  product
+                )
+              )}
+              target="_blank"
+              rel="noreferrer"
+              className="
+                px-6 py-3
+                rounded-xl
+                bg-emerald-600
+                text-white
+                text-xs
+                font-black
+              "
+            >
+              💬 Order on WhatsApp
+            </a>
+
+            <a
+              href={
+                BRAND_CONFIG.nspayUrl
+              }
+              target="_blank"
+              rel="noreferrer"
+              className="
+                px-6 py-3
+                rounded-xl
+                bg-white
+                text-slate-950
+                text-xs
+                font-black
+              "
+            >
+              💳 Pay via NSPAY
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          MOBILE STICKY PRODUCT CTA
+      ================================================= */}
+
+      <div className="
+        fixed
+        bottom-0
+        left-0
+        right-0
+        z-[80]
+        bg-white
+        border-t border-orange-200
+        shadow-2xl
+        p-2
+        md:hidden
+      ">
+
+        <div className="
+          grid
+          grid-cols-3
+          gap-1.5
+        ">
+
+          <button
+            onClick={() =>
+              addToCart(
+                product,
+                "single"
+              )
+            }
+            className="
+              py-2.5
+              rounded-xl
+              bg-orange-500
+              text-white
+              text-[9px]
+              font-black
+            "
+          >
+            🛒 Cart
+          </button>
+
+          <a
+            href={createWhatsAppLink(
+              productOrderMessage(
+                product
+              )
+            )}
+            target="_blank"
+            rel="noreferrer"
+            className="
+              py-2.5
+              rounded-xl
+              bg-emerald-600
+              text-white
+              text-[9px]
+              font-black
+              text-center
+            "
+          >
+            💬 WhatsApp
+          </a>
+
+          <a
+            href={
+              BRAND_CONFIG.nspayUrl
+            }
+            target="_blank"
+            rel="noreferrer"
+            className="
+              py-2.5
+              rounded-xl
+              bg-slate-950
+              text-white
+              text-[9px]
+              font-black
+              text-center
+            "
+          >
+            💳 NSPAY
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
+
+/* =========================================================
+   SMALL UI COMPONENTS
+========================================================= */
+
+function SectionHeading({
+  eyebrow,
+  title,
+  subtitle
+}) {
+
+  return (
+
+    <div className="
+      text-center
+      max-w-2xl
+      mx-auto
+      mb-7
+    ">
+
+      <div className="
+        text-[9px]
+        md:text-[10px]
+        font-black
+        text-orange-600
+        uppercase
+        tracking-widest
+      ">
+        {eyebrow}
+      </div>
+
+      <h2 className="
+        mt-1
+        text-2xl md:text-3xl
+        font-black
+        tracking-tight
+      ">
+        {title}
+      </h2>
+
+      <p className="
+        mt-2
+        text-xs
+        md:text-sm
+        text-slate-500
+      ">
+        {subtitle}
+      </p>
+
+    </div>
+  );
+}
+
+
+function Stat({
+  icon,
+  value,
+  label
+}) {
+
+  return (
+
+    <div className="
+      bg-slate-50
+      border border-slate-100
+      rounded-xl
+      p-2.5
+    ">
+
+      <div className="
+        text-xs
+        font-black
+      ">
+        {icon} {value}
+      </div>
+
+      <div className="
+        text-[8px]
+        text-slate-400
+        mt-0.5
+      ">
+        {label}
+      </div>
+
+    </div>
+  );
+}
+
+
+function ProductStat({
+  value,
+  label
+}) {
+
+  return (
+
+    <div className="
+      bg-white
+      border border-orange-100
+      rounded-xl
+      p-3
+      text-center
+    ">
+
+      <div className="
+        text-sm
+        md:text-base
+        font-black
+        text-orange-600
+      ">
+        {value}
+      </div>
+
+      <div className="
+        mt-1
+        text-[8px]
+        text-slate-400
+      ">
+        {label}
+      </div>
+
+    </div>
+  );
+}
+
+
+function TrustItem({
+  icon,
+  title,
+  text
+}) {
+
+  return (
+
+    <div className="
+      bg-white
+      border border-slate-200
+      rounded-2xl
+      p-3
+      flex items-center
+      gap-3
+    ">
+
+      <div className="
+        w-9 h-9
+        shrink-0
+        rounded-xl
+        bg-orange-50
+        flex items-center
+        justify-center
+        text-lg
+      ">
+        {icon}
+      </div>
+
+      <div>
+
+        <div className="
+          text-[10px]
+          md:text-xs
+          font-black
+        ">
+          {title}
+        </div>
+
+        <div className="
+          text-[8px]
+          md:text-[9px]
+          text-slate-400
+          mt-0.5
+        ">
+          {text}
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
+
+function ReviewStat({
+  value,
+  text
+}) {
+
+  return (
+
+    <div className="
+      bg-white
+      rounded-2xl
+      border border-slate-200
+      p-5
+      text-center
+    ">
+
+      <div className="
+        text-2xl
+        font-black
+        text-orange-600
+      ">
+        {value}
+      </div>
+
+      <div className="
+        mt-2
+        text-[10px]
+        text-slate-500
+      ">
+        {text}
+      </div>
+
+    </div>
+  );
+}
+
+
+function InfoPanel({
+  title,
+  items
+}) {
+
+  return (
+
+    <div className="
+      bg-white
+      rounded-2xl
+      border border-slate-200
+      p-5
+    ">
+
+      <h3 className="
+        text-base
+        font-black
+      ">
+        {title}
+      </h3>
+
+      <div className="
+        mt-4
+        space-y-3
+      ">
+
+        {items.map(
+          (item, index) => (
+
+            <div
+              key={index}
+              className="
+                flex gap-3
+              "
+            >
+
+              <div className="
+                w-6 h-6
+                shrink-0
+                rounded-full
+                bg-emerald-100
+                text-emerald-700
+                flex items-center
+                justify-center
+                text-[10px]
+                font-black
+              ">
+                ✓
+              </div>
+
+              <p className="
+                text-xs
+                text-slate-600
+                leading-relaxed
+              ">
+                {item}
+              </p>
+
+            </div>
+
+          )
+        )}
+
+      </div>
+
+    </div>
+  );
+}
+
+
+/* =========================================================
+   FLOATING MOBILE NAV
+========================================================= */
+
+function FloatingNav({
+  cartCount,
+  onHome,
+  onEbooks,
+  onCart,
+  onOffers,
+  onSupport,
+  onMenu
+}) {
+
+  return (
+
+    <nav className="
+      md:hidden
+      fixed
+      bottom-3
+      left-3
+      right-3
+      z-[70]
+      bg-white/95
+      backdrop-blur-md
+      border border-orange-200
+      rounded-3xl
+      shadow-2xl
+      px-2 py-2
+    ">
+
+      <div className="
+        grid
+        grid-cols-5
+        items-center
+      ">
+
+        <NavButton
+          icon="🏠"
+          label="Home"
+          onClick={onHome}
+        />
+
+        <NavButton
+          icon="📚"
+          label="Ebooks"
+          onClick={onEbooks}
+        />
+
+
+        <button
+          onClick={onMenu}
+          className="
+            center-menu
+            relative
+            -mt-7
+            mx-auto
+            w-14 h-14
+            rounded-full
+            bg-orange-500
+            text-white
+            border-4
+            border-white
+            shadow-xl
+            flex items-center
+            justify-center
+            text-xl
+          "
+        >
+          ☰
+
+          <span className="
+            absolute
+            -bottom-1
+            w-2 h-2
+            bg-emerald-500
+            rounded-full
+          " />
+        </button>
+
+
+        <div className="
+          relative
+        ">
+
+          <NavButton
+            icon="🛒"
+            label="Cart"
+            onClick={onCart}
+          />
+
+          {cartCount > 0 && (
+
+            <span className="
+              absolute
+              top-0
+              right-3
+              w-4 h-4
+              bg-red-500
+              text-white
+              text-[8px]
+              rounded-full
+              flex items-center
+              justify-center
+              font-black
+            ">
+              {cartCount}
+            </span>
+
+          )}
+
+        </div>
+
+
+        <NavButton
+          icon="💬"
+          label="Support"
+          onClick={onSupport}
+        />
+
+      </div>
+
+
+      <div className="
+        flex
+        justify-center
+        mt-1
+      ">
+
+        <button
+          onClick={onOffers}
+          className="
+            text-[8px]
+            font-black
+            text-orange-600
+            bg-orange-50
+            border border-orange-100
+            rounded-full
+            px-4 py-1
+          "
+        >
+          🔥 Offers & Bundles
+        </button>
+
+      </div>
+
+    </nav>
+  );
+}
+
+
+function NavButton({
+  icon,
+  label,
+  onClick
+}) {
+
+  return (
+
+    <button
+      onClick={onClick}
+      className="
+        flex flex-col
+        items-center
+        justify-center
+        gap-0.5
+        text-slate-600
+        hover:text-orange-600
+      "
+    >
+
+      <span className="text-base">
+        {icon}
+      </span>
+
+      <span className="
+        text-[8px]
+        font-black
+      ">
+        {label}
+      </span>
+
+    </button>
+  );
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+ReactDOM
+  .createRoot(
+    document.getElementById("root")
+  )
+  .render(
+    <App />
+  );
+
+</script>
+
+</body>
+</html>
