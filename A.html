@@ -1,0 +1,4029 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StudyNotes — Practical Study, Career & Skill Ebooks</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+    --orange:#f97316;
+    --orange-dark:#ea580c;
+    --orange-light:#fff7ed;
+    --orange-border:#fed7aa;
+    --navy:#0f172a;
+    --gray:#64748b;
+    --green:#059669;
+    --cream:#fffbf7;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Inter,"Noto Sans Devanagari",Arial,sans-serif;
+    background:#fff;
+    color:var(--navy);
+    overflow-x:hidden;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    -webkit-tap-highlight-color:transparent;
+}
+
+::-webkit-scrollbar{
+    width:7px;
+    height:7px;
+}
+
+::-webkit-scrollbar-track{
+    background:#fff7ed;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#fb923c;
+    border-radius:999px;
+}
+
+.line-clamp-1{
+    display:-webkit-box;
+    -webkit-line-clamp:1;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.line-clamp-2{
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.line-clamp-3{
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.shadow-soft{
+    box-shadow:0 8px 30px rgba(15,23,42,.07);
+}
+
+.shadow-orange{
+    box-shadow:0 10px 30px rgba(249,115,22,.16);
+}
+
+.orange-gradient{
+    background:linear-gradient(135deg,#fb923c,#f97316,#ea580c);
+}
+
+.soft-orange{
+    background:linear-gradient(180deg,#fffaf5,#fff);
+}
+
+.hero-gradient{
+    background:
+        radial-gradient(circle at 15% 20%,rgba(249,115,22,.10),transparent 28%),
+        radial-gradient(circle at 90% 10%,rgba(251,146,60,.12),transparent 25%),
+        linear-gradient(180deg,#fffaf5 0%,#fff 100%);
+}
+
+.ticker{
+    display:flex;
+    width:max-content;
+    animation:tickerMove 32s linear infinite;
+}
+
+.ticker:hover{
+    animation-play-state:paused;
+}
+
+@keyframes tickerMove{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+}
+
+.pulse-dot{
+    animation:pulseDot 1.5s infinite;
+}
+
+@keyframes pulseDot{
+    0%,100%{transform:scale(1);opacity:1}
+    50%{transform:scale(1.5);opacity:.55}
+}
+
+.float-up{
+    animation:floatUp 2.5s ease-in-out infinite;
+}
+
+@keyframes floatUp{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-5px)}
+}
+
+.menu-pop{
+    animation:menuPop .28s ease-out both;
+}
+
+@keyframes menuPop{
+    from{
+        opacity:0;
+        transform:scale(.65) translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+.hero-book{
+    animation:bookFloat 4s ease-in-out infinite;
+}
+
+@keyframes bookFloat{
+    0%,100%{transform:translateY(0) rotate(-1deg)}
+    50%{transform:translateY(-8px) rotate(1deg)}
+}
+
+.progress-bar{
+    transition:width 1s linear;
+}
+
+.hide-scrollbar{
+    scrollbar-width:none;
+}
+
+.hide-scrollbar::-webkit-scrollbar{
+    display:none;
+}
+
+.safe-bottom{
+    padding-bottom:95px;
+}
+
+@media(min-width:768px){
+    .safe-bottom{
+        padding-bottom:20px;
+    }
+}
+
+.product-cover{
+    aspect-ratio:3/4;
+}
+
+.detail-cover{
+    aspect-ratio:3/4;
+}
+
+.glass{
+    background:rgba(255,255,255,.86);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+}
+
+.badge-shadow{
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+
+.focus-orange:focus{
+    outline:none;
+    border-color:#f97316;
+    box-shadow:0 0 0 3px rgba(249,115,22,.12);
+}
+</style>
+</head>
+
+<body class="safe-bottom">
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+const {
+    useState,
+    useEffect,
+    useMemo
+} = React;
+
+/* =========================================================
+   BRAND CONFIG
+========================================================= */
+
+const BRAND = {
+    name:"StudyNotes",
+    fullName:"StudyNotes Digital Learning",
+    tagline:"Study • Skills • Career • Growth",
+    author:"MD. NS",
+    whatsapp:"+977 9702784684",
+    whatsappRaw:"9779702784684",
+    email:"mdnasibulrain4@gmail.com",
+    website:"https://www.nasibul.com.np/",
+    nspay:"https://www.nasibul.com.np/nspay",
+    delivery:"3–5 minutes"
+};
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+const CATEGORIES = [
+    {
+        id:"all",
+        name:"All",
+        icon:"📚"
+    },
+    {
+        id:"computer",
+        name:"Computer",
+        icon:"💻"
+    },
+    {
+        id:"digital",
+        name:"Digital Skills",
+        icon:"🌐"
+    },
+    {
+        id:"loksewa",
+        name:"LokSewa",
+        icon:"📝"
+    },
+    {
+        id:"share",
+        name:"Share Market",
+        icon:"📈"
+    },
+    {
+        id:"personality",
+        name:"Personality",
+        icon:"🗣️"
+    },
+    {
+        id:"career",
+        name:"Career",
+        icon:"🎯"
+    }
+];
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+const INITIAL_PRODUCTS = [
+{
+    id:"sn-001",
+    category:"computer",
+    title:"Complete Computer Operator & Office Skills Guide",
+    subtitle:"MS Office, Typing, Shortcut Keys र Practical Office Work",
+    summary:"Computer Operator, Office Assistant र Data Entry तयारीका लागि व्यवहारिक गाइड।",
+    description:"MS Word, MS Excel, PowerPoint, नेपाली तथा अंग्रेजी Typing, file management, email communication र दैनिक office work लाई step-by-step सिकाउने practical ebook।",
+    cover:"https://placehold.co/700x930/fff7ed/f97316?text=Computer+Operator+Guide",
+    regular:999,
+    price:499,
+    discount:50,
+    pages:180,
+    chapters:12,
+    sold:850,
+    stock:150,
+    rating:4.9,
+    reviews:142,
+    badge:"BESTSELLER",
+    tags:["computer","ms office","typing","office","data entry"],
+    outcomes:[
+        "MS Word मा professional documents तयार गर्ने",
+        "Excel formulas र practical sheets प्रयोग गर्ने",
+        "नेपाली/अंग्रेजी typing speed सुधार गर्ने",
+        "Office shortcuts र file management सिक्ने",
+        "Email तथा सामान्य office utilities प्रयोग गर्ने"
+    ],
+    career:[
+        "Computer Operator तयारी",
+        "Office Assistant Job",
+        "Data Entry Operator",
+        "Private Office Skills",
+        "Basic Administrative Work"
+    ],
+    chaptersList:[
+        "Computer Basics & Operating System",
+        "Nepali & English Typing",
+        "MS Word Professional Formatting",
+        "MS Excel Formulas & Data Handling",
+        "PowerPoint Presentation",
+        "Internet & Email",
+        "File Management",
+        "Printer & Office Utilities"
+    ]
+},
+{
+    id:"sn-002",
+    category:"digital",
+    title:"Freelancing & Digital Skills Blueprint",
+    subtitle:"घरमै बसेर Digital Skills सिक्ने र Online Work सुरु गर्ने गाइड",
+    summary:"Freelancing, remote work, digital skills र client communication को practical roadmap।",
+    description:"Digital economy बुझ्ने, skill track छान्ने, portfolio बनाउने, freelancing profile तयार गर्ने र client communication गर्ने आधारभूतदेखि practical roadmap सम्म।",
+    cover:"https://placehold.co/700x930/fff7ed/ea580c?text=Digital+Skills+Blueprint",
+    regular:1299,
+    price:599,
+    discount:54,
+    pages:210,
+    chapters:14,
+    sold:620,
+    stock:180,
+    rating:4.8,
+    reviews:98,
+    badge:"HOT DEAL",
+    tags:["freelancing","digital","remote","fiverr","upwork"],
+    outcomes:[
+        "High-demand digital skill track छान्ने",
+        "Professional freelancing profile तयार गर्ने",
+        "Portfolio को basic structure बनाउने",
+        "Client proposal लेख्ने आधार सिक्ने",
+        "Remote work को workflow बुझ्ने"
+    ],
+    career:[
+        "Freelancing",
+        "Remote Work",
+        "Digital Agency",
+        "Virtual Assistance",
+        "Content & Creative Work"
+    ],
+    chaptersList:[
+        "Understanding Digital Economy",
+        "Choosing Your Skill",
+        "Portfolio & Personal Branding",
+        "Freelancing Profile Setup",
+        "Proposal Writing",
+        "Client Communication",
+        "Remote Work Workflow",
+        "Payment & Work Management"
+    ]
+},
+{
+    id:"sn-003",
+    category:"loksewa",
+    title:"Smart LokSewa GK & Exam Strategy",
+    subtitle:"GK, IQ, MCQ र Exam Strategy का लागि Smart Preparation",
+    summary:"LokSewa प्रथम पत्र तयारीलाई structured र practical बनाउने अध्ययन गाइड।",
+    description:"नेपालको भूगोल, इतिहास, शासन प्रणाली, international affairs, GK, IQ तथा MCQ preparation लाई memory tricks र exam strategy सहित प्रस्तुत गरिएको guide।",
+    cover:"https://placehold.co/700x930/fff7ed/f97316?text=Smart+LokSewa",
+    regular:1100,
+    price:499,
+    discount:55,
+    pages:250,
+    chapters:16,
+    sold:1200,
+    stock:120,
+    rating:4.9,
+    reviews:210,
+    badge:"EXAM SPECIAL",
+    tags:["loksewa","gk","iq","kharidar","nasu"],
+    outcomes:[
+        "GK लाई structured तरिकाले revise गर्ने",
+        "MCQ solving approach सुधार गर्ने",
+        "IQ questions मा shortcut सोच विकास गर्ने",
+        "Revision schedule बनाउन सिक्ने",
+        "Exam time management सुधार गर्ने"
+    ],
+    career:[
+        "Kharidar",
+        "Nayab Subba",
+        "Section Officer",
+        "Public Service Exam",
+        "General Competitive Exams"
+    ],
+    chaptersList:[
+        "Nepal Geography",
+        "Environment & Resources",
+        "Nepal History",
+        "Constitution & Governance",
+        "International Organizations",
+        "Current Affairs Framework",
+        "Verbal Reasoning",
+        "Non-Verbal Reasoning",
+        "MCQ Strategy",
+        "Revision & Exam Plan"
+    ]
+},
+{
+    id:"sn-004",
+    category:"share",
+    title:"Nepali Share Market Fundamentals",
+    subtitle:"NEPSE, IPO, Demat, MeroShare & Investment Basics",
+    summary:"Share market सुरु गर्न चाहने beginner का लागि सरल educational guide।",
+    description:"IPO, Demat, MeroShare, primary market, secondary market, company financial indicators, risk management र portfolio basics बुझ्नका लागि तयार गरिएको educational ebook।",
+    cover:"https://placehold.co/700x930/fff7ed/f97316?text=NEPSE+Beginner+Guide",
+    regular:899,
+    price:399,
+    discount:56,
+    pages:160,
+    chapters:10,
+    sold:510,
+    stock:210,
+    rating:4.7,
+    reviews:85,
+    badge:"BEGINNER PICK",
+    tags:["nepse","ipo","share","investment","meroshare"],
+    outcomes:[
+        "Demat तथा MeroShare को basic workflow बुझ्ने",
+        "IPO/FPO/Right Share concepts बुझ्ने",
+        "EPS, P/E र Net Worth जस्ता indicators पढ्ने",
+        "Risk management को आधार सिक्ने",
+        "Diversified portfolio को concept बुझ्ने"
+    ],
+    career:[
+        "Financial Literacy",
+        "Beginner Investor",
+        "Market Research",
+        "Personal Finance Education"
+    ],
+    chaptersList:[
+        "NEPSE & Market Structure",
+        "IPO Application",
+        "Demat & MeroShare",
+        "Secondary Market Basics",
+        "Financial Statements",
+        "EPS & P/E",
+        "Technical Basics",
+        "Risk Management",
+        "Portfolio Basics"
+    ]
+},
+{
+    id:"sn-005",
+    category:"personality",
+    title:"Confidence, Communication & Interview Success",
+    subtitle:"Communication, Body Language र Job Interview Skills",
+    summary:"Interview, presentation र professional communication सुधार्न practical guide।",
+    description:"Confidence building, body language, communication, interview preparation, professional behaviour र workplace communication लाई practical exercises सहित समेटिएको guide।",
+    cover:"https://placehold.co/700x930/fff7ed/ea580c?text=Interview+Success",
+    regular:799,
+    price:349,
+    discount:56,
+    pages:140,
+    chapters:9,
+    sold:730,
+    stock:170,
+    rating:4.9,
+    reviews:115,
+    badge:"CAREER BOOST",
+    tags:["confidence","interview","communication","personality","job"],
+    outcomes:[
+        "Public speaking confidence बढाउने",
+        "Professional body language सुधार गर्ने",
+        "Interview questions को तयारी गर्ने",
+        "Professional communication सिक्ने",
+        "Workplace etiquette बुझ्ने"
+    ],
+    career:[
+        "Job Interview",
+        "Presentation",
+        "Customer Communication",
+        "Workplace Confidence",
+        "Leadership Development"
+    ],
+    chaptersList:[
+        "Building Inner Confidence",
+        "Body Language",
+        "Eye Contact",
+        "Professional Communication",
+        "Top Interview Questions",
+        "Answer Frameworks",
+        "Presentation Skills",
+        "Workplace Ethics"
+    ]
+},
+{
+    id:"sn-006",
+    category:"career",
+    title:"Nepali Youth Career Roadmap & Job Search",
+    subtitle:"CV, Resume, Job Search र Career Direction",
+    summary:"Fresh graduates तथा job seekers का लागि practical career roadmap।",
+    description:"Career direction, ATS-friendly resume, LinkedIn, job portals, networking, interview preparation र first 90 days को professional roadmap।",
+    cover:"https://placehold.co/700x930/fff7ed/f97316?text=Youth+Career+Roadmap",
+    regular:899,
+    price:399,
+    discount:56,
+    pages:175,
+    chapters:11,
+    sold:490,
+    stock:190,
+    rating:4.8,
+    reviews:94,
+    badge:"RECOMMENDED",
+    tags:["career","cv","resume","jobs","linkedin"],
+    outcomes:[
+        "Professional CV/Resume तयार गर्ने",
+        "Career direction तय गर्ने",
+        "Job portals strategically प्रयोग गर्ने",
+        "LinkedIn profile improve गर्ने",
+        "Networking र application tracking गर्ने"
+    ],
+    career:[
+        "Fresh Graduate Job Search",
+        "Career Switch",
+        "Resume Improvement",
+        "LinkedIn Job Search",
+        "Professional Growth"
+    ],
+    chaptersList:[
+        "Understanding Career Direction",
+        "Nepal Job Market",
+        "Resume Structure",
+        "ATS-Friendly CV",
+        "LinkedIn Profile",
+        "Job Portal Strategy",
+        "Networking",
+        "Interview Preparation",
+        "First 90 Days"
+    ]
+}
+];
+
+/* =========================================================
+   BUNDLES
+========================================================= */
+
+const BUNDLES = [
+{
+    id:"bundle-career",
+    title:"Ultimate StudyNotes Career Super Bundle",
+    subtitle:"६ वटा Ebooks — सबैभन्दा ठूलो learning coverage",
+    description:"Computer + Digital Skills + LokSewa + Share Market + Personality + Career एउटै package मा।",
+    ids:["sn-001","sn-002","sn-003","sn-004","sn-005","sn-006"],
+    regular:5986,
+    price:1499,
+    discount:75,
+    badge:"75% OFF"
+},
+{
+    id:"bundle-office",
+    title:"Office + Digital Skills Bundle",
+    subtitle:"Computer Skills + Freelancing",
+    description:"Office productivity र digital income skills दुवैका लागि compact package।",
+    ids:["sn-001","sn-002"],
+    regular:2298,
+    price:899,
+    discount:61,
+    badge:"BEST VALUE"
+},
+{
+    id:"bundle-career-ready",
+    title:"Career Ready Bundle",
+    subtitle:"Interview + Career Roadmap + Computer",
+    description:"Job खोज्ने, CV तयार गर्ने र office-ready बन्न चाहनेहरूका लागि।",
+    ids:["sn-001","sn-005","sn-006"],
+    regular:2697,
+    price:999,
+    discount:63,
+    badge:"CAREER PICK"
+}
+];
+
+/* =========================================================
+   REVIEWS
+========================================================= */
+
+const REVIEWS = [
+{
+    name:"Sagar K.",
+    role:"Student",
+    rating:5,
+    text:"Content धेरै व्यवस्थित लाग्यो। विशेष गरी Computer र Office section practical छ।"
+},
+{
+    name:"Anita R.",
+    role:"Job Seeker",
+    rating:5,
+    text:"CV र interview preparation का points धेरै useful लागे। पढ्न पनि सजिलो छ।"
+},
+{
+    name:"Bikash M.",
+    role:"Exam Candidate",
+    rating:5,
+    text:"LokSewa preparation लाई sections मा divide गरिएको style राम्रो छ।"
+},
+{
+    name:"Rojina S.",
+    role:"Learner",
+    rating:4,
+    text:"Digital skills को roadmap beginner लाई बुझ्न सजिलो छ।"
+}
+];
+
+const TESTIMONIALS = [
+{
+    name:"Aayush",
+    time:"10:24 PM",
+    text:"StudyNotes को ebook पाएँ। धन्यवाद 🙏"
+},
+{
+    name:"Prabin",
+    time:"9:42 PM",
+    text:"Payment गरेपछि delivery process clear थियो।"
+},
+{
+    name:"Mina",
+    time:"8:15 PM",
+    text:"Career वाला ebook मेरो लागि useful भयो।"
+},
+{
+    name:"Roshan",
+    time:"7:51 PM",
+    text:"Bundle option ले धेरै save भयो।"
+}
+];
+
+const FAQS = [
+{
+    q:"StudyNotes Ebook कसरी प्राप्त हुन्छ?",
+    a:"तपाईंले Ebook/Combo छानेर Cart मा राख्नुहोस्। NSPAY मा payment गरेपछि payment confirmation/screenshot WhatsApp मा पठाउनुहोस्। Verification पछि सामान्यतया 3–5 minutes भित्र WhatsApp वा Email मा digital file पठाइन्छ।"
+},
+{
+    q:"Payment कसरी गर्ने?",
+    a:"Cart बाट NSPAY Payment Page खोल्नुहोस्। त्यहाँ उपलब्ध payment instructions अनुसार payment गर्नुहोस्।"
+},
+{
+    q:"WhatsApp बाट order गर्न मिल्छ?",
+    a:"मिल्छ। Product को Order via WhatsApp button प्रयोग गरेर selected product को नाम र price सहित WhatsApp conversation खोल्न सकिन्छ।"
+},
+{
+    q:"Custom Combo कसरी काम गर्छ?",
+    a:"२ वा बढी Ebooks छान्दा combo discount लागू हुन्छ। ३ वा बढी Ebooks छान्दा थप discount लागू हुन्छ। Final amount summary panel मा तुरुन्त देखिन्छ।"
+},
+{
+    q:"Ebook mobile मा पढ्न सकिन्छ?",
+    a:"हो। Ebook PDF format मा भएमा Android, iPhone, tablet तथा laptop मा पढ्न सकिन्छ।"
+},
+{
+    q:"के Ebook ले job वा income guarantee गर्छ?",
+    a:"गर्दैन। Ebooks educational resources हुन्। वास्तविक परिणाम तपाईंको अभ्यास, skill, effort र market conditions मा निर्भर हुन्छ।"
+},
+{
+    q:"Share Market Ebook investment recommendation हो?",
+    a:"होइन। Share Market सामग्री educational purpose का लागि हो। कुनै निश्चित profit वा investment return guarantee गरिएको छैन।"
+}
+];
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function money(n){
+    return `रु. ${Number(n).toLocaleString("en-IN")}`;
+}
+
+function discountPercent(regular,price){
+    if(!regular) return 0;
+    return Math.round(((regular-price)/regular)*100);
+}
+
+function Stars({rating=5}){
+    return (
+        <span className="tracking-tight">
+            {[1,2,3,4,5].map(i=>(
+                <span key={i} className={i<=Math.round(rating) ? "text-orange-500":"text-slate-300"}>★</span>
+            ))}
+        </span>
+    );
+}
+
+/* =========================================================
+   FAQ ITEM
+========================================================= */
+
+function FAQItem({faq}){
+    const [open,setOpen]=useState(false);
+
+    return (
+        <div className="border border-orange-100 rounded-2xl overflow-hidden bg-white shadow-sm">
+            <button
+                onClick={()=>setOpen(!open)}
+                className="w-full px-4 py-4 text-left flex items-center justify-between gap-4"
+            >
+                <span className="font-extrabold text-sm text-slate-900">
+                    {faq.q}
+                </span>
+                <span className="w-7 h-7 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center shrink-0 font-black">
+                    {open ? "−":"+"}
+                </span>
+            </button>
+
+            {open && (
+                <div className="px-4 pb-4 text-xs leading-6 text-slate-600 border-t border-orange-50 pt-3">
+                    {faq.a}
+                </div>
+            )}
+        </div>
+    );
+}
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+
+function ProductCard({
+    product,
+    onOpen,
+    onCart,
+    onWhatsApp
+}){
+
+    const pct=discountPercent(product.regular,product.price);
+
+    return (
+        <article className="bg-white rounded-2xl border border-orange-100 shadow-soft hover:shadow-orange hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
+
+            <div
+                className="relative product-cover bg-orange-50 overflow-hidden cursor-pointer"
+                onClick={()=>onOpen(product)}
+            >
+
+                <img
+                    src={product.cover}
+                    alt={product.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                />
+
+                {/* TOP LEFT OFFER */}
+                <span className="absolute top-2 left-2 bg-orange-500 text-white px-2 py-1 rounded-lg text-[9px] font-black badge-shadow">
+                    🔥 {product.badge}
+                </span>
+
+                {/* TOP RIGHT DISCOUNT */}
+                <span className="absolute top-2 right-2 bg-slate-950 text-white px-2 py-1 rounded-lg text-[9px] font-black badge-shadow">
+                    -{pct}%
+                </span>
+
+                {/* BOTTOM LEFT RATING */}
+                <span className="absolute bottom-2 left-2 bg-white/95 text-slate-900 px-2 py-1 rounded-lg text-[9px] font-extrabold badge-shadow">
+                    ⭐ {product.rating} · {product.reviews} Reviews
+                </span>
+
+                {/* BOTTOM RIGHT SOLD/STOCK */}
+                <span className="absolute bottom-2 right-2 bg-slate-950/90 text-white px-2 py-1 rounded-lg text-[8px] font-bold badge-shadow">
+                    🛍️ {product.sold} sold · {product.stock} left
+                </span>
+            </div>
+
+            <div className="p-3 flex flex-col flex-1">
+
+                <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[9px] font-black uppercase tracking-wider text-orange-600 bg-orange-50 px-2 py-1 rounded-lg">
+                        {product.category}
+                    </span>
+
+                    <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-lg">
+                        ✓ Digital PDF
+                    </span>
+                </div>
+
+                <h3
+                    onClick={()=>onOpen(product)}
+                    className="font-black text-sm leading-snug text-slate-900 cursor-pointer hover:text-orange-600 line-clamp-2"
+                >
+                    {product.title}
+                </h3>
+
+                <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">
+                    {product.subtitle}
+                </p>
+
+                <div className="flex items-center gap-2 mt-2">
+                    <Stars rating={product.rating}/>
+                    <span className="text-[10px] text-slate-500">
+                        {product.rating}/5
+                    </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-1 mt-3">
+                    <div className="rounded-lg bg-slate-50 p-2 text-center">
+                        <div className="text-[9px] text-slate-400">Pages</div>
+                        <div className="text-[10px] font-black">{product.pages}</div>
+                    </div>
+
+                    <div className="rounded-lg bg-slate-50 p-2 text-center">
+                        <div className="text-[9px] text-slate-400">Chapters</div>
+                        <div className="text-[10px] font-black">{product.chapters}</div>
+                    </div>
+
+                    <div className="rounded-lg bg-emerald-50 p-2 text-center">
+                        <div className="text-[9px] text-emerald-600">Stock</div>
+                        <div className="text-[10px] font-black text-emerald-700">{product.stock}</div>
+                    </div>
+                </div>
+
+                <div className="mt-3 pt-3 border-t border-slate-100">
+                    <div className="flex items-end justify-between gap-2">
+                        <div>
+                            <div className="text-[9px] text-slate-400">Today Price</div>
+                            <div className="text-xl font-black text-orange-600">
+                                {money(product.price)}
+                            </div>
+                        </div>
+
+                        <div className="text-right">
+                            <div className="text-[9px] text-slate-400">Regular</div>
+                            <div className="text-[10px] line-through text-slate-400">
+                                {money(product.regular)}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-2 rounded-lg bg-orange-50 px-2 py-1.5 text-[9px] font-bold text-orange-700 flex justify-between">
+                        <span>Today Discount</span>
+                        <span>Save {money(product.regular-product.price)}</span>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 mt-3">
+                    <button
+                        onClick={()=>onOpen(product)}
+                        className="py-2 rounded-xl border border-orange-200 text-orange-700 font-black text-[10px] hover:bg-orange-50 transition"
+                    >
+                        Details
+                    </button>
+
+                    <button
+                        onClick={()=>onCart(product)}
+                        className="py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-black text-[10px] transition shadow-sm"
+                    >
+                        🛒 Add
+                    </button>
+                </div>
+
+                <button
+                    onClick={()=>onWhatsApp(product)}
+                    className="w-full mt-2 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-[10px] transition"
+                >
+                    💬 Order via WhatsApp
+                </button>
+            </div>
+        </article>
+    );
+}
+
+/* =========================================================
+   MAIN APP
+========================================================= */
+
+function App(){
+
+    const [products,setProducts]=useState(INITIAL_PRODUCTS);
+
+    const [cart,setCart]=useState(()=>{
+        try{
+            return JSON.parse(localStorage.getItem("studynotes_cart")||"[]");
+        }catch{
+            return [];
+        }
+    });
+
+    const [category,setCategory]=useState("all");
+    const [search,setSearch]=useState("");
+    const [sort,setSort]=useState("featured");
+
+    const [selectedProduct,setSelectedProduct]=useState(null);
+
+    const [cartOpen,setCartOpen]=useState(false);
+    const [menuOpen,setMenuOpen]=useState(false);
+
+    const [toast,setToast]=useState("");
+
+    const [previewImage,setPreviewImage]=useState(null);
+    const [previewPdf,setPreviewPdf]=useState(false);
+
+    const [adminOpen,setAdminOpen]=useState(false);
+    const [policy,setPolicy]=useState(null);
+
+    const [comboIds,setComboIds]=useState([]);
+
+    const [heroIndex,setHeroIndex]=useState(0);
+
+    const [timeLeft,setTimeLeft]=useState({
+        hours:5,
+        minutes:59,
+        seconds:59
+    });
+
+    /* =====================================================
+       SAVE CART
+    ===================================================== */
+
+    useEffect(()=>{
+        localStorage.setItem("studynotes_cart",JSON.stringify(cart));
+    },[cart]);
+
+    /* =====================================================
+       HERO AUTO ROTATION — 20 SECONDS
+    ===================================================== */
+
+    useEffect(()=>{
+        const timer=setInterval(()=>{
+            setHeroIndex(prev=>(prev+1)%products.length);
+        },20000);
+
+        return ()=>clearInterval(timer);
+    },[products.length]);
+
+    /* =====================================================
+       COUNTDOWN
+    ===================================================== */
+
+    useEffect(()=>{
+
+        const timer=setInterval(()=>{
+
+            setTimeLeft(prev=>{
+
+                let h=prev.hours;
+                let m=prev.minutes;
+                let s=prev.seconds;
+
+                if(s>0){
+                    s--;
+                }else{
+                    s=59;
+
+                    if(m>0){
+                        m--;
+                    }else{
+                        m=59;
+
+                        if(h>0){
+                            h--;
+                        }else{
+                            h=5;
+                            m=59;
+                            s=59;
+                        }
+                    }
+                }
+
+                return {
+                    hours:h,
+                    minutes:m,
+                    seconds:s
+                };
+            });
+
+        },1000);
+
+        return ()=>clearInterval(timer);
+
+    },[]);
+
+    /* =====================================================
+       TOAST
+    ===================================================== */
+
+    const showToast=(message)=>{
+        setToast(message);
+        setTimeout(()=>setToast(""),2800);
+    };
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    const scrollTo=(id)=>{
+        setMenuOpen(false);
+
+        const el=document.getElementById(id);
+
+        if(el){
+            el.scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+        }
+    };
+
+    /* =====================================================
+       WHATSAPP
+    ===================================================== */
+
+    const whatsappOrder=(product)=>{
+
+        const text=
+`Hello StudyNotes 👋
+
+I want to order this Ebook:
+
+📚 ${product.title}
+
+💰 Regular Price: ${money(product.regular)}
+🔥 Today Price: ${money(product.price)}
+💸 Discount: ${product.discount}%
+
+⭐ Rating: ${product.rating}/5
+
+Please send me payment/order instructions.
+
+Thank you.`;
+
+        window.open(
+            `https://wa.me/${BRAND.whatsappRaw}?text=${encodeURIComponent(text)}`,
+            "_blank"
+        );
+    };
+
+    /* =====================================================
+       ADD TO CART
+    ===================================================== */
+
+    const addToCart=(product)=>{
+
+        setCart(prev=>{
+
+            const exists=prev.find(x=>x.id===product.id);
+
+            if(exists){
+
+                return prev.map(x=>
+                    x.id===product.id
+                    ? {...x,quantity:x.quantity+1}
+                    : x
+                );
+
+            }
+
+            return [
+                ...prev,
+                {
+                    id:product.id,
+                    title:product.title,
+                    cover:product.cover,
+                    regular:product.regular,
+                    price:product.price,
+                    quantity:1,
+                    type:"Ebook"
+                }
+            ];
+        });
+
+        showToast(`"${product.title}" Cart मा थपियो ✓`);
+    };
+
+    /* =====================================================
+       ADD BUNDLE
+    ===================================================== */
+
+    const addBundle=(bundle)=>{
+
+        const item={
+            id:bundle.id,
+            title:bundle.title,
+            cover:products.find(p=>p.id===bundle.ids[0])?.cover,
+            regular:bundle.regular,
+            price:bundle.price,
+            quantity:1,
+            type:"Bundle"
+        };
+
+        setCart(prev=>{
+
+            const exists=prev.find(x=>x.id===item.id);
+
+            if(exists){
+                return prev.map(x=>
+                    x.id===item.id
+                    ? {...x,quantity:x.quantity+1}
+                    : x
+                );
+            }
+
+            return [...prev,item];
+        });
+
+        showToast("Bundle Cart मा थपियो ✓");
+    };
+
+    /* =====================================================
+       REMOVE
+    ===================================================== */
+
+    const removeCart=(id)=>{
+        setCart(prev=>prev.filter(x=>x.id!==id));
+    };
+
+    /* =====================================================
+       QUANTITY
+    ===================================================== */
+
+    const quantity=(id,delta)=>{
+
+        setCart(prev=>
+            prev.map(x=>{
+
+                if(x.id!==id) return x;
+
+                const q=x.quantity+delta;
+
+                return q>0
+                    ? {...x,quantity:q}
+                    : x;
+
+            })
+        );
+    };
+
+    /* =====================================================
+       CART TOTALS
+    ===================================================== */
+
+    const cartTotals=useMemo(()=>{
+
+        const regular=cart.reduce(
+            (sum,x)=>sum+x.regular*x.quantity,
+            0
+        );
+
+        const price=cart.reduce(
+            (sum,x)=>sum+x.price*x.quantity,
+            0
+        );
+
+        return {
+            regular,
+            price,
+            savings:regular-price,
+            count:cart.reduce((sum,x)=>sum+x.quantity,0)
+        };
+
+    },[cart]);
+
+    /* =====================================================
+       FILTERED PRODUCTS
+    ===================================================== */
+
+    const filteredProducts=useMemo(()=>{
+
+        const q=search.toLowerCase().trim();
+
+        let result=products.filter(p=>{
+
+            const categoryMatch=
+                category==="all" ||
+                p.category===category;
+
+            const searchMatch=
+                !q ||
+                p.title.toLowerCase().includes(q) ||
+                p.subtitle.toLowerCase().includes(q) ||
+                p.tags.some(t=>t.toLowerCase().includes(q));
+
+            return categoryMatch && searchMatch;
+        });
+
+        if(sort==="price-low"){
+            result.sort((a,b)=>a.price-b.price);
+        }
+
+        if(sort==="price-high"){
+            result.sort((a,b)=>b.price-a.price);
+        }
+
+        if(sort==="discount"){
+            result.sort((a,b)=>b.discount-a.discount);
+        }
+
+        if(sort==="rating"){
+            result.sort((a,b)=>b.rating-a.rating);
+        }
+
+        if(sort==="sold"){
+            result.sort((a,b)=>b.sold-a.sold);
+        }
+
+        return result;
+
+    },[products,category,search,sort]);
+
+    /* =====================================================
+       COMBO
+    ===================================================== */
+
+    const combo=useMemo(()=>{
+
+        const selected=products.filter(p=>comboIds.includes(p.id));
+
+        const regular=selected.reduce(
+            (sum,p)=>sum+p.regular,
+            0
+        );
+
+        const sale=selected.reduce(
+            (sum,p)=>sum+p.price,
+            0
+        );
+
+        let rate=0;
+
+        if(selected.length>=3){
+            rate=.20;
+        }else if(selected.length>=2){
+            rate=.15;
+        }
+
+        const discount=Math.round(sale*rate);
+
+        return {
+            selected,
+            regular,
+            sale,
+            discount,
+            final:sale-discount,
+            rate:rate*100,
+            savings:regular-(sale-discount)
+        };
+
+    },[comboIds,products]);
+
+    /* =====================================================
+       ADD COMBO
+    ===================================================== */
+
+    const addCombo=()=>{
+
+        if(combo.selected.length<2){
+            showToast("कम्तीमा २ वटा Ebook छान्नुहोस्");
+            return;
+        }
+
+        const item={
+            id:`combo-${Date.now()}`,
+            title:`Custom Combo — ${combo.selected.length} Ebooks`,
+            cover:combo.selected[0].cover,
+            regular:combo.regular,
+            price:combo.final,
+            quantity:1,
+            type:"Custom Combo",
+            items:combo.selected.map(p=>p.title)
+        };
+
+        setCart(prev=>[...prev,item]);
+
+        showToast("Custom Combo Cart मा थपियो ✓");
+    };
+
+    /* =====================================================
+       CHECKOUT WHATSAPP
+    ===================================================== */
+
+    const checkoutWhatsApp=()=>{
+
+        if(!cart.length) return;
+
+        const items=cart.map(
+            x=>`• ${x.title} × ${x.quantity} — ${money(x.price*x.quantity)}`
+        ).join("\n");
+
+        const text=
+`Hello StudyNotes 👋
+
+I want to place an order.
+
+${items}
+
+Regular Total: ${money(cartTotals.regular)}
+Total Savings: ${money(cartTotals.savings)}
+Final Amount: ${money(cartTotals.price)}
+
+Please send me the payment instructions.
+
+Thank you.`;
+
+        window.open(
+            `https://wa.me/${BRAND.whatsappRaw}?text=${encodeURIComponent(text)}`,
+            "_blank"
+        );
+    };
+
+    /* =====================================================
+       OPEN PRODUCT
+    ===================================================== */
+
+    const openProduct=(product)=>{
+        setSelectedProduct(product);
+        window.scrollTo({top:0,behavior:"smooth"});
+    };
+
+    /* =====================================================
+       HOME PAGE
+    ===================================================== */
+
+    const Home=()=>{
+
+        const hero=products[heroIndex];
+
+        return (
+        <>
+
+            {/* =================================================
+                TOP URGENCY / STOCK BAR
+            ================================================= */}
+
+            <div className="sticky top-0 z-50 bg-slate-950 text-white border-b border-orange-500/30">
+
+                <div className="max-w-7xl mx-auto px-2 py-1.5 flex items-center gap-2">
+
+                    <div className="shrink-0 flex items-center gap-1 bg-orange-500 text-white px-2 py-1 rounded-lg text-[9px] font-black">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white pulse-dot"></span>
+                        LIVE OFFERS
+                    </div>
+
+                    <div className="overflow-hidden flex-1">
+
+                        <div className="ticker whitespace-nowrap items-center gap-10">
+
+                            {[...products,...products].map((p,i)=>(
+                                <button
+                                    key={i}
+                                    onClick={()=>openProduct(p)}
+                                    className="text-[10px] md:text-xs font-semibold text-slate-200 hover:text-orange-300"
+                                >
+                                    🔥 {p.badge} — {p.title} — Save {p.discount}%
+                                </button>
+                            ))}
+
+                        </div>
+
+                    </div>
+
+                    <div className="hidden sm:flex shrink-0 items-center gap-1 text-[9px] font-bold text-orange-300">
+                        ⏱ {String(timeLeft.hours).padStart(2,"0")}:
+                        {String(timeLeft.minutes).padStart(2,"0")}:
+                        {String(timeLeft.seconds).padStart(2,"0")}
+                    </div>
+
+                </div>
+            </div>
+
+            {/* =================================================
+                HEADER
+            ================================================= */}
+
+            <header className="sticky top-[34px] z-40 glass border-b border-orange-100 shadow-sm">
+
+                <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 flex items-center justify-between gap-3">
+
+                    {/* Logo */}
+                    <button
+                        onClick={()=>scrollTo("home")}
+                        className="flex items-center gap-2.5 min-w-0"
+                    >
+
+                        <div className="relative w-11 h-11 shrink-0">
+
+                            <div className="absolute left-0 top-2 w-7 h-8 rounded-md bg-orange-100 border border-orange-300 rotate-[-8deg]"></div>
+
+                            <div className="absolute left-2 top-1 w-7 h-9 rounded-md bg-orange-200 border border-orange-400 rotate-[-3deg]"></div>
+
+                            <div className="absolute left-3 top-0 w-8 h-10 rounded-md bg-orange-500 border border-orange-600 shadow-md flex items-center justify-center text-white font-black text-[9px]">
+                                SN
+                            </div>
+
+                        </div>
+
+                        <div className="text-left min-w-0">
+                            <div className="font-black text-base sm:text-lg text-slate-950 truncate">
+                                {BRAND.name}
+                            </div>
+
+                            <div className="text-[8px] sm:text-[9px] font-bold text-orange-600 truncate">
+                                {BRAND.tagline}
+                            </div>
+                        </div>
+
+                    </button>
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-1.5">
+
+                        <button
+                            onClick={()=>scrollTo("explore")}
+                            className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-lg hover:bg-orange-100"
+                            aria-label="Search"
+                        >
+                            🔍
+                        </button>
+
+                        <button
+                            onClick={()=>setCartOpen(true)}
+                            className="relative w-10 h-10 rounded-xl bg-slate-950 text-white flex items-center justify-center text-lg"
+                        >
+                            🛒
+
+                            {cartTotals.count>0 && (
+                                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-orange-500 border-2 border-white text-[8px] font-black flex items-center justify-center">
+                                    {cartTotals.count}
+                                </span>
+                            )}
+                        </button>
+
+                    </div>
+
+                </div>
+            </header>
+
+            {/* =================================================
+                HERO
+            ================================================= */}
+
+            <section id="home" className="hero-gradient border-b border-orange-100">
+
+                <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+
+                    {/* Brand identity */}
+                    <div className="text-center max-w-3xl mx-auto">
+
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-orange-700 text-[9px] font-black uppercase tracking-wider">
+                            ✦ {BRAND.fullName}
+                        </div>
+
+                        <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-950 leading-tight">
+                            Learn Better.
+                            <span className="text-orange-600"> Grow Faster.</span>
+                        </h1>
+
+                        <p className="mt-3 text-sm md:text-base text-slate-600 leading-7">
+                            Practical Ebooks for Study, Skills, Career & Personal Growth —
+                            सरल, व्यवस्थित र उपयोगी learning resources।
+                        </p>
+
+                        <div className="flex flex-wrap justify-center gap-2 mt-5">
+
+                            <span className="px-3 py-1.5 rounded-full bg-white border border-orange-100 text-[10px] font-bold">
+                                📚 Practical Content
+                            </span>
+
+                            <span className="px-3 py-1.5 rounded-full bg-white border border-orange-100 text-[10px] font-bold">
+                                ⚡ Digital Delivery
+                            </span>
+
+                            <span className="px-3 py-1.5 rounded-full bg-white border border-orange-100 text-[10px] font-bold">
+                                💬 WhatsApp Support
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    {/* Hero book */}
+                    <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-7 items-center">
+
+                        <div className="lg:col-span-4 flex justify-center">
+
+                            <div className="relative w-64 sm:w-72">
+
+                                <div className="absolute -inset-4 rounded-[2rem] bg-orange-400/15 blur-2xl"></div>
+
+                                <div className="relative bg-white p-2 rounded-3xl border border-orange-200 shadow-orange hero-book">
+
+                                    <img
+                                        src={hero.cover}
+                                        alt={hero.title}
+                                        className="w-full rounded-2xl cursor-pointer"
+                                        onClick={()=>setPreviewImage(hero.cover)}
+                                    />
+
+                                    <div className="absolute top-5 left-5 bg-orange-500 text-white rounded-lg px-2 py-1 text-[9px] font-black shadow">
+                                        🔥 {hero.badge}
+                                    </div>
+
+                                    <div className="absolute top-5 right-5 bg-slate-950 text-white rounded-lg px-2 py-1 text-[9px] font-black shadow">
+                                        -{hero.discount}%
+                                    </div>
+
+                                </div>
+
+                                <div className="mt-3 flex justify-center gap-1.5">
+
+                                    {products.map((_,i)=>(
+                                        <button
+                                            key={i}
+                                            onClick={()=>setHeroIndex(i)}
+                                            className={`h-1.5 rounded-full transition-all ${
+                                                i===heroIndex
+                                                ?"w-8 bg-orange-500"
+                                                :"w-2 bg-orange-200"
+                                            }`}
+                                        />
+                                    ))}
+
+                                </div>
+
+                                <div className="text-center mt-2 text-[9px] font-bold text-slate-400">
+                                    Auto next every 20 seconds
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {/* Hero details */}
+                        <div className="lg:col-span-8">
+
+                            <div className="inline-flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-xl px-3 py-1.5 text-[9px] font-black text-orange-700">
+                                🔥 TODAY'S FEATURED RESOURCE
+                            </div>
+
+                            <h2 className="mt-3 text-2xl md:text-4xl font-black text-slate-950 leading-tight">
+                                {hero.title}
+                            </h2>
+
+                            <p className="mt-2 text-sm text-slate-600 leading-6">
+                                {hero.subtitle}
+                            </p>
+
+                            <p className="mt-3 text-xs md:text-sm text-slate-500 leading-6 max-w-2xl">
+                                {hero.description}
+                            </p>
+
+                            {/* Stats */}
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-5">
+
+                                <div className="p-3 rounded-xl bg-white border border-orange-100 text-center">
+                                    <div className="text-lg font-black text-orange-600">{hero.pages}</div>
+                                    <div className="text-[9px] text-slate-500">Pages</div>
+                                </div>
+
+                                <div className="p-3 rounded-xl bg-white border border-orange-100 text-center">
+                                    <div className="text-lg font-black text-orange-600">{hero.chapters}</div>
+                                    <div className="text-[9px] text-slate-500">Chapters</div>
+                                </div>
+
+                                <div className="p-3 rounded-xl bg-white border border-orange-100 text-center">
+                                    <div className="text-lg font-black text-orange-600">{hero.sold}</div>
+                                    <div className="text-[9px] text-slate-500">Sold</div>
+                                </div>
+
+                                <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-100 text-center">
+                                    <div className="text-lg font-black text-emerald-700">{hero.stock}</div>
+                                    <div className="text-[9px] text-emerald-600">Available</div>
+                                </div>
+
+                            </div>
+
+                            {/* Price */}
+                            <div className="mt-5 p-4 rounded-2xl bg-white border border-orange-200 shadow-soft">
+
+                                <div className="grid grid-cols-3 gap-3 text-center">
+
+                                    <div>
+                                        <div className="text-[9px] text-slate-400">Regular Price</div>
+                                        <div className="text-sm font-bold line-through text-slate-400">
+                                            {money(hero.regular)}
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div className="text-[9px] text-orange-600 font-bold">Today Discount</div>
+                                        <div className="text-lg font-black text-orange-600">
+                                            {hero.discount}% OFF
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div className="text-[9px] text-emerald-600 font-bold">Today Price</div>
+                                        <div className="text-xl font-black text-slate-950">
+                                            {money(hero.price)}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div className="mt-3 flex items-center justify-between bg-orange-50 rounded-xl p-2.5 text-[10px] font-bold text-orange-700">
+                                    <span>⏳ Offer ending soon</span>
+                                    <span>
+                                        {String(timeLeft.hours).padStart(2,"0")}:
+                                        {String(timeLeft.minutes).padStart(2,"0")}:
+                                        {String(timeLeft.seconds).padStart(2,"0")}
+                                    </span>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3">
+
+                                    <button
+                                        onClick={()=>openProduct(hero)}
+                                        className="py-3 rounded-xl border border-orange-200 text-orange-700 font-black text-xs hover:bg-orange-50"
+                                    >
+                                        📖 View Details
+                                    </button>
+
+                                    <button
+                                        onClick={()=>addToCart(hero)}
+                                        className="py-3 rounded-xl orange-gradient text-white font-black text-xs shadow-orange"
+                                    >
+                                        🛒 Add to Cart
+                                    </button>
+
+                                    <button
+                                        onClick={()=>whatsappOrder(hero)}
+                                        className="py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs"
+                                    >
+                                        💬 WhatsApp Order
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {/* Mini books */}
+                    <div className="mt-8">
+
+                        <div className="text-center mb-4">
+                            <h3 className="font-black text-lg">
+                                Choose Your Learning Resource
+                            </h3>
+                            <p className="text-[10px] text-slate-500">
+                                हरेक Ebook मा आजको discount स्पष्ट रूपमा हेर्नुहोस्।
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+
+                            {products.map((p,i)=>(
+                                <button
+                                    key={p.id}
+                                    onClick={()=>setHeroIndex(i)}
+                                    className={`p-1.5 rounded-xl border transition ${
+                                        i===heroIndex
+                                        ?"border-orange-500 bg-orange-50 shadow-orange"
+                                        :"border-orange-100 bg-white"
+                                    }`}
+                                >
+
+                                    <div className="relative">
+
+                                        <img
+                                            src={p.cover}
+                                            alt=""
+                                            className="w-full aspect-[3/4] object-cover rounded-lg"
+                                        />
+
+                                        <span className="absolute top-1 right-1 bg-slate-950 text-white rounded px-1 py-0.5 text-[7px] font-black">
+                                            -{p.discount}%
+                                        </span>
+
+                                    </div>
+
+                                    <div className="mt-1 text-[8px] font-black line-clamp-1">
+                                        {p.title}
+                                    </div>
+
+                                    <div className="text-[8px] text-orange-600 font-black">
+                                        {money(p.price)}
+                                    </div>
+
+                                </button>
+                            ))}
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            {/* =================================================
+                TRUST STRIP
+            ================================================= */}
+
+            <section className="bg-white border-b border-orange-100">
+
+                <div className="max-w-7xl mx-auto px-4 py-5 grid grid-cols-2 md:grid-cols-4 gap-3">
+
+                    {[
+                        ["📚","Practical","Useful learning content"],
+                        ["⚡","Fast Delivery","3–5 minute target"],
+                        ["💳","NSPAY","Easy payment process"],
+                        ["💬","Support","WhatsApp assistance"]
+                    ].map((x,i)=>(
+                        <div
+                            key={i}
+                            className="flex items-center gap-3 p-3 rounded-2xl bg-orange-50/50 border border-orange-100"
+                        >
+                            <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-sm text-lg">
+                                {x[0]}
+                            </div>
+
+                            <div>
+                                <div className="font-black text-[11px]">
+                                    {x[1]}
+                                </div>
+                                <div className="text-[9px] text-slate-500">
+                                    {x[2]}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+
+                </div>
+
+            </section>
+
+            {/* =================================================
+                GOALS
+            ================================================= */}
+
+            <section className="py-10 bg-orange-50/40 border-b border-orange-100">
+
+                <div className="max-w-7xl mx-auto px-4">
+
+                    <div className="text-center max-w-xl mx-auto mb-7">
+
+                        <span className="text-orange-600 text-[9px] font-black tracking-widest uppercase">
+                            START HERE
+                        </span>
+
+                        <h2 className="text-2xl md:text-3xl font-black mt-1">
+                            What do you want to learn?
+                        </h2>
+
+                        <p className="text-xs text-slate-500 mt-2">
+                            आफ्नो goal छान्नुहोस् र सम्बन्धित Ebooks हेर्नुहोस्।
+                        </p>
+
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+
+                        {CATEGORIES.slice(1).map(c=>(
+                            <button
+                                key={c.id}
+                                onClick={()=>{
+                                    setCategory(c.id);
+                                    scrollTo("explore");
+                                }}
+                                className="p-4 rounded-2xl bg-white border border-orange-100 hover:border-orange-400 hover:shadow-orange transition text-center"
+                            >
+                                <div className="text-2xl">{c.icon}</div>
+                                <div className="font-black text-xs mt-2">{c.name}</div>
+                                <div className="text-[9px] text-slate-500 mt-1">
+                                    Explore
+                                </div>
+                            </button>
+                        ))}
+
+                    </div>
+
+                </div>
+            </section>
+
+            {/* =================================================
+                EXPLORE
+            ================================================= */}
+
+            <section id="explore" className="py-10 bg-white border-b border-orange-100">
+
+                <div className="max-w-7xl mx-auto px-4">
+
+                    <div className="text-center max-w-2xl mx-auto">
+
+                        <span className="text-orange-600 text-[9px] font-black tracking-widest uppercase">
+                            DIGITAL LIBRARY
+                        </span>
+
+                        <h2 className="text-2xl md:text-3xl font-black mt-1">
+                            Explore StudyNotes Ebooks
+                        </h2>
+
+                        <p className="text-xs text-slate-500 mt-2">
+                            Filter, search, compare र आफ्नो लागि उपयुक्त resource छान्नुहोस्।
+                        </p>
+
+                    </div>
+
+                    {/* Filter + Search same row */}
+                    <div className="mt-7 flex flex-col md:flex-row gap-3">
+
+                        <div className="flex-1 overflow-x-auto hide-scrollbar">
+
+                            <div className="flex gap-2 min-w-max">
+
+                                {CATEGORIES.map(c=>(
+                                    <button
+                                        key={c.id}
+                                        onClick={()=>setCategory(c.id)}
+                                        className={`px-3 py-2 rounded-xl text-[10px] font-black border transition ${
+                                            category===c.id
+                                            ?"bg-orange-500 text-white border-orange-500"
+                                            :"bg-white text-slate-600 border-slate-200 hover:border-orange-300"
+                                        }`}
+                                    >
+                                        {c.icon} {c.name}
+                                    </button>
+                                ))}
+
+                            </div>
+
+                        </div>
+
+                        <div className="flex gap-2 shrink-0">
+
+                            <div className="relative">
+
+                                <span className="absolute left-3 top-2.5 text-slate-400 text-sm">
+                                    🔍
+                                </span>
+
+                                <input
+                                    value={search}
+                                    onChange={e=>setSearch(e.target.value)}
+                                    placeholder="Search..."
+                                    className="w-full md:w-48 pl-9 pr-3 py-2 rounded-xl border border-slate-200 text-xs focus-orange"
+                                />
+
+                            </div>
+
+                            <select
+                                value={sort}
+                                onChange={e=>setSort(e.target.value)}
+                                className="px-3 py-2 rounded-xl border border-slate-200 text-[10px] font-bold focus-orange bg-white"
+                            >
+                                <option value="featured">Featured</option>
+                                <option value="rating">Top Rated</option>
+                                <option value="sold">Most Sold</option>
+                                <option value="discount">Discount</option>
+                                <option value="price-low">Low Price</option>
+                                <option value="price-high">High Price</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div className="mt-5 flex items-center justify-between">
+
+                        <div className="text-[10px] text-slate-500">
+                            Showing <b>{filteredProducts.length}</b> resources
+                        </div>
+
+                        {search && (
+                            <button
+                                onClick={()=>setSearch("")}
+                                className="text-[10px] font-bold text-orange-600"
+                            >
+                                Clear Search ×
+                            </button>
+                        )}
+
+                    </div>
+
+                    {/* 2 / 3 / 4 grid */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 mt-5">
+
+                        {filteredProducts.map(p=>(
+                            <ProductCard
+                                key={p.id}
+                                product={p}
+                                onOpen={openProduct}
+                                onCart={addToCart}
+                                onWhatsApp={whatsappOrder}
+                            />
+                        ))}
+
+                    </div>
+
+                    {filteredProducts.length===0 && (
+                        <div className="text-center py-14">
+                            <div className="text-4xl">📚</div>
+                            <h3 className="font-black mt-3">
+                                No Ebook Found
+                            </h3>
+                            <button
+                                onClick={()=>{
+                                    setSearch("");
+                                    setCategory("all");
+                                }}
+                                className="mt-3 px-4 py-2 bg-orange-500 text-white rounded-xl text-xs font-black"
+                            >
+                                Reset Filters
+                            </button>
+                        </div>
+                    )}
+
+                </div>
+            </section>
+
+            {/* =================================================
+                CUSTOM COMBO
+            ================================================= */}
+
+            <section id="combos" className="py-10 bg-orange-50/50 border-b border-orange-100">
+
+                <div className="max-w-7xl mx-auto px-4">
+
+                    <div className="text-center max-w-2xl mx-auto">
+
+                        <span className="text-orange-600 text-[9px] font-black tracking-widest uppercase">
+                            SMART SAVINGS
+                        </span>
+
+                        <h2 className="text-2xl md:text-3xl font-black mt-1">
+                            Build Your Custom Combo
+                        </h2>
+
+                        <p className="text-xs text-slate-500 mt-2">
+                            २+ Ebooks मा 15% extra combo discount।
+                            ३+ Ebooks मा 20% extra combo discount।
+                        </p>
+
+                    </div>
+
+                    <div className="grid lg:grid-cols-12 gap-5 mt-7">
+
+                        <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-3">
+
+                            {products.map(p=>{
+
+                                const selected=comboIds.includes(p.id);
+
+                                return (
+                                    <button
+                                        key={p.id}
+                                        onClick={()=>{
+                                            setComboIds(prev=>
+                                                selected
+                                                ?prev.filter(id=>id!==p.id)
+                                                :[...prev,p.id]
+                                            );
+                                        }}
+                                        className={`text-left p-2 rounded-2xl border-2 transition ${
+                                            selected
+                                            ?"border-orange-500 bg-orange-50 shadow-orange"
+                                            :"border-white bg-white hover:border-orange-200"
+                                        }`}
+                                    >
+
+                                        <div className="flex gap-2">
+
+                                            <div className="w-14 h-20 shrink-0 relative">
+
+                                                <img
+                                                    src={p.cover}
+                                                    alt=""
+                                                    className="w-full h-full object-cover rounded-lg"
+                                                />
+
+                                                <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-[7px] font-black px-1 rounded">
+                                                    -{p.discount}%
+                                                </span>
+
+                                            </div>
+
+                                            <div className="min-w-0 flex-1">
+
+                                                <div className="text-[9px] font-black line-clamp-2">
+                                                    {p.title}
+                                                </div>
+
+                                                <div className="text-[9px] text-orange-600 font-black mt-2">
+                                                    {money(p.price)}
+                                                </div>
+
+                                                <div className="text-[8px] text-slate-400 line-through">
+                                                    {money(p.regular)}
+                                                </div>
+
+                                                <div className={`mt-2 inline-flex px-1.5 py-0.5 rounded ${
+                                                    selected
+                                                    ?"bg-orange-500 text-white"
+                                                    :"bg-slate-100 text-slate-500"
+                                                } text-[8px] font-black`}>
+                                                    {selected?"✓ Selected":"Select"}
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </button>
+                                );
+                            })}
+
+                        </div>
+
+                        <div className="lg:col-span-4">
+
+                            <div className="bg-white rounded-3xl border border-orange-200 shadow-orange p-5 sticky top-28">
+
+                                <div className="flex items-center justify-between">
+
+                                    <h3 className="font-black text-sm">
+                                        📦 Combo Summary
+                                    </h3>
+
+                                    <span className="text-[9px] bg-orange-50 text-orange-600 px-2 py-1 rounded-lg font-black">
+                                        {combo.selected.length} Ebooks
+                                    </span>
+
+                                </div>
+
+                                <div className="mt-4 space-y-2 text-[10px]">
+
+                                    <div className="flex justify-between">
+                                        <span className="text-slate-500">Regular Price</span>
+                                        <span className="line-through text-slate-400">
+                                            {money(combo.regular)}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex justify-between">
+                                        <span className="text-slate-500">Today Ebook Total</span>
+                                        <span className="font-bold">
+                                            {money(combo.sale)}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex justify-between text-orange-600 font-black">
+                                        <span>Combo Discount</span>
+                                        <span>
+                                            {combo.rate ? `${combo.rate}% OFF`:"—"}
+                                        </span>
+                                    </div>
+
+                                    <div className="pt-3 border-t border-slate-100 flex justify-between items-end">
+
+                                        <span className="font-black">
+                                            Final Amount
+                                        </span>
+
+                                        <span className="text-2xl font-black text-orange-600">
+                                            {money(combo.final)}
+                                        </span>
+
+                                    </div>
+
+                                    <div className="bg-emerald-50 text-emerald-700 p-2 rounded-xl text-[9px] font-bold text-center">
+                                        Total Savings: {money(combo.savings)}
+                                    </div>
+
+                                </div>
+
+                                <button
+                                    onClick={addCombo}
+                                    disabled={combo.selected.length<2}
+                                    className={`w-full mt-4 py-3 rounded-xl text-xs font-black ${
+                                        combo.selected.length>=2
+                                        ?"bg-orange-500 hover:bg-orange-600 text-white"
+                                        :"bg-slate-100 text-slate-400 cursor-not-allowed"
+                                    }`}
+                                >
+                                    {combo.selected.length<2
+                                        ?"Select 2+ Ebooks"
+                                        :"Add Custom Combo 🛒"
+                                    }
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            {/* =================================================
+                BUNDLES
+            ================================================= */}
+
+            <section id="offers" className="py-10 bg-white border-b border-orange-100">
+
+                <div className="max-w-7xl mx-auto px-4">
+
+                    <div className="text-center max-w-2xl mx-auto">
+
+                        <span className="text-orange-600 text-[9px] font-black tracking-widest uppercase">
+                            CURATED SAVINGS
+                        </span>
+
+                        <h2 className="text-2xl md:text-3xl font-black mt-1">
+                            Best Bundle Offers
+                        </h2>
+
+                        <p className="text-xs text-slate-500 mt-2">
+                            Ready-made bundles for better value.
+                        </p>
+
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-7">
+
+                        {BUNDLES.map(bundle=>(
+                            <div
+                                key={bundle.id}
+                                className="rounded-3xl border border-orange-200 bg-orange-50/40 p-4 shadow-soft hover:shadow-orange transition"
+                            >
+
+                                <div className="flex items-center justify-between">
+
+                                    <span className="bg-orange-500 text-white rounded-lg px-2 py-1 text-[9px] font-black">
+                                        🔥 {bundle.badge}
+                                    </span>
+
+                                    <span className="bg-slate-950 text-white rounded-lg px-2 py-1 text-[9px] font-black">
+                                        -{bundle.discount}%
+                                    </span>
+
+                                </div>
+
+                                <h3 className="font-black text-base mt-3 leading-snug">
+                                    {bundle.title}
+                                </h3>
+
+                                <p className="text-[10px] text-orange-700 font-bold mt-1">
+                                    {bundle.subtitle}
+                                </p>
+
+                                <p className="text-[10px] text-slate-500 mt-2 line-clamp-2">
+                                    {bundle.description}
+                                </p>
+
+                                <div className="grid grid-cols-6 gap-1 mt-4">
+
+                                    {bundle.ids.map(id=>{
+
+                                        const p=products.find(x=>x.id===id);
+
+                                        if(!p) return null;
+
+                                        return (
+                                            <button
+                                                key={id}
+                                                onClick={()=>openProduct(p)}
+                                                title={p.title}
+                                            >
+                                                <img
+                                                    src={p.cover}
+                                                    alt=""
+                                                    className="w-full aspect-[3/4] object-cover rounded-lg border border-orange-100 hover:border-orange-400"
+                                                />
+                                            </button>
+                                        );
+
+                                    })}
+
+                                </div>
+
+                                <div className="mt-4 bg-white rounded-2xl p-3 border border-orange-100">
+
+                                    <div className="grid grid-cols-2 gap-3">
+
+                                        <div>
+                                            <div className="text-[8px] text-slate-400">Regular</div>
+                                            <div className="text-xs line-through text-slate-400">
+                                                {money(bundle.regular)}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div className="text-[8px] text-orange-600">Bundle Price</div>
+                                            <div className="text-lg font-black text-orange-600">
+                                                {money(bundle.price)}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div className="text-[9px] text-emerald-700 bg-emerald-50 rounded-lg p-2 mt-2 font-bold text-center">
+                                        Save {money(bundle.regular-bundle.price)}
+                                    </div>
+
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-2 mt-3">
+
+                                    <button
+                                        onClick={()=>addBundle(bundle)}
+                                        className="py-2.5 rounded-xl bg-orange-500 text-white font-black text-[10px]"
+                                    >
+                                        🛒 Add Bundle
+                                    </button>
+
+                                    <button
+                                        onClick={()=>{
+
+                                            const text=
+`Hello StudyNotes 👋
+
+I want to order:
+
+📦 ${bundle.title}
+💰 Bundle Price: ${money(bundle.price)}
+💸 Discount: ${bundle.discount}%
+
+Please send payment instructions.`;
+
+                                            window.open(
+                                                `https://wa.me/${BRAND.whatsappRaw}?text=${encodeURIComponent(text)}`,
+                                                "_blank"
+                                            );
+
+                                        }}
+                                        className="py-2.5 rounded-xl bg-emerald-600 text-white font-black text-[10px]"
+                                    >
+                                        💬 WhatsApp
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                </div>
+            </section>
+
+            {/* =================================================
+                RATINGS
+            ================================================= */}
+
+            <section className="py-10 bg-orange-50/40 border-b border-orange-100">
+
+                <div className="max-w-7xl mx-auto px-4">
+
+                    <div className="text-center">
+
+                        <span className="text-orange-600 text-[9px] font-black tracking-widest uppercase">
+                            LEARNER FEEDBACK
+                        </span>
+
+                        <h2 className="text-2xl md:text-3xl font-black mt-1">
+                            Ratings & Reviews
+                        </h2>
+
+                        <p className="text-xs text-slate-500 mt-2">
+                            Product quality बुझ्न learner feedback हेर्नुहोस्।
+                        </p>
+
+                    </div>
+
+                    <div className="grid md:grid-cols-4 gap-4 mt-7">
+
+                        <div className="bg-white rounded-3xl border border-orange-100 p-6 text-center shadow-soft">
+
+                            <div className="text-4xl font-black text-orange-600">
+                                4.9
+                            </div>
+
+                            <div className="mt-1">
+                                <Stars rating={5}/>
+                            </div>
+
+                            <div className="text-[10px] text-slate-500 mt-2">
+                                Average learner rating
+                            </div>
+
+                            <div className="mt-4 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="h-full bg-orange-500 w-[94%]"></div>
+                            </div>
+
+                            <div className="text-[9px] text-slate-500 mt-2">
+                                Based on product feedback
+                            </div>
+
+                        </div>
+
+                        {REVIEWS.slice(0,3).map((r,i)=>(
+                            <div
+                                key={i}
+                                className="bg-white rounded-3xl border border-orange-100 p-5 shadow-soft"
+                            >
+
+                                <div className="flex items-center justify-between">
+
+                                    <div className="flex items-center gap-2">
+
+                                        <div className="w-9 h-9 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-black text-xs">
+                                            {r.name.charAt(0)}
+                                        </div>
+
+                                        <div>
+                                            <div className="font-black text-[10px]">
+                                                {r.name}
+                                            </div>
+
+                                            <div className="text-[8px] text-slate-400">
+                                                {r.role}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <Stars rating={r.rating}/>
+
+                                </div>
+
+                                <p className="mt-4 text-[10px] leading-5 text-slate-600">
+                                    “{r.text}”
+                                </p>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                </div>
+            </section>
+
+            {/* =================================================
+                RECEIVING PROCESS
+            ================================================= */}
+
+            <section id="process" className="py-10 bg-white border-b border-orange-100">
+
+                <div className="max-w-7xl mx-auto px-4">
+
+                    <div className="text-center max-w-2xl mx-auto">
+
+                        <span className="text-orange-600 text-[9px] font-black tracking-widest uppercase">
+                            SIMPLE ORDER PROCESS
+                        </span>
+
+                        <h2 className="text-2xl md:text-3xl font-black mt-1">
+                            Ebook कसरी प्राप्त गर्ने?
+                        </h2>
+
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-7">
+
+                        {[
+                            ["01","Browse","Ebook वा Bundle छान्नुहोस्"],
+                            ["02","Preview","Details र sample हेर्नुहोस्"],
+                            ["03","Cart","Cart मा add गर्नुहोस्"],
+                            ["04","NSPAY","Payment page खोल्नुहोस्"],
+                            ["05","Confirm","Payment screenshot पठाउनुहोस्"],
+                            ["06","Delivery","WhatsApp/Email delivery"]
+                        ].map((s,i)=>(
+                            <div
+                                key={i}
+                                className="bg-orange-50/60 border border-orange-100 rounded-2xl p-4 text-center"
+                            >
+
+                                <div className="w-9 h-9 mx-auto rounded-full bg-orange-500 text-white flex items-center justify-center font-black text-xs">
+                                    {s[0]}
+                                </div>
+
+                                <h3 className="font-black text-xs mt-3">
+                                    {s[1]}
+                                </h3>
+
+                                <p className="text-[9px] text-slate-500 mt-1 leading-4">
+                                    {s[2]}
+                                </p>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                    <div className="max-w-xl mx-auto mt-6 p-3 rounded-2xl bg-emerald-50 border border-emerald-100 text-center text-[10px] font-bold text-emerald-700">
+                        ⚡ Payment verification पछि सामान्यतया {BRAND.delivery} भित्र delivery target।
+                    </div>
+
+                </div>
+            </section>
+
+            {/* =================================================
+                WHATSAPP TESTIMONIALS
+            ================================================= */}
+
+            <section className="py-10 bg-orange-50/40 border-b border-orange-100">
+
+                <div className="max-w-3xl mx-auto px-4">
+
+                    <div className="text-center">
+
+                        <span className="text-orange-600 text-[9px] font-black tracking-widest uppercase">
+                            COMMUNITY MESSAGES
+                        </span>
+
+                        <h2 className="text-2xl md:text-3xl font-black mt-1">
+                            Learner Messages
+                        </h2>
+
+                    </div>
+
+                    <div className="mt-7 bg-[#e5ddd5] rounded-3xl p-4 sm:p-6 shadow-soft">
+
+                        <div className="bg-[#efe7dd] rounded-2xl p-3 text-center text-[9px] text-slate-500 font-bold mb-4">
+                            StudyNotes Support
+                        </div>
+
+                        <div className="space-y-3">
+
+                            {TESTIMONIALS.map((t,i)=>(
+                                <div
+                                    key={i}
+                                    className={`max-w-[85%] ${
+                                        i%2
+                                        ?"ml-auto bg-green-100"
+                                        :"bg-white"
+                                    } rounded-2xl px-4 py-3 shadow-sm`}
+                                >
+
+                                    <div className="flex justify-between gap-4">
+                                        <span className="text-[9px] font-black text-slate-800">
+                                            {t.name}
+                                        </span>
+
+                                        <span className="text-[8px] text-slate-400">
+                                            {t.time}
+                                        </span>
+                                    </div>
+
+                                    <p className="text-[10px] text-slate-600 mt-1">
+                                        {t.text}
+                                    </p>
+
+                                    <div className="text-right text-[8px] text-emerald-600 mt-1">
+                                        ✓✓
+                                    </div>
+
+                                </div>
+                            ))}
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            {/* =================================================
+                FAQ
+            ================================================= */}
+
+            <section id="faq" className="py-10 bg-white border-b border-orange-100">
+
+                <div className="max-w-3xl mx-auto px-4">
+
+                    <div className="text-center">
+
+                        <span className="text-orange-600 text-[9px] font-black tracking-widest uppercase">
+                            SUPPORT
+                        </span>
+
+                        <h2 className="text-2xl md:text-3xl font-black mt-1">
+                            Frequently Asked Questions
+                        </h2>
+
+                    </div>
+
+                    <div className="space-y-2 mt-7">
+
+                        {FAQS.map((faq,i)=>(
+                            <FAQItem key={i} faq={faq}/>
+                        ))}
+
+                    </div>
+
+                </div>
+            </section>
+
+            {/* =================================================
+                AUTHOR
+            ================================================= */}
+
+            <section id="support" className="py-10 bg-orange-50/50 border-b border-orange-100">
+
+                <div className="max-w-3xl mx-auto px-4">
+
+                    <div className="bg-white rounded-3xl border border-orange-200 p-6 shadow-orange text-center">
+
+                        <div className="mx-auto w-20 h-20 rounded-2xl bg-slate-950 text-orange-400 flex items-center justify-center text-xl font-black shadow-lg">
+                            MD.NS
+                        </div>
+
+                        <div className="mt-4">
+
+                            <span className="text-orange-600 text-[9px] font-black tracking-widest uppercase">
+                                STUDYNOTES CREATOR
+                            </span>
+
+                            <h2 className="text-xl font-black mt-1">
+                                {BRAND.author}
+                            </h2>
+
+                            <p className="text-xs text-slate-500 leading-6 mt-2">
+                                StudyNotes को उद्देश्य विद्यार्थी, युवा, job seeker र lifelong learners
+                                का लागि practical study, skill, career र personal growth resources
+                                लाई सरल digital format मा उपलब्ध गराउनु हो।
+                            </p>
+
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2 mt-5">
+
+                            <a
+                                href={`https://wa.me/${BRAND.whatsappRaw}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="py-3 rounded-xl bg-emerald-600 text-white font-black text-[10px] flex items-center justify-center gap-2"
+                            >
+                                <span className="text-lg">💬</span>
+                                WhatsApp Support
+                            </a>
+
+                            <a
+                                href={`mailto:${BRAND.email}`}
+                                className="py-3 rounded-xl bg-slate-950 text-white font-black text-[10px] flex items-center justify-center gap-2"
+                            >
+                                <span className="text-lg">✉️</span>
+                                Email Support
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            {/* =================================================
+                FINAL CTA
+            ================================================= */}
+
+            <section className="py-12 bg-slate-950 text-white">
+
+                <div className="max-w-4xl mx-auto px-4 text-center">
+
+                    <div className="inline-flex px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-400 text-[9px] font-black">
+                        READY TO START?
+                    </div>
+
+                    <h2 className="text-2xl md:text-4xl font-black mt-4 leading-tight">
+                        आजै आफ्नो Learning Goal बाट सुरु गर्नुहोस्।
+                    </h2>
+
+                    <p className="text-xs md:text-sm text-slate-400 mt-3 leading-6">
+                        एउटा Ebook रोज्नुहोस्, Combo बनाउनुहोस् वा Bundle बाट maximum value लिनुहोस्।
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row justify-center gap-2 mt-6">
+
+                        <button
+                            onClick={()=>scrollTo("explore")}
+                            className="px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-black text-xs"
+                        >
+                            📚 Explore Ebooks
+                        </button>
+
+                        <button
+                            onClick={()=>scrollTo("combos")}
+                            className="px-6 py-3 rounded-xl border border-orange-500/50 text-orange-300 font-black text-xs hover:bg-orange-500/10"
+                        >
+                            🎁 Build Custom Combo
+                        </button>
+
+                        <a
+                            href={`https://wa.me/${BRAND.whatsappRaw}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs"
+                        >
+                            💬 Ask on WhatsApp
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </>
+        );
+    };
+
+    /* =========================================================
+       PRODUCT DETAIL PAGE
+    ========================================================= */
+
+    const ProductPage=({product})=>{
+
+        const suggested=products
+            .filter(p=>p.id!==product.id)
+            .slice(0,4);
+
+        return (
+        <div className="min-h-screen bg-white">
+
+            {/* DETAIL TOP */}
+            <div className="sticky top-[34px] z-40 glass border-b border-orange-100">
+
+                <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between">
+
+                    <button
+                        onClick={()=>setSelectedProduct(null)}
+                        className="flex items-center gap-2 text-xs font-black text-slate-700"
+                    >
+                        ← Back to StudyNotes
+                    </button>
+
+                    <button
+                        onClick={()=>setCartOpen(true)}
+                        className="relative w-10 h-10 bg-slate-950 text-white rounded-xl"
+                    >
+                        🛒
+                        {cartTotals.count>0 && (
+                            <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-orange-500 border-2 border-white text-[8px] font-black flex items-center justify-center">
+                                {cartTotals.count}
+                            </span>
+                        )}
+                    </button>
+
+                </div>
+
+            </div>
+
+            {/* PRODUCT LANDING HERO */}
+            <section className="hero-gradient border-b border-orange-100">
+
+                <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
+
+                    <div className="grid md:grid-cols-12 gap-8 items-start">
+
+                        {/* Cover */}
+                        <div className="md:col-span-4">
+
+                            <div className="relative max-w-xs mx-auto">
+
+                                <div className="absolute -inset-4 bg-orange-400/10 blur-2xl rounded-full"></div>
+
+                                <div className="relative bg-white p-2 rounded-3xl border border-orange-200 shadow-orange">
+
+                                    <div className="relative">
+
+                                        <img
+                                            src={product.cover}
+                                            alt={product.title}
+                                            className="detail-cover w-full object-cover rounded-2xl cursor-pointer"
+                                            onClick={()=>setPreviewImage(product.cover)}
+                                        />
+
+                                        <span className="absolute top-3 left-3 bg-orange-500 text-white px-2 py-1 rounded-lg text-[9px] font-black">
+                                            🔥 {product.badge}
+                                        </span>
+
+                                        <span className="absolute top-3 right-3 bg-slate-950 text-white px-2 py-1 rounded-lg text-[9px] font-black">
+                                            -{product.discount}%
+                                        </span>
+
+                                        <span className="absolute bottom-3 left-3 bg-white/95 text-slate-900 px-2 py-1 rounded-lg text-[9px] font-black">
+                                            ⭐ {product.rating} · {product.reviews}
+                                        </span>
+
+                                        <span className="absolute bottom-3 right-3 bg-slate-950/90 text-white px-2 py-1 rounded-lg text-[8px] font-bold">
+                                            🛍️ {product.sold} sold
+                                        </span>
+
+                                    </div>
+
+                                    <div className="grid grid-cols-3 gap-1 mt-2">
+
+                                        <div className="bg-orange-50 rounded-lg p-2 text-center">
+                                            <div className="text-[8px] text-orange-600">Discount</div>
+                                            <div className="text-[10px] font-black">{product.discount}%</div>
+                                        </div>
+
+                                        <div className="bg-emerald-50 rounded-lg p-2 text-center">
+                                            <div className="text-[8px] text-emerald-600">Available</div>
+                                            <div className="text-[10px] font-black text-emerald-700">{product.stock}</div>
+                                        </div>
+
+                                        <div className="bg-slate-50 rounded-lg p-2 text-center">
+                                            <div className="text-[8px] text-slate-500">Pages</div>
+                                            <div className="text-[10px] font-black">{product.pages}</div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {/* Details */}
+                        <div className="md:col-span-8">
+
+                            <span className="inline-flex bg-orange-50 border border-orange-200 text-orange-700 px-3 py-1 rounded-full text-[9px] font-black uppercase">
+                                StudyNotes · {product.category}
+                            </span>
+
+                            <h1 className="text-2xl md:text-4xl font-black text-slate-950 mt-3 leading-tight">
+                                {product.title}
+                            </h1>
+
+                            <p className="text-sm text-orange-700 font-bold mt-2">
+                                {product.subtitle}
+                            </p>
+
+                            <div className="flex flex-wrap items-center gap-3 mt-3">
+
+                                <div className="flex items-center gap-1 text-xs">
+                                    <Stars rating={product.rating}/>
+                                    <b>{product.rating}</b>
+                                    <span className="text-slate-400">
+                                        ({product.reviews} reviews)
+                                    </span>
+                                </div>
+
+                                <span className="text-[10px] text-slate-400">•</span>
+
+                                <span className="text-[10px] font-bold text-slate-600">
+                                    🛍️ {product.sold} sold
+                                </span>
+
+                                <span className="text-[10px] font-bold text-emerald-700">
+                                    ✓ {product.stock} available
+                                </span>
+
+                            </div>
+
+                            <p className="text-sm text-slate-600 leading-7 mt-5">
+                                {product.description}
+                            </p>
+
+                            {/* Price box */}
+                            <div className="mt-5 bg-white rounded-2xl border border-orange-200 p-4 shadow-soft">
+
+                                <div className="grid grid-cols-3 gap-2 text-center">
+
+                                    <div>
+                                        <div className="text-[9px] text-slate-400">
+                                            Regular Price
+                                        </div>
+                                        <div className="font-bold line-through text-slate-400 text-sm">
+                                            {money(product.regular)}
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div className="text-[9px] text-orange-600 font-bold">
+                                            Today Discount
+                                        </div>
+                                        <div className="font-black text-orange-600">
+                                            {product.discount}% OFF
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div className="text-[9px] text-emerald-600 font-bold">
+                                            Today Price
+                                        </div>
+                                        <div className="font-black text-xl">
+                                            {money(product.price)}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div className="mt-3 flex items-center justify-between rounded-xl bg-orange-50 p-2.5">
+                                    <span className="text-[9px] font-black text-orange-700">
+                                        ⏳ Limited-time offer
+                                    </span>
+
+                                    <span className="text-[10px] font-black text-orange-700">
+                                        {String(timeLeft.hours).padStart(2,"0")}:
+                                        {String(timeLeft.minutes).padStart(2,"0")}:
+                                        {String(timeLeft.seconds).padStart(2,"0")}
+                                    </span>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3">
+
+                                    <button
+                                        onClick={()=>addToCart(product)}
+                                        className="py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-black text-xs"
+                                    >
+                                        🛒 Add to Cart
+                                    </button>
+
+                                    <button
+                                        onClick={()=>whatsappOrder(product)}
+                                        className="py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs"
+                                    >
+                                        💬 Order WhatsApp
+                                    </button>
+
+                                    <a
+                                        href={BRAND.nspay}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="py-3 rounded-xl bg-slate-950 hover:bg-slate-800 text-white font-black text-xs text-center"
+                                    >
+                                        💳 Go to NSPAY
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+
+                                <div className="rounded-xl bg-slate-50 p-3 text-center">
+                                    <div className="font-black text-sm">{product.pages}</div>
+                                    <div className="text-[8px] text-slate-500">Pages</div>
+                                </div>
+
+                                <div className="rounded-xl bg-slate-50 p-3 text-center">
+                                    <div className="font-black text-sm">{product.chapters}</div>
+                                    <div className="text-[8px] text-slate-500">Chapters</div>
+                                </div>
+
+                                <div className="rounded-xl bg-slate-50 p-3 text-center">
+                                    <div className="font-black text-sm">{product.sold}</div>
+                                    <div className="text-[8px] text-slate-500">Sold Copies</div>
+                                </div>
+
+                                <div className="rounded-xl bg-emerald-50 p-3 text-center">
+                                    <div className="font-black text-sm text-emerald-700">{product.stock}</div>
+                                    <div className="text-[8px] text-emerald-600">Available Copies</div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            {/* LEARNING OUTCOMES */}
+            <section className="py-10">
+
+                <div className="max-w-6xl mx-auto px-4">
+
+                    <div className="grid md:grid-cols-2 gap-5">
+
+                        <div className="rounded-3xl border border-orange-100 bg-orange-50/40 p-5">
+
+                            <span className="text-orange-600 text-[9px] font-black uppercase">
+                                WHAT YOU'LL LEARN
+                            </span>
+
+                            <h2 className="text-xl font-black mt-1">
+                                Learning Outcomes
+                            </h2>
+
+                            <div className="space-y-2 mt-4">
+
+                                {product.outcomes.map((x,i)=>(
+                                    <div
+                                        key={i}
+                                        className="flex items-start gap-2 p-2.5 rounded-xl bg-white border border-orange-100"
+                                    >
+                                        <span className="text-emerald-600 font-black">✓</span>
+                                        <span className="text-xs text-slate-600 leading-5">{x}</span>
+                                    </div>
+                                ))}
+
+                            </div>
+
+                        </div>
+
+                        <div className="rounded-3xl border border-orange-100 bg-white p-5 shadow-soft">
+
+                            <span className="text-orange-600 text-[9px] font-black uppercase">
+                                CAREER VALUE
+                            </span>
+
+                            <h2 className="text-xl font-black mt-1">
+                                Career Relevance
+                            </h2>
+
+                            <div className="space-y-2 mt-4">
+
+                                {product.career.map((x,i)=>(
+                                    <div
+                                        key={i}
+                                        className="flex items-center gap-2 p-3 rounded-xl bg-slate-50"
+                                    >
+                                        <span className="w-7 h-7 rounded-lg bg-orange-100 flex items-center justify-center text-sm">
+                                            🎯
+                                        </span>
+                                        <span className="text-xs font-bold text-slate-700">
+                                            {x}
+                                        </span>
+                                    </div>
+                                ))}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            {/* CHAPTERS */}
+            <section className="py-10 bg-slate-50 border-y border-slate-100">
+
+                <div className="max-w-6xl mx-auto px-4">
+
+                    <div className="text-center">
+
+                        <span className="text-orange-600 text-[9px] font-black uppercase">
+                            INSIDE THE EBOOK
+                        </span>
+
+                        <h2 className="text-2xl font-black mt-1">
+                            Chapter Overview
+                        </h2>
+
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 mt-6">
+
+                        {product.chaptersList.map((ch,i)=>(
+                            <div
+                                key={i}
+                                className="bg-white rounded-2xl border border-slate-100 p-4"
+                            >
+
+                                <div className="flex gap-3">
+
+                                    <div className="w-8 h-8 rounded-lg bg-orange-500 text-white flex items-center justify-center text-xs font-black shrink-0">
+                                        {i+1}
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-xs font-black">
+                                            {ch}
+                                        </h3>
+
+                                        <p className="text-[9px] text-slate-400 mt-1">
+                                            Practical learning section
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            {/* PRODUCT REVIEWS */}
+            <section className="py-10">
+
+                <div className="max-w-6xl mx-auto px-4">
+
+                    <div className="text-center">
+
+                        <span className="text-orange-600 text-[9px] font-black uppercase">
+                            LEARNER REVIEWS
+                        </span>
+
+                        <h2 className="text-2xl font-black mt-1">
+                            What Learners Say
+                        </h2>
+
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-4 mt-6">
+
+                        {REVIEWS.slice(0,3).map((r,i)=>(
+                            <div
+                                key={i}
+                                className="rounded-2xl border border-orange-100 bg-white p-5 shadow-soft"
+                            >
+
+                                <Stars rating={r.rating}/>
+
+                                <p className="text-xs text-slate-600 leading-6 mt-3">
+                                    “{r.text}”
+                                </p>
+
+                                <div className="mt-4 flex items-center gap-2">
+
+                                    <div className="w-8 h-8 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-black">
+                                        {r.name[0]}
+                                    </div>
+
+                                    <div>
+                                        <div className="text-[10px] font-black">
+                                            {r.name}
+                                        </div>
+                                        <div className="text-[8px] text-slate-400">
+                                            {r.role}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            {/* RECOMMENDED */}
+            <section className="py-10 bg-orange-50/40 border-y border-orange-100">
+
+                <div className="max-w-6xl mx-auto px-4">
+
+                    <div className="flex items-end justify-between">
+
+                        <div>
+                            <span className="text-orange-600 text-[9px] font-black uppercase">
+                                YOU MAY ALSO LIKE
+                            </span>
+
+                            <h2 className="text-xl md:text-2xl font-black mt-1">
+                                More Learning Resources
+                            </h2>
+                        </div>
+
+                        <button
+                            onClick={()=>setSelectedProduct(null)}
+                            className="text-[10px] font-black text-orange-600"
+                        >
+                            View All →
+                        </button>
+
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5">
+
+                        {suggested.map(p=>(
+                            <ProductCard
+                                key={p.id}
+                                product={p}
+                                onOpen={openProduct}
+                                onCart={addToCart}
+                                onWhatsApp={whatsappOrder}
+                            />
+                        ))}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            {/* DETAIL FINAL CTA */}
+            <section className="py-10 bg-slate-950 text-white">
+
+                <div className="max-w-3xl mx-auto px-4 text-center">
+
+                    <div className="text-orange-400 text-[9px] font-black uppercase tracking-widest">
+                        START LEARNING TODAY
+                    </div>
+
+                    <h2 className="text-2xl md:text-3xl font-black mt-3">
+                        {product.title}
+                    </h2>
+
+                    <p className="text-xs text-slate-400 mt-2">
+                        {money(product.price)} मा आजको offer उपलब्ध छ।
+                    </p>
+
+                    <div className="grid sm:grid-cols-3 gap-2 mt-5">
+
+                        <button
+                            onClick={()=>addToCart(product)}
+                            className="py-3 rounded-xl bg-orange-500 text-white font-black text-xs"
+                        >
+                            🛒 Add to Cart
+                        </button>
+
+                        <button
+                            onClick={()=>whatsappOrder(product)}
+                            className="py-3 rounded-xl bg-emerald-600 text-white font-black text-xs"
+                        >
+                            💬 WhatsApp Order
+                        </button>
+
+                        <a
+                            href={BRAND.nspay}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="py-3 rounded-xl bg-white text-slate-950 font-black text-xs text-center"
+                        >
+                            💳 NSPAY
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            {/* DETAIL STICKY CTA */}
+            <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-t border-orange-200 shadow-2xl">
+
+                <div className="max-w-5xl mx-auto px-3 py-2 grid grid-cols-[1fr_auto_auto] gap-2 items-center">
+
+                    <div className="min-w-0">
+
+                        <div className="text-[8px] text-slate-400">
+                            Today Price
+                        </div>
+
+                        <div className="text-base font-black text-orange-600">
+                            {money(product.price)}
+                        </div>
+
+                    </div>
+
+                    <button
+                        onClick={()=>addToCart(product)}
+                        className="px-4 py-2.5 rounded-xl bg-orange-500 text-white font-black text-[10px]"
+                    >
+                        🛒 Cart
+                    </button>
+
+                    <button
+                        onClick={()=>whatsappOrder(product)}
+                        className="px-4 py-2.5 rounded-xl bg-emerald-600 text-white font-black text-[10px]"
+                    >
+                        💬 Order
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+        );
+    };
+
+    /* =========================================================
+       CART DRAWER
+    ========================================================= */
+
+    const CartDrawer=()=>{
+
+        if(!cartOpen) return null;
+
+        return (
+            <div
+                className="fixed inset-0 z-[80] bg-slate-950/60 flex justify-end"
+                onClick={()=>setCartOpen(false)}
+            >
+
+                <div
+                    onClick={e=>e.stopPropagation()}
+                    className="w-full max-w-md bg-white h-full flex flex-col shadow-2xl"
+                >
+
+                    <div className="p-4 border-b border-orange-100 flex items-center justify-between">
+
+                        <div>
+                            <h2 className="font-black text-lg">
+                                🛒 Your Cart
+                            </h2>
+
+                            <div className="text-[9px] text-slate-400">
+                                {cartTotals.count} item(s)
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={()=>setCartOpen(false)}
+                            className="w-9 h-9 rounded-xl bg-slate-100 font-black"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto p-4">
+
+                        {!cart.length ? (
+
+                            <div className="text-center py-20">
+
+                                <div className="text-5xl">🛒</div>
+
+                                <h3 className="font-black mt-3">
+                                    Cart is empty
+                                </h3>
+
+                                <button
+                                    onClick={()=>{
+                                        setCartOpen(false);
+                                        scrollTo("explore");
+                                    }}
+                                    className="mt-4 px-5 py-2.5 rounded-xl bg-orange-500 text-white font-black text-xs"
+                                >
+                                    Browse Ebooks
+                                </button>
+
+                            </div>
+
+                        ):(
+                            <div className="space-y-3">
+
+                                {cart.map(item=>(
+                                    <div
+                                        key={item.id}
+                                        className="p-3 rounded-2xl border border-orange-100 bg-orange-50/40"
+                                    >
+
+                                        <div className="flex gap-3">
+
+                                            <img
+                                                src={item.cover}
+                                                alt=""
+                                                className="w-14 h-18 object-cover rounded-xl shrink-0"
+                                            />
+
+                                            <div className="flex-1 min-w-0">
+
+                                                <div className="text-[8px] uppercase font-black text-orange-600">
+                                                    {item.type}
+                                                </div>
+
+                                                <h3 className="font-black text-xs line-clamp-2">
+                                                    {item.title}
+                                                </h3>
+
+                                                <div className="flex items-center justify-between mt-2">
+
+                                                    <div className="font-black text-orange-600 text-sm">
+                                                        {money(item.price)}
+                                                    </div>
+
+                                                    <div className="flex items-center gap-1">
+
+                                                        <button
+                                                            onClick={()=>quantity(item.id,-1)}
+                                                            className="w-6 h-6 bg-white rounded-lg border font-black"
+                                                        >
+                                                            −
+                                                        </button>
+
+                                                        <span className="text-xs font-black w-5 text-center">
+                                                            {item.quantity}
+                                                        </span>
+
+                                                        <button
+                                                            onClick={()=>quantity(item.id,1)}
+                                                            className="w-6 h-6 bg-white rounded-lg border font-black"
+                                                        >
+                                                            +
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <button
+                                                onClick={()=>removeCart(item.id)}
+                                                className="text-red-500 font-black"
+                                            >
+                                                ×
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+                                ))}
+
+                            </div>
+                        )}
+
+                    </div>
+
+                    {cart.length>0 && (
+
+                        <div className="p-4 border-t border-orange-100 bg-white">
+
+                            <div className="space-y-2 text-xs">
+
+                                <div className="flex justify-between">
+                                    <span className="text-slate-500">
+                                        Regular Price
+                                    </span>
+
+                                    <span className="line-through text-slate-400">
+                                        {money(cartTotals.regular)}
+                                    </span>
+                                </div>
+
+                                <div className="flex justify-between text-emerald-700 font-bold">
+                                    <span>Total Savings</span>
+                                    <span>
+                                        - {money(cartTotals.savings)}
+                                    </span>
+                                </div>
+
+                                <div className="pt-2 border-t flex justify-between">
+                                    <span className="font-black">
+                                        Final Amount
+                                    </span>
+
+                                    <span className="text-xl font-black text-orange-600">
+                                        {money(cartTotals.price)}
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <div className="mt-3 grid grid-cols-2 gap-2">
+
+                                <button
+                                    onClick={checkoutWhatsApp}
+                                    className="py-3 rounded-xl bg-emerald-600 text-white font-black text-[10px]"
+                                >
+                                    💬 WhatsApp Order
+                                </button>
+
+                                <a
+                                    href={BRAND.nspay}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="py-3 rounded-xl bg-orange-500 text-white font-black text-[10px] text-center"
+                                >
+                                    💳 NSPAY
+                                </a>
+
+                            </div>
+
+                            <p className="text-[8px] text-center text-slate-400 mt-2">
+                                Payment confirmation पछि delivery process सुरु हुन्छ।
+                            </p>
+
+                        </div>
+
+                    )}
+
+                </div>
+
+            </div>
+        );
+    };
+
+    /* =========================================================
+       FLOATING BOTTOM NAV
+    ========================================================= */
+
+    const BottomNav=()=>{
+
+        return (
+            <>
+
+                {/* Half-circle menu */}
+                {menuOpen && (
+
+                    <div className="fixed bottom-[76px] left-1/2 -translate-x-1/2 z-[70] menu-pop">
+
+                        <div className="relative w-64 h-32">
+
+                            <button
+                                onClick={()=>scrollTo("home")}
+                                className="absolute left-0 bottom-2 w-11 h-11 rounded-full bg-white border border-orange-200 shadow-orange text-lg"
+                            >
+                                🏠
+                            </button>
+
+                            <button
+                                onClick={()=>scrollTo("explore")}
+                                className="absolute left-12 top-5 w-11 h-11 rounded-full bg-white border border-orange-200 shadow-orange text-lg"
+                            >
+                                📚
+                            </button>
+
+                            <button
+                                onClick={()=>scrollTo("combos")}
+                                className="absolute left-1/2 -translate-x-1/2 top-0 w-11 h-11 rounded-full bg-orange-500 text-white shadow-orange text-lg"
+                            >
+                                🎁
+                            </button>
+
+                            <button
+                                onClick={()=>scrollTo("offers")}
+                                className="absolute right-12 top-5 w-11 h-11 rounded-full bg-white border border-orange-200 shadow-orange text-lg"
+                            >
+                                🔥
+                            </button>
+
+                            <button
+                                onClick={()=>scrollTo("support")}
+                                className="absolute right-0 bottom-2 w-11 h-11 rounded-full bg-emerald-600 text-white shadow-lg text-lg"
+                            >
+                                💬
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                )}
+
+                <nav className="md:hidden fixed bottom-0 left-0 right-0 z-[60] px-2 pb-2">
+
+                    <div className="max-w-md mx-auto rounded-[2rem] bg-white/95 backdrop-blur border border-orange-200 shadow-2xl h-16 flex items-center justify-around px-2">
+
+                        <button
+                            onClick={()=>scrollTo("home")}
+                            className="flex flex-col items-center gap-0.5 text-slate-600"
+                        >
+                            <span className="text-lg">🏠</span>
+                            <span className="text-[7px] font-black">HOME</span>
+                        </button>
+
+                        <button
+                            onClick={()=>scrollTo("explore")}
+                            className="flex flex-col items-center gap-0.5 text-slate-600"
+                        >
+                            <span className="text-lg">📚</span>
+                            <span className="text-[7px] font-black">EBOOKS</span>
+                        </button>
+
+                        <button
+                            onClick={()=>setMenuOpen(!menuOpen)}
+                            className={`-mt-7 w-14 h-14 rounded-full border-4 border-white shadow-orange flex items-center justify-center text-xl transition-transform ${
+                                menuOpen
+                                ?"bg-slate-950 text-white rotate-45"
+                                :"bg-orange-500 text-white"
+                            }`}
+                        >
+                            {menuOpen?"×":"☰"}
+                        </button>
+
+                        <button
+                            onClick={()=>scrollTo("offers")}
+                            className="flex flex-col items-center gap-0.5 text-slate-600"
+                        >
+                            <span className="text-lg">🔥</span>
+                            <span className="text-[7px] font-black">OFFERS</span>
+                        </button>
+
+                        <button
+                            onClick={()=>setCartOpen(true)}
+                            className="relative flex flex-col items-center gap-0.5 text-slate-600"
+                        >
+                            <span className="text-lg">🛒</span>
+                            <span className="text-[7px] font-black">CART</span>
+
+                            {cartTotals.count>0 && (
+                                <span className="absolute -top-1 right-0 w-4 h-4 bg-orange-500 text-white rounded-full text-[7px] font-black flex items-center justify-center">
+                                    {cartTotals.count}
+                                </span>
+                            )}
+                        </button>
+
+                    </div>
+
+                </nav>
+
+                {/* Floating WhatsApp */}
+                <a
+                    href={`https://wa.me/${BRAND.whatsappRaw}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hidden md:flex fixed right-5 bottom-5 z-50 w-14 h-14 rounded-full bg-emerald-600 text-white items-center justify-center text-2xl shadow-2xl float-up border-4 border-white"
+                    title="WhatsApp Support"
+                >
+                    💬
+                </a>
+
+            </>
+        );
+    };
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    const Footer=()=>{
+
+        return (
+            <footer className="bg-slate-950 text-white">
+
+                <div className="max-w-7xl mx-auto px-4 py-10">
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-7">
+
+                        <div className="col-span-2 md:col-span-1">
+
+                            <div className="flex items-center gap-2">
+
+                                <div className="w-10 h-10 rounded-xl bg-orange-500 text-white font-black flex items-center justify-center">
+                                    SN
+                                </div>
+
+                                <div>
+                                    <div className="font-black">
+                                        {BRAND.name}
+                                    </div>
+
+                                    <div className="text-[8px] text-orange-400 font-bold">
+                                        {BRAND.tagline}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <p className="text-[10px] text-slate-400 leading-5 mt-4">
+                                Practical digital learning resources for students,
+                                youth, job seekers and lifelong learners.
+                            </p>
+
+                        </div>
+
+                        <div>
+
+                            <h3 className="font-black text-xs mb-3">
+                                Explore
+                            </h3>
+
+                            <div className="space-y-2 text-[10px] text-slate-400">
+
+                                <button onClick={()=>scrollTo("explore")} className="block hover:text-orange-400">
+                                    Ebooks
+                                </button>
+
+                                <button onClick={()=>scrollTo("combos")} className="block hover:text-orange-400">
+                                    Custom Combo
+                                </button>
+
+                                <button onClick={()=>scrollTo("offers")} className="block hover:text-orange-400">
+                                    Best Bundles
+                                </button>
+
+                                <button onClick={()=>scrollTo("process")} className="block hover:text-orange-400">
+                                    How It Works
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <h3 className="font-black text-xs mb-3">
+                                Support
+                            </h3>
+
+                            <div className="space-y-2 text-[10px] text-slate-400">
+
+                                <button onClick={()=>scrollTo("faq")} className="block hover:text-orange-400">
+                                    FAQs
+                                </button>
+
+                                <button onClick={()=>scrollTo("support")} className="block hover:text-orange-400">
+                                    Contact
+                                </button>
+
+                                <a href={`mailto:${BRAND.email}`} className="block hover:text-orange-400">
+                                    Email
+                                </a>
+
+                                <a href={`https://wa.me/${BRAND.whatsappRaw}`} target="_blank" className="block hover:text-orange-400">
+                                    WhatsApp
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <h3 className="font-black text-xs mb-3">
+                                Payment
+                            </h3>
+
+                            <p className="text-[10px] text-slate-400 leading-5">
+                                Order through WhatsApp and complete payment through NSPAY.
+                            </p>
+
+                            <a
+                                href={BRAND.nspay}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-block mt-3 px-4 py-2 rounded-xl bg-orange-500 text-white text-[10px] font-black"
+                            >
+                                Open NSPAY →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div className="mt-8 pt-5 border-t border-slate-800 grid md:grid-cols-3 gap-3 text-[9px] text-slate-500 text-center">
+
+                        <button
+                            onClick={()=>setPolicy({
+                                title:"Privacy Policy",
+                                text:"StudyNotes ले order/support process का लागि आवश्यक contact information मात्र प्रयोग गर्छ।"
+                            })}
+                            className="hover:text-orange-400"
+                        >
+                            Privacy Policy
+                        </button>
+
+                        <button
+                            onClick={()=>setPolicy({
+                                title:"Terms & Conditions",
+                                text:"Digital Ebooks व्यक्तिगत अध्ययन तथा learning purpose का लागि हुन्। अनधिकृत redistribution/re-sale अनुमति छैन।"
+                            })}
+                            className="hover:text-orange-400"
+                        >
+                            Terms & Conditions
+                        </button>
+
+                        <button
+                            onClick={()=>setPolicy({
+                                title:"Educational Disclaimer",
+                                text:"StudyNotes सामग्री educational resource हो। यसले employment, income, investment return वा exam result को guarantee गर्दैन।"
+                            })}
+                            className="hover:text-orange-400"
+                        >
+                            Educational Disclaimer
+                        </button>
+
+                    </div>
+
+                    <div className="mt-6 text-center text-[9px] text-slate-600">
+                        © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
+                    </div>
+
+                    <button
+                        onClick={()=>setAdminOpen(true)}
+                        className="block mx-auto mt-3 text-[8px] text-slate-700 hover:text-orange-500"
+                    >
+                        Product Manager
+                    </button>
+
+                </div>
+
+            </footer>
+        );
+    };
+
+    /* =========================================================
+       ADMIN
+    ========================================================= */
+
+    const Admin=()=>{
+
+        if(!adminOpen) return null;
+
+        return (
+            <div className="fixed inset-0 z-[100] bg-slate-950/70 p-4 flex items-center justify-center">
+
+                <div className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-5">
+
+                    <div className="flex items-center justify-between border-b pb-3">
+
+                        <div>
+                            <h2 className="font-black">
+                                ⚙️ StudyNotes Product Manager
+                            </h2>
+
+                            <p className="text-[9px] text-slate-400">
+                                Local browser testing / content editing
+                            </p>
+                        </div>
+
+                        <button
+                            onClick={()=>setAdminOpen(false)}
+                            className="w-9 h-9 rounded-xl bg-slate-100 font-black"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                    <div className="space-y-3 mt-5">
+
+                        {products.map(p=>(
+                            <div
+                                key={p.id}
+                                className="p-4 rounded-2xl border border-slate-200 bg-slate-50"
+                            >
+
+                                <div className="font-black text-xs">
+                                    {p.title}
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3 mt-3">
+
+                                    <div>
+
+                                        <label className="text-[8px] text-slate-400">
+                                            Today Price
+                                        </label>
+
+                                        <input
+                                            type="number"
+                                            value={p.price}
+                                            onChange={e=>{
+                                                const value=Number(e.target.value);
+
+                                                setProducts(prev=>
+                                                    prev.map(x=>
+                                                        x.id===p.id
+                                                        ?{
+                                                            ...x,
+                                                            price:value,
+                                                            discount:discountPercent(x.regular,value)
+                                                        }
+                                                        :x
+                                                    )
+                                                );
+                                            }}
+                                            className="w-full mt-1 px-2 py-2 rounded-lg border text-xs focus-orange"
+                                        />
+
+                                    </div>
+
+                                    <div>
+
+                                        <label className="text-[8px] text-slate-400">
+                                            Available Copies
+                                        </label>
+
+                                        <input
+                                            type="number"
+                                            value={p.stock}
+                                            onChange={e=>{
+                                                const value=Number(e.target.value);
+
+                                                setProducts(prev=>
+                                                    prev.map(x=>
+                                                        x.id===p.id
+                                                        ?{...x,stock:value}
+                                                        :x
+                                                    )
+                                                );
+                                            }}
+                                            className="w-full mt-1 px-2 py-2 rounded-lg border text-xs focus-orange"
+                                        />
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        ))}
+
+                    </div>
+
+                    <button
+                        onClick={()=>{
+                            localStorage.setItem(
+                                "studynotes_products",
+                                JSON.stringify(products)
+                            );
+
+                            showToast("Local product settings saved");
+
+                            setAdminOpen(false);
+                        }}
+                        className="w-full mt-5 py-3 rounded-xl bg-orange-500 text-white font-black text-xs"
+                    >
+                        Save Local Settings
+                    </button>
+
+                </div>
+
+            </div>
+        );
+    };
+
+    /* =========================================================
+       IMAGE PREVIEW
+    ========================================================= */
+
+    const ImagePreview=()=>{
+
+        if(!previewImage) return null;
+
+        return (
+            <div
+                className="fixed inset-0 z-[110] bg-slate-950/85 flex items-center justify-center p-4"
+                onClick={()=>setPreviewImage(null)}
+            >
+
+                <div className="relative max-w-md w-full">
+
+                    <img
+                        src={previewImage}
+                        alt=""
+                        className="w-full rounded-3xl shadow-2xl border-2 border-orange-400"
+                    />
+
+                    <button
+                        onClick={()=>setPreviewImage(null)}
+                        className="absolute top-3 right-3 w-9 h-9 rounded-full bg-slate-950 text-white font-black"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+            </div>
+        );
+    };
+
+    /* =========================================================
+       PDF PREVIEW
+    ========================================================= */
+
+    const PDFPreview=()=>{
+
+        if(!previewPdf) return null;
+
+        return (
+            <div className="fixed inset-0 z-[110] bg-slate-950/80 flex items-center justify-center p-4">
+
+                <div className="bg-white rounded-3xl max-w-3xl w-full h-[80vh] flex flex-col overflow-hidden">
+
+                    <div className="p-4 border-b flex items-center justify-between">
+
+                        <div>
+                            <h3 className="font-black text-sm">
+                                📖 Sample Preview
+                            </h3>
+
+                            <p className="text-[9px] text-slate-400">
+                                Sample content preview
+                            </p>
+                        </div>
+
+                        <button
+                            onClick={()=>setPreviewPdf(false)}
+                            className="w-9 h-9 rounded-xl bg-slate-100 font-black"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                    <div className="flex-1 bg-orange-50 flex items-center justify-center p-6">
+
+                        <div className="max-w-md text-center">
+
+                            <div className="text-5xl">
+                                📖
+                            </div>
+
+                            <h3 className="font-black mt-4">
+                                StudyNotes Sample Preview
+                            </h3>
+
+                            <p className="text-xs text-slate-500 leading-6 mt-2">
+                                यहाँ sample chapter / preview PDF जोड्न सकिन्छ।
+                                Production version मा तपाईंले वास्तविक PDF URL
+                                राखेपछि iframe मा preview देखाउन सकिन्छ।
+                            </p>
+
+                            <button
+                                onClick={()=>setPreviewPdf(false)}
+                                className="mt-4 px-5 py-2.5 rounded-xl bg-orange-500 text-white font-black text-xs"
+                            >
+                                Close Preview
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        );
+    };
+
+    /* =========================================================
+       POLICY
+    ========================================================= */
+
+    const PolicyModal=()=>{
+
+        if(!policy) return null;
+
+        return (
+            <div className="fixed inset-0 z-[110] bg-slate-950/70 flex items-center justify-center p-4">
+
+                <div className="bg-white max-w-md w-full rounded-3xl p-6">
+
+                    <h2 className="font-black text-lg">
+                        {policy.title}
+                    </h2>
+
+                    <p className="text-xs text-slate-600 leading-6 mt-4">
+                        {policy.text}
+                    </p>
+
+                    <button
+                        onClick={()=>setPolicy(null)}
+                        className="w-full mt-5 py-3 rounded-xl bg-orange-500 text-white font-black text-xs"
+                    >
+                        Close
+                    </button>
+
+                </div>
+
+            </div>
+        );
+    };
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    const Toast=()=>{
+
+        if(!toast) return null;
+
+        return (
+            <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[120] bg-slate-950 text-white rounded-2xl px-4 py-3 shadow-2xl border border-orange-500/30 text-[10px] font-black">
+                ✓ {toast}
+            </div>
+        );
+    };
+
+    /* =========================================================
+       APP RENDER
+    ========================================================= */
+
+    return (
+        <div className="min-h-screen">
+
+            <Toast/>
+
+            {selectedProduct
+                ? <ProductPage product={selectedProduct}/>
+                : <Home/>
+            }
+
+            {!selectedProduct && <Footer/>}
+
+            <CartDrawer/>
+
+            <BottomNav/>
+
+            <ImagePreview/>
+
+            <PDFPreview/>
+
+            <PolicyModal/>
+
+            <Admin/>
+
+        </div>
+    );
+}
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+ReactDOM
+    .createRoot(document.getElementById("root"))
+    .render(<App/>);
+
+</script>
+
+</body>
+</html>
